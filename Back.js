@@ -1,19 +1,21 @@
-import db from './db.json';
-
 
 const Bg = {
-    "Spell": db.bg.spell,
-    "Creature": db.bg.creature
+    "Queen": "queen.png",
+    "Creature": "creature.png",
+    "Spell": "spell.png",
+    "Trap": "trap.png",
+    "Terrain": "terrain.png",
+    "Construction": "contruction.png"
 }
-const Bgatual = Bg.Spell;
+var Bgatual = Bg.Queen;
 
-function Background(Bgatual) {
+/*function Background(Bgatual) {
     return Bgatual
-};
+}; */
 
 
-console.log(Background(Bgatual))
+/*console.log(Background(Bgatual)) -> queen.png*/
 
 module.exports = { 
-    Bg, Bgatual, Background
+    Bg, Bgatual, /*Background*/
 }
