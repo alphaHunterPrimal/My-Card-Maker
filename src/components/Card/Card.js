@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
 /*const {Background} = require('../../../Back.js'); */
-const {Bg} = require('../../../Back.js') ;
-var {Bgatual} = require('../../../Back.js') 
 /*var {BgAtual} = require('../../../pages/index')*/
 
 /*function Cardy(){

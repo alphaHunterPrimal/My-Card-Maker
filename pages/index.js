@@ -8,9 +8,10 @@ import Top from '../src/components/Top/Top';
 import Main from '../src/components/Main/Main';
 import Status from '../src/components/Status/Status';
 import Img from '../src/components/Img/Img';
-import Img2 from '../src/components/Img2/Img2';
-const {Bg /*,Background*/} = require('../Back.js');
-var {Bgatual} = require('../Back.js');
+import ImgBg from '../src/components/ImgBg/ImgBg';
+import ImgMov from '../src/components/ImgMov/ImgMov';
+/*const {Bg ,Background} = require('../Back.js');
+var {Bgatual} = require('../Back.js');*/
 
 export default function Home() {
   const [custo, setCusto] = React.useState('');
@@ -26,34 +27,61 @@ export default function Home() {
   var BGATUAL = "/" + BG + ".png";
   const [MV, setMV] = React.useState('');
   var MVATUAL = "/" + MV + ".png";
-  /*const NoStats = [BG == "spell"||BG == "trap"||BG == "terrain"];*/
+  var digits = nome.length;
+  var NOME;
+  var CUSTO;
+  var IMG;
+  var EFFECT;
+  if(BG == "spell"||BG == "trap"||BG == "terrain"){
+    EFFECT = "effectTrue"
+  } else { EFFECT = "effect"};
+  if(BG == "queen"){
+    IMG = "imgQueen"
+  } else {IMG = "img1"};
+  if(BG == "spell"||BG == "trap"||BG == "terrain") {
+    CUSTO = "custo2"
+  } else {CUSTO = "custo1"}
+  if (BG == "queen" && digits <= 25){
+    NOME = "nomeQueen"
+  } else{
+    if (BG == "queen" && digits > 25){
+      NOME = "nomeQueen2"
+    } else{    if (digits < 25) {
+      NOME = "nome1"
+    };
+      if (digits >= 25){
+      NOME = "nome2"
+    }}
+}
+  /*co
+nst NoStats = [BG == "spell"||BG == "trap"||BG == "terrain"];*/
   return (
     <Content>
       <Card >
-        <Img2 src={`${BGATUAL}`} alt="Bgatual"></Img2>
+        <ImgBg src={`${BGATUAL}`} alt="Bgatual"></ImgBg>
         <Top>
-        <span className="custo">{`${custo}`}</span>
-        <span className="ganho">{`${ganho}`}</span>
-        <span className="nome">{`${nome}`}</span>
-        <span className="mov">{`${mov}`}</span>
-        <img src={`${MVATUAL}`} alt="MVatual"></img>
+        <span className={CUSTO} hidden={(BG == "queen")}>{`${custo}`}</span>
+        <span className="ganho" hidden={!(BG == "creature" ||BG == "construction")}>{`${ganho}`}</span>
+        <span className={NOME}>{`${nome}`}</span>
+        <span className="mov" hidden={!(BG == "creature")}>{`${mov}`}</span>
         </Top>
+        <ImgMov  src={`${MVATUAL}`} alt="MVatual" hidden={!(BG == "creature")}></ImgMov>
         <Main>
-        <Img src={`${image}`} alt="image"></Img>
+        <img className={IMG} src={`${image}`} alt="image"></img>
         <p className="desc">{`${desc}`}</p>
-        <p className="effect">{`${effect}`}</p>
+        <p className={EFFECT}>{`${effect}`}</p>
         </Main>
         <Status>
-        <Status.dano>{`${dano}`}</Status.dano>
-        <Status.vida>{`${vida}`}</Status.vida>
+        <Status.dano hidden={BG == "spell"||BG == "trap"||BG == "terrain"}>{`${dano}`}</Status.dano>
+        <Status.vida hidden={BG == "spell"||BG == "trap"||BG == "terrain"}>{`${vida}`}</Status.vida>
         </Status>
       </Card>
       <Maker>
         <form onSubmit={(dados)=>{
           dados.preventDefault();
         }}>
-          <span>Tipo de carta</span>
-          <select id="tipo" onChange = {(dados) => {
+          <label for="tipo">Tipo de carta</label>
+          <select id="tipo" className="tipo" onChange = {(dados) => {
             setBG(dados.target.value)
             /*var cardType = document.getElementById("tipo").value;
             Bgatual = "Bg." + cardType;*/
@@ -67,8 +95,8 @@ export default function Home() {
             <option value="construction">Construction</option>
           </select>
 
-          <span>Custo</span>
-          <Input name="custo" type="number" min="0" onChange={(dados) =>{setCusto(dados.target.value)}} value={custo}/>
+          <label for="custo" hidden={(BG == "queen")}>Custo</label>
+          <Input id="custo" hidden={(BG == "queen")} name="custo" type="number" min="0" onChange={(dados) =>{setCusto(dados.target.value)}} value={custo}/>
 
           <label for="ganho" hidden={!(BG == "creature" ||BG == "construction")}>Ganho</label>
           <Input id="ganho" name="ganho" hidden={!(BG == "creature" ||BG == "construction")} type="number" min="0" onChange={(dados) =>{setGanho(dados.target.value)}} value={ganho}/>
@@ -77,14 +105,14 @@ export default function Home() {
           <Input id="nome" name="nome" onChange={(dados) =>{setNome(dados.target.value)}} value={nome}/>
 
           <label for="mov" hidden={!(BG == "creature")}>Movimentacão</label>
-          <Input id="mov" hidden={!(BG == "creature")} name="mov" onChange={(dados) =>{setMov(dados.target.value)}} value={mov}/>
+          <Input id="mov" hidden={!(BG == "creature")} name="mov" type="number" min="1" onChange={(dados) =>{setMov(dados.target.value)}} value={mov}/>
           <select hidden={!(BG == "creature")} onChange = {(dados) => {setMV(dados.target.value)}}>
             <option value="arrow1">Arrow1</option>
             <option value="arrow2">Arrow2</option>
             <option value="arrow3">Arrow3</option>
           </select>
 
-          <label for="image">Imagem</label>
+          <p>Imagem</p>
           <Input id="image" name="image" onChange={(dados) =>{setImage(dados.target.value)}} value={image}/>
 
           <label for="descricão">Descricão</label>
