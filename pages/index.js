@@ -13,34 +13,28 @@ import Status from '../src/components/Status/Status';
 import Img from '../src/components/Img/Img';
 import ImgBg from '../src/components/ImgBg/ImgBg';
 import ImgMov from '../src/components/ImgMov/ImgMov';
-/*const {Bg ,Background} = require('../Back.js');
-var {Bgatual} = require('../Back.js');*/
+
 
 export default function Home() {
-  const [custo, setCusto] = React.useState('');
-  const [ganho, setGanho] = React.useState('');
+  const [custo, setCusto] = React.useState('0');
+  const [ganho, setGanho] = React.useState('0');
   const [nome, setNome] = React.useState('');
-  const [mov, setMov] = React.useState('');
+  const [mov, setMov] = React.useState('1');
   const [image, setImage] = React.useState('');
   const [desc, setDesc] = React.useState('');
   const [effect, setEffect] = React.useState('');
-  const [dano, setDano] = React.useState('');
-  const [vida, setVida] = React.useState('');
+  const [dano, setDano] = React.useState('0');
+  const [vida, setVida] = React.useState('0');
   const [BG, setBG] = React.useState('queen');
   var BGATUAL = "/" + BG + ".png";
-  const [MV, setMV] = React.useState('');
+  const [MV, setMV] = React.useState('arrow1');
   var MVATUAL = "/" + MV + ".png";
   var digits = nome.length;
   var NOME;
   var CUSTO;
   var IMG;
   var EFFECT;
-var keywords = {
-    ":Destruir:" : "Destruir",
-    ":Obliterar:" : "Obliterar",
-    ":Temporaria:" : "Temporaria"};
-var keyimgs = {
-":virar:" : "virar"};
+
 
   if(BG == "spell"||BG == "trap"||BG == "terrain"){
     EFFECT = "effectTrue"
@@ -64,9 +58,6 @@ var keyimgs = {
     }}
 };
 
-
-
-  /*const NoStats = [BG == "spell"||BG == "trap"||BG == "terrain"];*/
   return (
     <>
     <Head>
@@ -87,76 +78,52 @@ var keyimgs = {
         <p className="desc">{`${desc}`}</p>
         <div id="text" className={EFFECT} contentEditable="true" 
         onKeyUp={(e) => {
-          if(e.keyCode == 32){
-            var test = e.target.innerText
-
-            $.each(keyimgs, function(key, link) {
-              var LINK = "/" + link + ".jpg"
-              test = test.replace(new RegExp(key, 'g'), "<img class='"+ link +"'" +"src='" + LINK + "'>");
-            });
-            $.each(keywords, function(key, link) {
-              test = test
-              .replace(new RegExp(key, 'g'), "<span class='" + link + "'>"+link+"</span>");
-            });
+         if (e.keyCode == 16){
+          var keywords = [
+            "Destruir",
+            "Obliterar",
+            "Temporaria"];
+           var keyimgs = ["virar"];
+           var frase =  e.target.innerHTML
+          // se eu der innerHTML
+          //ele acaba dividindo o <span> ao meio por causa do split no espaco em <span class
           
-            $('#text').html(test);
-          }
-        }}
-        /*onKeyUp={(e) => {
-          var keywords = {
-            ":Destruir:" : "Destruir",
-            ":Obliterar:" : "Obliterar",
-            ":Temporaria:" : "Temporaria"};
-          var keyimgs = {
-            ":virar:" : "/virar.jpg"};
-            var test = e.value;
+          //se eu der innerText
+          //ele troca um e depois, na hora de trocar o outro, ele apaga os demais
 
-            $.each(keywords, function(key, link) {
-              test = test.replace(new RegExp(key, 'g'), "<span class='" + link + "'>"+link+"</span>");})
-
-              $('#text').html(text);
-          //const regex = new RegExp('(<div>|<br>)', 'gi')
-          //const regex1 = new RegExp('</div>', 'gi')
-          //var regex2 = /(\W)\s$/gi
           
-           /* if (e.keyCode == 16){
-              
-          var frase =  e.target.innerText
-          //.replace(regex, '').replace(regex1, ' ').replace(regex2, '<p></p>');    
-          console.log(frase)
           // separar a frase num array para pegar cada palavra
           var cis = frase.split(" ")
           console.log(cis)
-          // trocar o último elemento do array
+          // pegar o último elemento do array
           var cisL = cis[cis.length -1]
           console.log(cisL)
-          //tentando trocar o bagui
-          /*if(cisL == ''){
-            cisL = cis.push("oi")}
+
+          //se o último elemento do array for uma keyword
           if(keywords.includes(cisL)){
-          
-          cis.splice((cis.length - 1), 1, `<span class=${cisL}>${cisL}</span></span><span>&nbsp</span>`)
-          
-          var trans = cis.join(" ")
+          //trocar esse último elemento por um <span>
+          cis.splice((cis.length - 1), 1, `<span class=${cisL}>${cisL}</span><span>&nbsp</span>`)
+          //juntar o array novamente numa string
+          const trans = cis.join(" ")
+          console.log(trans)
+          // transformar essa string no html interno da <div>
           e.target.innerHTML = trans
           }
           //var replaceado = frase.replace(`${cisL}`, `<span class=${cisL}>${cisL}</span><span>&nbsp</span>`)
 
           // retornar o valor para a frase, modificando-o
           //e.target.innerHTML = replaceado}
-           /*else {
+           else {
           if(keyimgs.includes(cisL)){
             var CIS = "/" + cisL + ".jpg"
-            replaceado = frase.replace(`${cisL}`, `<img src=${CIS} class=${cisL}></img>`)
-  
-            // retornar o valor para a frase, modificando-o
-            e.target.innerHTML = replaceado} else {
-              console.log("tem não")
+            cis.splice((cis.length - 1), 1, `<img src=${CIS} class=${cisL}></img>`)
+            const trans = cis.join(" ")
+            e.target.innerHTML = trans          
+          }
+             else {
+              console.log("não substituir nem por imagem, nem span")
            
-          }}}
-          //onde inserir o código
-             } */  
-
+            }}}}}
         ></div>
         </Main>
         <Status>
