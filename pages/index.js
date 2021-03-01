@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-
+import $ from "jquery"
 
 import Content from '../src/components/Content/Content';
 import Input from '../src/components/Input/Input';
@@ -75,55 +75,7 @@ export default function Home() {
         <Main>
         <img className={IMG} src={`${image}`} alt="image"></img>
         <p className="desc">{`${desc}`}</p>
-        <div id="text" className={EFFECT} contentEditable="true" 
-        onKeyUp={(e) => {
-         if (e.keyCode == 16){
-          var keywords = [
-            "Destruir",
-            "Obliterar",
-            "Temporaria"];
-           var keyimgs = ["virar"];
-           var frase =  e.target.innerHTML
-          // se eu der innerHTML
-          //ele acaba dividindo o <span> ao meio por causa do split no espaco em <span class
-
-          //se eu der innerText
-          //ele troca um e depois, na hora de trocar o outro, ele apaga os demais
-
-          
-          // separar a frase num array para pegar cada palavra
-          var cis = frase.split(" ")
-          console.log(cis)
-          // pegar o último elemento do array
-          var cisL = cis[cis.length -1]
-          console.log(cisL)
-
-          //se o último elemento do array for uma keyword
-          if(keywords.includes(cisL)){
-          //trocar esse último elemento por um <span>
-          cis.splice((cis.length - 1), 1, `<span class=${cisL}>${cisL}</span><span>&nbsp</span>`)
-          //juntar o array novamente numa string
-          const trans = cis.join(" ")
-          console.log(trans)
-          // transformar essa string no html interno da <div>
-          e.target.innerHTML = trans
-          }
-          //var replaceado = frase.replace(`${cisL}`, `<span class=${cisL}>${cisL}</span><span>&nbsp</span>`)
-
-          // retornar o valor para a frase, modificando-o
-          //e.target.innerHTML = replaceado}
-           else {
-          if(keyimgs.includes(cisL)){
-            var CIS = "/" + cisL + ".jpg"
-            cis.splice((cis.length - 1), 1, `<img src=${CIS} class=${cisL}></img>`)
-            const trans = cis.join(" ")
-            e.target.innerHTML = trans          
-          }
-             else {
-              console.log("não substituir nem por imagem, nem span")
-           
-            }}}}}
-        ></div>
+        <div id="text" className={EFFECT}></div>
         </Main>
         <Status>
         <Status.dano hidden={BG == "spell"||BG == "trap"||BG == "terrain"}>{`${dano}`}</Status.dano>
@@ -173,8 +125,35 @@ export default function Home() {
           <Input id="descricão" name="descricão" onChange={(dados) =>{setDesc(dados.target.value)}} value={desc}/>
           
           <p hidden={true} >Efeitos</p>
-          <textarea id="edit" name="efeitos" hidden={true}  onChange={(dados) =>{setEffect(dados.target.value) 
+          <textarea id="edit" name="efeitos" hidden={false}  onChange={(dados) =>{setEffect(dados.target.value) 
           // o value= effect deixou de ser usado há um tempo no projeto, mas foi mantido caso eu mude de ideia no futuro
+                    
+          var keywords = {
+            ":Destruir:" : 'Destruir',
+            ":Obliterar:": 'Obliterar',
+            ":Temporaria:":'Temporaria'};
+
+          var keyimgs = {":virar:" : 'virar'};
+
+          var quebra = {":quebra:" : "quebra"} 
+
+          var text = document.querySelector("#edit").innerHTML;
+
+         $.each(keyimgs, function(key, link) {
+          var LINK = "/" + link + ".jpg" 
+          text = text
+          .replace(new RegExp(key, 'g'), "<img class='"+ link + "'src='" + LINK + "'>");
+      });
+         $.each(keywords, function(key, link) {
+          text = text
+          .replace(new RegExp(key, 'g'), "<span class='" + link + "'>"+link+"</span>");
+       });
+         $.each(quebra, function(key) {
+          text = text
+           .replace(new RegExp(key, 'g'), "<br>");
+        });
+
+         $('#text').html(text);
           }} value={effect}></textarea>
           <div>
           <label for="dano" hidden={BG == "spell"||BG == "trap"||BG == "terrain"}>Dano</label>
