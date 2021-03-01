@@ -40,7 +40,7 @@ bottom: -7px;
     width: 302px;
     height: 138px;
     left: 9px;
-    top: 19px;
+    top: 30px;
     padding-left: 5px;
     overflow: hidden;
 
@@ -48,11 +48,24 @@ bottom: -7px;
 .effectTrue{
     position: absolute;
     width: 302px;
-    height: 185px;
+    height: 188px;
     left: 9px;
-    top: 19px;
+    top: 30px;
     padding-left: 5px;
     overflow: hidden;
+};
+.Destruir{
+    color: red;
+};
+.Obliterar{
+    color: black;
+};
+.Temporaria{
+    color: blue;
+};
+.virar{
+    width: 18px;
+    height: 18px;
 }
 `;
 export default Main;
