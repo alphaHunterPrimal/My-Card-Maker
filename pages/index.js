@@ -1,7 +1,6 @@
-import styled from 'styled-components';
 import React from 'react';
 import Head from 'next/head';
-import $ from "jquery";
+
 
 import Content from '../src/components/Content/Content';
 import Input from '../src/components/Input/Input';
@@ -87,7 +86,7 @@ export default function Home() {
            var frase =  e.target.innerHTML
           // se eu der innerHTML
           //ele acaba dividindo o <span> ao meio por causa do split no espaco em <span class
-          
+
           //se eu der innerText
           //ele troca um e depois, na hora de trocar o outro, ele apaga os demais
 
@@ -175,34 +174,7 @@ export default function Home() {
           
           <p hidden={true} >Efeitos</p>
           <textarea id="edit" name="efeitos" hidden={true}  onChange={(dados) =>{setEffect(dados.target.value) 
-          /*var text = document.getElementById("text");
-          var edit = document.getElementById("edit");
-          let regexUniqueWord = /^(amor|love|hate)$/ig
-          let regexFirstWord = /^(amor|love|hate)(\W)/ig
-          let regexLastWord = /(\W)(amor|love|hate)$/ig
-          let regex = /([^\w>])(amor|love|hate)(\W)/ig
-          edit.addEventListener("keyup", function() 
-          {/*e.keyCode == 32 && (text.innerHTML = effect.replace('amor', ' <span className="color-red">amor</span>'))
-            // Recupera o texto da caixa de texto
-         let result = edit.value
-  
-          // Verifica se a unica palavra é amor
-          result = result.replace(regexUniqueWord, '<span class="color-red">$1</span>')
-          
-          // Verifica se a primeira palavra é amor
-          result = result.replace(regexFirstWord, '<span class="color-red">$1</span>$2')
-          
-          // Verifica se a ultima palavra é amor
-          result = result.replace(regexLastWord, '$1<span class="color-red">$2</span>')
-          
-          // Verifica por amor no resto da string
-          result = result.replaceAll(regex, '$1<span class="color-red">$2</span>$3')
-          
-          // Redundancia
-          result = result.replaceAll(regex, '$1<span class="color-red">$2</span>$3')
-          
-          text.innerHTML = result})
-          */
+          // o value= effect deixou de ser usado há um tempo no projeto, mas foi mantido caso eu mude de ideia no futuro
           }} value={effect}></textarea>
           <div>
           <label for="dano" hidden={BG == "spell"||BG == "trap"||BG == "terrain"}>Dano</label>
