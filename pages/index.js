@@ -1,6 +1,8 @@
-import React from 'react';
+import Rect from 'react';
 import Head from 'next/head';
 import $ from "jquery"
+import domtoimage from 'dom-to-image';
+import { saveAs } from 'file-saver';
 
 import Content from '../src/components/Content/Content';
 import Input from '../src/components/Input/Input';
@@ -28,12 +30,23 @@ export default function Home() {
   var BGATUAL = "/" + BG + ".png";
   const [MV, setMV] = React.useState('arrow1');
   var MVATUAL = "/" + MV + ".png";
+
   var digits = nome.length;
+  var digitsEffect = effect.length;
+  var fontsize;
   var NOME;
   var CUSTO;
   var IMG;
   var EFFECT;
-
+  if(digitsEffect <= 120){
+    fontsize = 19;
+  } else {if(digitsEffect > 120 && digitsEffect <= 180){
+    fontsize = 17
+  } else {if(digitsEffect > 180 && digitsEffect <= 240){
+    fontsize = 16
+  } else {if(digitsEffect > 240){
+    fontsize = 15
+  }}}}
 
   if(BG == "spell"||BG == "trap"||BG == "terrain"){
     EFFECT = "effectTrue"
@@ -61,21 +74,23 @@ export default function Home() {
     <>
     <Head>
       <title>Meu criador de cartas</title>
+      <link rel="preconnect" href="https://fonts.gstatic.com"/>
+      <link href="https://fonts.googleapis.com/css2?family=Oi&display=swap" rel="stylesheet"/>
     </Head>
  <Content>
-      <Card >
+      <Card id="CARD">
         <ImgBg src={`${BGATUAL}`} alt="Bgatual"></ImgBg>
         <Top>
         <span className={CUSTO} hidden={(BG == "queen")}>{`${custo}`}</span>
         <span className="ganho" hidden={!(BG == "creature" ||BG == "construction")}>{`${ganho}`}</span>
         <span className={NOME}>{`${nome}`}</span>
-        <span className="mov" hidden={!(BG == "creature")}>{`${mov}`}</span>
+        <span className="mov" hidden={!(BG == "creature")} style={{ fontWeight: "600", fontFamily: "'Oi', cursive", fontSize: "20px" }}>{`${mov}`}</span>
         </Top>
         <ImgMov src={`${MVATUAL}`} alt="MVatual" hidden={!(BG == "creature")}></ImgMov>
         <Main>
         <img className={IMG} src={`${image}`} alt="image"></img>
         <p className="desc">{`${desc}`}</p>
-        <div id="text" className={EFFECT}></div>
+        <div id="text" className={EFFECT} style={{ fontSize: `${fontsize}px`}}></div>
         </Main>
         <Status>
         <Status.dano hidden={BG == "spell"||BG == "trap"||BG == "terrain"}>{`${dano}`}</Status.dano>
@@ -124,23 +139,26 @@ export default function Home() {
           <label for="descricão">Descricão</label>
           <Input id="descricão" name="descricão" onChange={(dados) =>{setDesc(dados.target.value)}} value={desc}/>
           
-          <p hidden={true} >Efeitos</p>
+          <p hidden={false} >Efeitos</p>
           <textarea id="edit" name="efeitos" hidden={false}  onChange={(dados) =>{setEffect(dados.target.value) 
           // o value= effect deixou de ser usado há um tempo no projeto, mas foi mantido caso eu mude de ideia no futuro
                     
           var keywords = {
-            ":Destruir:" : 'Destruir',
-            ":Obliterar:": 'Obliterar',
-            ":Temporaria:":'Temporaria'};
+            ":Dest:" : 'Destruir',
+            ":Obli:": 'Obliterar',
+            ":Temp:": 'Temporaria',
+            ":Ate:": 'Aterrar'};
 
-          var keyimgs = {":virar:" : 'virar'};
+          var keyimgs = {
+          ":v:" : 'virar',
+           ":t:": 'time'};
 
-          var quebra = {":quebra:" : "quebra"} 
+          var quebra = {":q:" : "quebra"} 
 
           var text = document.querySelector("#edit").innerHTML;
 
          $.each(keyimgs, function(key, link) {
-          var LINK = "/" + link + ".jpg" 
+          var LINK = "/" + link + ".png" 
           text = text
           .replace(new RegExp(key, 'g'), "<img class='"+ link + "'src='" + LINK + "'>");
       });
@@ -150,10 +168,11 @@ export default function Home() {
        });
          $.each(quebra, function(key) {
           text = text
-           .replace(new RegExp(key, 'g'), "<br>");
+           .replace(new RegExp(key, 'g'), "<p></p>");
         });
 
          $('#text').html(text);
+         
           }} value={effect}></textarea>
           <div>
           <label for="dano" hidden={BG == "spell"||BG == "trap"||BG == "terrain"}>Dano</label>
@@ -162,6 +181,13 @@ export default function Home() {
           <Input id="vida" hidden={BG == "spell"||BG == "trap"||BG == "terrain"} name="vida" type="number" min="0" onChange={(dados) =>{setVida(dados.target.value)}} value={vida}/>
           </div>
         </form>
+        <button 
+          onClick={
+          domtoimage.toBlob(document.getElementById('CARD'))
+          .then(function (blob) {
+              window.saveAs(blob, 'card.png');
+          })}>
+          Salvar</button>
       </Maker>
     </Content>
     </>
