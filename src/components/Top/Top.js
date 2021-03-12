@@ -4,10 +4,8 @@ const Top = styled.div `
 display: flex;
 width: 326.625px;
 height: 63px;
-/*justify-content: space-around;*/
 align-items: center;
 position: absolute;
-/*position: inherit;*/
 top: 97px;
 z-index: 3;
 font-weight: 600;

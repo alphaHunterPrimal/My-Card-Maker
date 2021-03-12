@@ -1,8 +1,10 @@
-import Rect from 'react';
+import React from 'react';
 import Head from 'next/head';
-import $ from "jquery"
+import $, { ready } from "jquery";
+import html2canvas from "html2canvas"
 import domtoimage from 'dom-to-image';
-import { saveAs } from 'file-saver';
+import {saveAs} from 'file-saver';
+//import Canvas2Image from "canvas2image"
 
 import Content from '../src/components/Content/Content';
 import Input from '../src/components/Input/Input';
@@ -11,10 +13,9 @@ import Maker from '../src/components/Maker/Maker';
 import Top from '../src/components/Top/Top';
 import Main from '../src/components/Main/Main';
 import Status from '../src/components/Status/Status';
-import Img from '../src/components/Img/Img';
+//import Img from '../src/components/Img/Img';
 import ImgBg from '../src/components/ImgBg/ImgBg';
 import ImgMov from '../src/components/ImgMov/ImgMov';
-
 
 export default function Home() {
   const [custo, setCusto] = React.useState('0');
@@ -69,18 +70,23 @@ export default function Home() {
       NOME = "nome2"
     }}
 };
-
+ /*const Canvas2Image = (async () =>{ await import ("canvas2image")
+ })*/ 
+ /*async() => {await React.useEffect(() => {
+  async () => {
+    const Canvas2Image = (await import("canvas2image")).default();
+      }
+    },[])}*/
   return (
     <>
     <Head>
       <title>Meu criador de cartas</title>
-      <link rel="preconnect" href="https://fonts.gstatic.com"/>
-      <link href="https://fonts.googleapis.com/css2?family=Oi&display=swap" rel="stylesheet"/>
+
     </Head>
  <Content>
-      <Card id="CARD">
-        <ImgBg src={`${BGATUAL}`} alt="Bgatual"></ImgBg>
-        <Top>
+        <Card id="CARD" >
+        <ImgBg  src={`${BGATUAL}`} alt="Bgatual"></ImgBg>
+        <Top >
         <span className={CUSTO} hidden={(BG == "queen")}>{`${custo}`}</span>
         <span className="ganho" hidden={!(BG == "creature" ||BG == "construction")}>{`${ganho}`}</span>
         <span className={NOME}>{`${nome}`}</span>
@@ -174,20 +180,52 @@ export default function Home() {
          $('#text').html(text);
          
           }} value={effect}></textarea>
-          <div>
-          <label for="dano" hidden={BG == "spell"||BG == "trap"||BG == "terrain"}>Dano</label>
+          <div className="statusDesc">
+          <span hidden={BG == "spell"||BG == "trap"||BG == "terrain"}>Dano</span>
+          
+          <span hidden={BG == "spell"||BG == "trap"||BG == "terrain"}>Vida</span>
+          
+          </div>
+          <div className="statusM">
           <Input id="dano" hidden={BG == "spell"||BG == "trap"||BG == "terrain"} name="dano" type="number" min="0" onChange={(dados) =>{setDano(dados.target.value)}} value={dano}/>
-          <label for="vida" hidden={BG == "spell"||BG == "trap"||BG == "terrain"}>Vida</label>
           <Input id="vida" hidden={BG == "spell"||BG == "trap"||BG == "terrain"} name="vida" type="number" min="0" onChange={(dados) =>{setVida(dados.target.value)}} value={vida}/>
           </div>
         </form>
+        <div className="buttonSave">
         <button 
-          onClick={
-          domtoimage.toBlob(document.getElementById('CARD'))
-          .then(function (blob) {
-              window.saveAs(blob, 'card.png');
-          })}>
-          Salvar</button>
+           className="salvar"
+           
+           onClick={async()=>{
+            await html2canvas(document.querySelector("#CARD")).then(canvas => {
+              //document.body.appendChild(canvas)
+              var dload = document.querySelector("#download")
+              var image = canvas.toDataURL("image/png")//.replace("image/png", "image/octet-stream");
+              //Canvas2Image.saveAsPNG(canvas)
+              dload.href = image;
+              dload.download = "cartinha"
+              dload.click()
+              })
+          /*React.useEffect(() => {
+          async () => {
+            const Canvas2Image = (await import("canvas2image")).default();
+
+          html2canvas(document.querySelector("#CARD")).then(canvas => {
+            //document.body.appendChild(canvas)
+            //var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+            return Canvas2Image.saveAsPNG(canvas);
+          })
+              }
+            },[])*/
+          
+          }
+            //window.location.href = image;
+}>
+
+          Salvar
+          </button>
+        </div>
+        <a id="download"></a>
+        
       </Maker>
     </Content>
     </>

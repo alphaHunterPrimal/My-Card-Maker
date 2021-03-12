@@ -3,8 +3,6 @@ import styled from 'styled-components';
 const Main = styled.div `
 display: flex;
 flex-direction: column;
-
-/*align-items: center;*/
 position: absolute;
 top: auto;
 z-index: 3;
@@ -15,7 +13,7 @@ height: 179px;
 position: absolute;
 left: 9px;
 bottom: -9px;
-/*bottom: 23.5px;*/
+
 };
 
 .imgQueen{
