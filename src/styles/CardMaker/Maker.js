@@ -29,6 +29,13 @@ background-color: blueviolet;
     height: 40px;
     justify-self: flex-end;
     font-weight: 600;
+    margin-right: 4px;
+};
+.galeria{
+    width: 100px;
+    height: 40px;
+    justify-self: flex-end;
+    font-weight: 600;
 };
 `;
 export default Maker;
