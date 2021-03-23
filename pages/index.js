@@ -17,6 +17,7 @@ import Status from '../src/styles/CardMaker/Status';
 import ImgBg from '../src/styles/CardMaker/ImgBg';
 import ImgMov from '../src/styles/CardMaker/ImgMov';
 
+
 export default function Home() {
   const router = useRouter();
   const [custo, setCusto] = React.useState('0');
@@ -142,8 +143,8 @@ export default function Home() {
           <label for="descricão">Descricão</label>
           <Input id="descricão" name="descricão" onChange={(dados) =>{setDesc(dados.target.value)}} value={desc}/>
           
-          <p hidden={false} >Efeitos</p>
-          <textarea id="edit" name="efeitos" hidden={false}  onChange={(dados) =>{setEffect(dados.target.value) 
+          <p>Efeitos</p>
+          <textarea id="edit" name="efeitos" onChange={(dados) =>{setEffect(dados.target.value) 
           // o value= effect deixou de ser usado há um tempo no projeto, mas foi mantido caso eu mude de ideia no futuro
                     
           var keywords = {
@@ -199,9 +200,8 @@ export default function Home() {
               var image = canvas.toDataURL("image/png")//.replace("image/png", "image/octet-stream");
               //Canvas2Image.saveAsPNG(canvas)
               dload.href = image;
-              dload.download = "cartinha"
-              dload.click()
-              
+              dload.download = `${nome}`
+              dload.click()         
               })   
             router.push('/galeria')
           }

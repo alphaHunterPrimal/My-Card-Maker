@@ -3,17 +3,17 @@ import styled from 'styled-components';
 const Filters = styled.form`
 position: relative;
 display: flex;
-align-content: baseline;
-padding: 0 25vw 0;
-justify-content: space-between;
+
+/*padding: 0 25vw 0;*/
+justify-content: center;
 bottom: -3vh;
 
 select{
 border-radius: 8px;
-}
-Input{
-    border-radius: 8px;
-    width: 5vw;
-}
+margin: 0 5px;
+width: 84px;
+height: 40px;
+};
+
 `;
 export default Filters

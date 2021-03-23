@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
-const Voltar = styled.button`
+const Voltar = styled.a`
 position: absolute;
-top: 0;
+top: 20px;
 left: 0;
 height: 50px;
-width: 100px;
+width: 90px;
 background-color: blueviolet;
+text-align: center;
 `;
 export default Voltar;
