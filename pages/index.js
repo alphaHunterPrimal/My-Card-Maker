@@ -17,6 +17,7 @@ import ImgBg from '../src/styles/CardMaker/ImgBg';
 import ImgMov from '../src/styles/CardMaker/ImgMov';
 import DB from '../db';
 //import mv from "mv";
+var allKeywords = []
 export default function Home() {
   const router = useRouter();
   const [custo, setCusto] = React.useState('0');
@@ -45,6 +46,16 @@ export default function Home() {
   var CUSTO;
   var IMG;
   var EFFECT;
+   
+  var keywords = {
+    ":Dest:" : 'Destruir',
+    ":Obli:": 'Obliterar',
+    ":Temp:": 'Temporaria',
+    ":Ate:": 'Aterrar'};
+
+  var keyimgs = {
+  ":v:" : 'virar',
+   ":t:": 'time'};
 
   if(digitsEffect <= 120){
     fontsize = 19;
@@ -147,20 +158,12 @@ export default function Home() {
           <textarea id="edit" name="efeitos" onChange={(dados) =>{setEffect(dados.target.value) 
           // o value= effect deixou de ser usado há um tempo no projeto, mas foi mantido caso eu mude de ideia no futuro
                     
-          var keywords = {
-            ":Dest:" : 'Destruir',
-            ":Obli:": 'Obliterar',
-            ":Temp:": 'Temporaria',
-            ":Ate:": 'Aterrar'};
 
-          var keyimgs = {
-          ":v:" : 'virar',
-           ":t:": 'time'};
 
           var quebra = {":q:" : "quebra"} 
 
           var text = document.querySelector("#edit").innerHTML;
-
+          
          $.each(keyimgs, function(key, link) {
           var LINK = "/" + link + ".png" 
           text = text
@@ -206,9 +209,9 @@ export default function Home() {
               })   
             //router.push('/galeria')
             setDisplai("inline")
+
           }
 }>
-
           Salvar
           </button>
           <button 
@@ -221,11 +224,35 @@ export default function Home() {
         <div className="final" >
         <Input id="carta" name="carta" className="carta" style={{display: `${displai}`}} onChange={(dados) =>{setCarta(dados.target.value)}} value={carta}/>
         <button className="enviar" style={{display: `${displai}`}}
-            onClick={async()=>{
-            
-            await DB.push({type: `${BG}`, card: `${carta}`, name: `${nome}`, custo: `${custo}`})        
+            onClick={async ()=>{
+            var ambos = desc.split(" - ")
+            var SETS = ambos[1]
+            console.log(SETS)
+            var ARCTYPES = ambos[0]
+            console.log(ARCTYPES)
+            var movement = [MV, mov]
+            console.log(movement)
+            //para cada keyword, colocá-la dentro do array se ela estiver no texto
+            $.each(keywords, function(key, link) {
+              if(effect.split(" ").includes(key)){
+                allKeywords.push(link)
+              }
+           });
+
+            console.log(allKeywords)
+            /*await DB.push({
+            type: `${BG}`,
+            name: `${nome}`,
+            card: `${carta}`,
+            sets: `${sets}`,
+            arctype: `${arctype}`,
+            custo: `${custo}`,
+            ganho: `${ganho}`,
+            mov: `${mov}`,
+            vida: `${vida}`,
+            dano: `${dano}`})  */      
                 
-            setTimeout(()=>{router.push('/galeria')}, 3000)
+            //setTimeout(()=>{router.push('/galeria')}, 3000)
           }
 }>Enviar</button>
         </div>
