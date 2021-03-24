@@ -13,11 +13,10 @@ import Maker from '../src/styles/CardMaker/Maker';
 import Top from '../src/styles/CardMaker/Top';
 import Main from '../src/styles/CardMaker/Main';
 import Status from '../src/styles/CardMaker/Status';
-//import Img from '../src/CardMaker/Img';
 import ImgBg from '../src/styles/CardMaker/ImgBg';
 import ImgMov from '../src/styles/CardMaker/ImgMov';
-
-
+import DB from '../db';
+//import mv from "mv";
 export default function Home() {
   const router = useRouter();
   const [custo, setCusto] = React.useState('0');
@@ -34,11 +33,11 @@ export default function Home() {
   const [MV, setMV] = React.useState('arrow1');
   var MVATUAL = "/" + MV + ".png";
 
+  const [carta, setCarta] = React.useState('');
+  const [displai, setDisplai] = React.useState("none")
   const tiposDeCartas = ["Queen", "Creature", "Spell", "Trap", "Terrain", "Construction"];
   const setasDeMov = ["Arrow1", "Arrow2", "Arrow3"]
-
-
-
+  
   var digits = nome.length;
   var digitsEffect = effect.length;
   var fontsize;
@@ -46,6 +45,7 @@ export default function Home() {
   var CUSTO;
   var IMG;
   var EFFECT;
+
   if(digitsEffect <= 120){
     fontsize = 19;
   } else {if(digitsEffect > 120 && digitsEffect <= 180){
@@ -85,7 +85,7 @@ export default function Home() {
 
     </Head>
  <Content>
-        <Card id="CARD" >
+      <Card id="CARD" >
         <ImgBg  src={`${BGATUAL}`} alt="Bgatual"></ImgBg>
         <Top >
         <span className={CUSTO} hidden={(BG == "Queen")}>{`${custo}`}</span>
@@ -192,18 +192,20 @@ export default function Home() {
         <div className="buttonSave">
         <button 
            className="salvar"
-           
            onClick={async()=>{
-            await html2canvas(document.querySelector("#CARD")).then(canvas => {
+            await html2canvas(document.querySelector("#CARD")).then( async canvas => {
               //document.body.appendChild(canvas)
               var dload = document.querySelector("#download")
               var image = canvas.toDataURL("image/png")//.replace("image/png", "image/octet-stream");
               //Canvas2Image.saveAsPNG(canvas)
               dload.href = image;
               dload.download = `${nome}`
-              dload.click()         
+              dload.click()
+               
+             // DB.push({type: `${BG}`, name: `${nome}`, custo: `${custo}`})        
               })   
-            router.push('/galeria')
+            //router.push('/galeria')
+            setDisplai("inline")
           }
 }>
 
@@ -216,7 +218,18 @@ export default function Home() {
         }}>Ir para a galeria</button>
         </div>
         <a id="download"></a>
-        
+        <div className="final" >
+        <Input id="carta" name="carta" className="carta" style={{display: `${displai}`}} onChange={(dados) =>{setCarta(dados.target.value)}} value={carta}/>
+        <button className="enviar" style={{display: `${displai}`}}
+            onClick={async()=>{
+            
+            await DB.push({type: `${BG}`, card: `${carta}`, name: `${nome}`, custo: `${custo}`})        
+                
+            setTimeout(()=>{router.push('/galeria')}, 3000)
+          }
+}>Enviar</button>
+        </div>
+
       </Maker>
     </Content>
     </>

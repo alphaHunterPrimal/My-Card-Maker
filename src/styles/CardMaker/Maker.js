@@ -23,7 +23,11 @@ background-color: blueviolet;
     justify-content: center;
     
 };
-
+input{
+    height: 0.1vh;
+    padding: 13px;
+    font-size: 14px;
+}
 .salvar{
     width: 100px;
     height: 40px;
@@ -37,5 +41,20 @@ background-color: blueviolet;
     justify-self: flex-end;
     font-weight: 600;
 };
+.final{
+    display: flex;
+    margin-top: 20px;
+    justify-content: center
+}
+.carta{
+  width: 110px;
+  margin-right: 5px;
+}
+.enviar{
+    width: 100px;
+    height: 30px;
+    margin-left: 5px;
+    font-weight: 600;
+}
 `;
 export default Maker;
