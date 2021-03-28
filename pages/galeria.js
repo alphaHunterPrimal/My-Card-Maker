@@ -11,6 +11,12 @@ import Coment from '../src/styles/Galery/coment';
 import GaleryCards from '../src/styles/Galery/GaleryCards';
 import DB, { filter } from '../db';
 
+ var KEY = {
+    ":Dest:" : 'Destruir',
+    ":Obli:": 'Obliterar',
+    ":Temp:": 'Temporaria',
+    ":Ate:": 'Aterrar'};
+var key = []
 export default function Galeria(){
     const router = useRouter();
     const tiposDeCartas = ["Queen", "Creature", "Spell", "Trap", "Terrain", "Construction"];
@@ -31,11 +37,18 @@ export default function Galeria(){
     const [dano, setDano] = React.useState('');
     const [vida, setVida] = React.useState('');
     const [NEWDB, setNEWDB] = React.useState(DB);
+
+    //const [indice, setIndice] = React.useState("1");
     var DpC;
     var DpG;
     var DpMov;
     var DpDn;
     var DpVida;
+
+    const [teixto, setTeixto] = React.useState("") 
+
+
+
     if(type == "Queen"){
         DpC = 'none'
         DpG = "none"
@@ -89,11 +102,28 @@ export default function Galeria(){
         </Coment>
         <Filters>
         
-            <select id="tipos" onChange={(dados) => {setType(dados.target.value)}}>
+        <select id="tipos" onChange={(dados) => {setType(dados.target.value)}}>
             {tiposDeCartas.map((x)=>(
              <option value={x}>{x} </option>
          ))}
-            </select>
+         </select>
+             <input id="KEi"  style={{width: "70px", fontSize: "10px"}} onChange={(dados) => {
+                     setTeixto(dados.target.value)
+                     //var testo = document.querySelector("#KEi").innerHTML
+                     console.log(teixto)
+                     var splitado = teixto.split(" ")
+                     $.each(KEY, function(x, y) {
+                        if(splitado.includes(y) && !key.includes(y)){
+                            key.push(y)
+                        }
+                     });
+                     console.log(splitado)
+                     console.log(key)
+                     
+                     
+                 
+                 }
+                 } value={teixto}></input>
             <select id="sets" onChange={(dados) => {setSets(dados.target.value)}}>
             {Sets.map((x)=>(
              <option value={x}>{x} </option>
@@ -138,7 +168,7 @@ export default function Galeria(){
             
             
         </Filters>
-        <button className="submitar" onClick={() => {
+        <button className="submitar" onClick={async () => {
             setNEWDB(DB);
             if(type != ""){setNEWDB(NEWDB.filter((x) => (x.type == type )))}
             if(sets != ""){setNEWDB(NEWDB.filter((x) => (x.sets == sets )))}
@@ -148,7 +178,78 @@ export default function Galeria(){
             if(mov != ""){setNEWDB(NEWDB.filter((x) => (x.mov == type )))}
             if(vida != ""){setNEWDB(NEWDB.filter((x) => (x.vida == vida )))}
             if(dano != ""){setNEWDB(NEWDB.filter((x) => (x.dano == dano )))}
+            //var indice = 1
+            
+            /*setNEWDB(
+                NEWDB.map((x) => 
+                (x.KEYWORDS.map((y) =>
+                (   
+                    key.includes(y) ?
+                    console.log(y) :
+                    console.log("não")
+                    
+                ))
+                )))*/
+                /*
+                if(key != "") {
+                await NEWDB.map((x) => {
+                    /*
+                    var kei = key.toString()
+                    var xei = x.KEYWORDS.toString()
+                    console.log(kei)
+                    console.log(xei)
+                    
+                    //var pode = true
+                    if(key.includes(x.KEYWORDS.forEach((y) => {return y}
+                    ))){
+                        console.log("opa")
+                    }
+                    
+                    if(!key.includes(x.KEYWORDS)){
+                        console.log("apo")
+                    }
+                    
+                    if(x.KEYWORDS.every(key.map(x => 
+                        `${x}`
+                    ))){
+                        console.log("opa")
+                    }
+                    
+                    
+                        x.KEYWORDS.map((y) => {
+                            console.log(indice)
+                            if(x.id == indice){
+                               
+                            if(key.includes(y)){
+                                //verificar = true
+                                console.log("deu")
+                                
+                                
+                            }
+                            if(!key.includes(y)) {
+                                var index = indice - 1  
+                                         
+                                setNEWDB(NEWDB.splice(index, 1))
+                                indice = indice + 1
+                                //setIndice(indexis)
+                                console.log("não deu")
+                                
+                            }
+                            else {
 
+                            }
+                        }
+                             } )
+                    
+                    
+
+                    
+                }) 
+               }*/
+
+            
+            
+            
             console.log(NEWDB)
         
             setType("")
@@ -159,7 +260,10 @@ export default function Galeria(){
             setMov("")
             setVida("")
             setDano("")
-            console.log(NEWDB)
+            //indice = 1
+            key = []
+            
+           
             
         }}>Filtrar</button>
         </TopBar>

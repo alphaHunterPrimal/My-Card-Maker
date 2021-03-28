@@ -4,6 +4,7 @@ const Database = require("sqlite-async")
 function execute(db){
     return db.exec(`
     CREATE TABLE IF NOT EXISTS cartas (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         type TEXT,
         name TEXT,
         card TEXT,
@@ -12,9 +13,13 @@ function execute(db){
         custo INTEGER,
         ganho INTEGER,
         mov INTEGER,
+        MV TEXT, 
         vida INTEGER,
         dano INTEGER
-
+    );
+    CREATE TABLE IF NOT EXISTS keywords (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        key TEXT
     );
     `) 
 }

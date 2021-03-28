@@ -234,24 +234,25 @@ export default function Home() {
             console.log(movement)
             //para cada keyword, colocá-la dentro do array se ela estiver no texto
             $.each(keywords, function(key, link) {
-              if(effect.split(" ").includes(key)){
+              if(effect.split(" ").includes(key) && !allKeywords.includes(link)){
                 allKeywords.push(link)
               }
            });
 
             console.log(allKeywords)
-            /*await DB.push({
+            await DB.push({
             type: `${BG}`,
+            KEYWORDS: `${allKeywords}`,
             name: `${nome}`,
             card: `${carta}`,
-            sets: `${sets}`,
-            arctype: `${arctype}`,
+            sets: `${SETS}`,
+            arctype: `${ARCTYPES}`,
             custo: `${custo}`,
             ganho: `${ganho}`,
             mov: `${mov}`,
             vida: `${vida}`,
-            dano: `${dano}`})  */      
-                
+            dano: `${dano}`})      
+            console.log(DB)    
             //setTimeout(()=>{router.push('/galeria')}, 3000)
           }
 }>Enviar</button>
