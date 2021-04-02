@@ -11,7 +11,7 @@ bottom: -3vh;
 select{
 border-radius: 8px;
 margin: 0 5px;
-width: 84px;
+width: 64px;
 height: 40px;
 };
 

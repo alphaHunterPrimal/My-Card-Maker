@@ -7,7 +7,7 @@ justify-content: center;
 
 span{
     margin: 0 5px;
-    width: 84px;
+    width: 64px;
     text-align: center;
 }
 

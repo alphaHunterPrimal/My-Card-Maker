@@ -11,12 +11,12 @@ import Coment from '../src/styles/Galery/coment';
 import GaleryCards from '../src/styles/Galery/GaleryCards';
 import DB, { filter } from '../db';
 
- var KEY = {
-    ":Dest:" : 'Destruir',
-    ":Obli:": 'Obliterar',
-    ":Temp:": 'Temporaria',
-    ":Ate:": 'Aterrar'};
-var key = []
+ var KEY = [
+    'Destruir',
+    'Obliterar',
+    'Temporaria',
+    'Aterrar'];
+//var key = []
 export default function Galeria(){
     const router = useRouter();
     const tiposDeCartas = ["Queen", "Creature", "Spell", "Trap", "Terrain", "Construction"];
@@ -37,7 +37,7 @@ export default function Galeria(){
     const [dano, setDano] = React.useState('');
     const [vida, setVida] = React.useState('');
     const [NEWDB, setNEWDB] = React.useState(DB);
-
+    const [kei, setKei] = React.useState("");
     //const [indice, setIndice] = React.useState("1");
     var DpC;
     var DpG;
@@ -92,8 +92,10 @@ export default function Galeria(){
         </Voltar>
         <Coment >
         <span>Tipo</span> 
+        <span>Keywords</span> 
         <span>Sets</span> 
-        <span>Arquétipo</span>    
+        <span>Arquétipo</span>  
+          
         <span style={{display: `${DpC}`}}>Custo</span>
         <span style={{display: `${DpG}`}}>Ganho</span>
         <span style={{display: `${DpMov}`}}>Mov</span>
@@ -107,7 +109,13 @@ export default function Galeria(){
              <option value={x}>{x} </option>
          ))}
          </select>
-             <input id="KEi"  style={{width: "70px", fontSize: "10px"}} onChange={(dados) => {
+         <select id="Gkei" size="5" onChange={(dados) =>{setKei(dados.target.value)
+             console.log(dados.target.value)}}>
+            {KEY.map((x)=>(
+             <option value={x}>{x} </option>
+         ))}
+            </select>
+             {/*<input id="KEi"  style={{width: "70px", fontSize: "10px"}} onChange={(dados) => {
                      setTeixto(dados.target.value)
                      //var testo = document.querySelector("#KEi").innerHTML
                      console.log(teixto)
@@ -123,7 +131,7 @@ export default function Galeria(){
                      
                  
                  }
-                 } value={teixto}></input>
+                 } value={teixto}></input>*/}
             <select id="sets" onChange={(dados) => {setSets(dados.target.value)}}>
             {Sets.map((x)=>(
              <option value={x}>{x} </option>
@@ -159,6 +167,7 @@ export default function Galeria(){
              <option value={x}>{x} </option>
          ))}
             </select>
+
             {/*
             <Input id="Gcusto" type="number" min="0" placeholder="0" name="custo" style={{display: `${DpC}`}} onChange={(dados) =>{setCusto(dados.target.value)}}value={custo}/> 
             <Input id="Gganho" type="number" min="0" placeholder="0" name="ganho" style={{display: `${DpG}`}} onChange={(dados) =>{setGanho(dados.target.value)}} value={ganho}/>
@@ -178,8 +187,20 @@ export default function Galeria(){
             if(mov != ""){setNEWDB(NEWDB.filter((x) => (x.mov == type )))}
             if(vida != ""){setNEWDB(NEWDB.filter((x) => (x.vida == vida )))}
             if(dano != ""){setNEWDB(NEWDB.filter((x) => (x.dano == dano )))}
+            if(kei != ""){setNEWDB(NEWDB.filter((x) => (x.KEYWORDS.includes(kei))))}
             //var indice = 1
-            
+            /*for (let i = 0; i < NEWDB.length; i++){
+                console.log("cheguei aqui")
+            }
+            */
+            /*NEWDB.map((x) => {
+                for (let i = 0; i < NEWDB.length; i++){
+                    console.log("cheguei aqui")
+                    if(NEWDB[i].KEYWORDS[i].includes(key[i])){
+                        console.log("sim")
+                    } else { console.log("não")}
+                }
+            })*/
             /*setNEWDB(
                 NEWDB.map((x) => 
                 (x.KEYWORDS.map((y) =>
@@ -261,7 +282,7 @@ export default function Galeria(){
             setVida("")
             setDano("")
             //indice = 1
-            key = []
+            setKei("")
             
            
             

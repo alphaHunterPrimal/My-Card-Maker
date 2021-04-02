@@ -15,7 +15,9 @@ import Main from '../src/styles/CardMaker/Main';
 import Status from '../src/styles/CardMaker/Status';
 import ImgBg from '../src/styles/CardMaker/ImgBg';
 import ImgMov from '../src/styles/CardMaker/ImgMov';
-import DB from '../db';
+//import DB from '../db';
+import createCard from '../src/database/createCard';
+//const Database = require("../src/database/db");
 //import mv from "mv";
 var allKeywords = []
 export default function Home() {
@@ -238,8 +240,32 @@ export default function Home() {
                 allKeywords.push(link)
               }
            });
+           /*
+           async function Salvar() {
+             const insertedCards = {
+              type: BG,
+              name: nome,
+              card: carta,
+              sets: SETS,
+              arctype: ARCTYPES,
+              custo: custo,
+              ganho: ganho,
+              mov: mov,
+              MV: MV, 
+              vida: vida,
+              dano: dano
+             }
+             try{
+              const db = await Database;
+              await createCard(db, {cartas})
+             }
+             catch (error) {
+              console.log(error)
+            }
 
-            console.log(allKeywords)
+           }*/
+
+            /*console.log(allKeywords)
             await DB.push({
             type: `${BG}`,
             KEYWORDS: `${allKeywords}`,
@@ -252,7 +278,7 @@ export default function Home() {
             mov: `${mov}`,
             vida: `${vida}`,
             dano: `${dano}`})      
-            console.log(DB)    
+            console.log(DB)*/    
             //setTimeout(()=>{router.push('/galeria')}, 3000)
           }
 }>Enviar</button>
