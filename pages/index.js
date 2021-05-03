@@ -38,7 +38,7 @@ export default function Home() {
 
   const [carta, setCarta] = React.useState('');
   const [displai, setDisplai] = React.useState("none")
-  const tiposDeCartas = ["Queen", "Creature", "Spell", "Trap", "Terrain", "Construction"];
+  const tiposDeCartas = ["Queen", "Biome", "Creature", "Spell", "Trap", "Terrain", "Construction"];
   const setasDeMov = ["Arrow1", "Arrow2", "Arrow3"]
   
   var digits = nome.length;
@@ -53,11 +53,21 @@ export default function Home() {
     ":Dest:" : 'Destruir',
     ":Obli:": 'Obliterar',
     ":Temp:": 'Temporaria',
-    ":Ate:": 'Aterrar'};
+    ":Ate:": 'Aterrar', 
+  ":Nas:": "Nascer",
+   ":Inv:" : "Invocar",
+    ":Voa:": "Voar",
+     ":Com:": "Comprar",
+    ":Man:" : "Manutenção",
+    ":Rus:" : "Rush", 
+    ":Sta:" : "Starter"};
 
   var keyimgs = {
-  ":v:" : 'virar',
-   ":t:": 'time'};
+   ":v:" : 'virar',
+   ":t:": 'time', 
+   ":m:": "mineral", 
+   ":q:": "quadrado", 
+    ":r:": "resistencia"};
 
   if(digitsEffect <= 120){
     fontsize = 19;
@@ -65,23 +75,27 @@ export default function Home() {
     fontsize = 17
   } else {if(digitsEffect > 180 && digitsEffect <= 240){
     fontsize = 16
-  } else {if(digitsEffect > 240){
+  } else {if(digitsEffect > 240 && digitsEffect <= 300){
     fontsize = 15
-  }}}}
+  }
+  else {if(digitsEffect > 300){
+    fontsize = 14
+  }}}
+}}
 
-  if(BG == "Spell"||BG == "Trap"||BG == "Terrain"){
+  if(BG == "Spell"||BG == "Trap"||BG == "Terrain"||BG == "Biome"){
     EFFECT = "effectTrue"
   } else { EFFECT = "effect"};
-  if(BG == "Queen"){
+  if(BG == "Queen"||BG == "Biome"){
     IMG = "imgQueen"
   } else {IMG = "img1"};
   if(BG == "Spell"||BG == "Trap"||BG == "Terrain") {
     CUSTO = "custo2"
   } else {CUSTO = "custo1"}
-  if (BG == "Queen" && digits <= 25){
+  if (BG == "Queen" && digits <= 25 || BG == "Biome" && digits <= 25){
     NOME = "nomeQueen"
   } else{
-    if (BG == "Queen" && digits > 25){
+    if (BG == "Queen" && digits > 25 || BG == "Biome" && digits > 25){
       NOME = "nomeQueen2"
     } else{    if (digits < 25) {
       NOME = "nome1"
@@ -101,7 +115,7 @@ export default function Home() {
       <Card id="CARD" >
         <ImgBg  src={`${BGATUAL}`} alt="Bgatual"></ImgBg>
         <Top >
-        <span className={CUSTO} hidden={(BG == "Queen")}>{`${custo}`}</span>
+        <span className={CUSTO} hidden={(BG == "Queen" ||BG == "Biome")}>{`${custo}`}</span>
         <span className="ganho" hidden={!(BG == "Creature" ||BG == "Construction")}>{`${ganho}`}</span>
         <span className={NOME}>{`${nome}`}</span>
         <span className="mov" hidden={!(BG == "Creature")} style={{ fontWeight: "600", fontFamily: "'Oi', cursive", fontSize: "20px" }}>{`${mov}`}</span>
@@ -113,8 +127,8 @@ export default function Home() {
         <div id="text" className={EFFECT} style={{ fontSize: `${fontsize}px`}}></div>
         </Main>
         <Status>
-        <Status.dano hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain"}>{`${dano}`}</Status.dano>
-        <Status.vida hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain"}>{`${vida}`}</Status.vida>
+        <Status.dano hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain"||BG == "Biome"}>{`${dano}`}</Status.dano>
+        <Status.vida hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain"||BG == "Biome"}>{`${vida}`}</Status.vida>
         </Status>
       </Card>
       <Maker>
@@ -133,8 +147,8 @@ export default function Home() {
          ))}
           </select>
 
-          <label for="custo" hidden={(BG == "Queen")}>Custo</label>
-          <Input id="custo" hidden={(BG == "Queen")} name="custo" type="number" min="0" onChange={(dados) =>{setCusto(dados.target.value)}} value={custo}/>
+          <label for="custo" hidden={(BG == "Queen" ||BG == "Biome")}>Custo</label>
+          <Input id="custo" hidden={(BG == "Queen"||BG == "Biome")} name="custo" type="number" min="0" onChange={(dados) =>{setCusto(dados.target.value)}} value={custo}/>
 
           <label for="ganho" hidden={!(BG == "Creature" ||BG == "Construction")}>Ganho</label>
           <Input id="ganho" name="ganho" hidden={!(BG == "Creature" ||BG == "Construction")} type="number" min="0" onChange={(dados) =>{setGanho(dados.target.value)}} value={ganho}/>
@@ -162,7 +176,7 @@ export default function Home() {
                     
 
 
-          var quebra = {":q:" : "quebra"} 
+          var quebra = {":p:" : "quebra"} 
 
           var text = document.querySelector("#edit").innerHTML;
           
@@ -184,14 +198,14 @@ export default function Home() {
          
           }} value={effect}></textarea>
           <div className="statusDesc">
-          <span hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain"}>Dano</span>
+          <span hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain" ||BG == "Biome" }>Dano</span>
           
-          <span hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain"}>Vida</span>
+          <span hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain" ||BG == "Biome"}>Vida</span>
           
           </div>
           <div className="statusM">
-          <Input id="dano" hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain"} name="dano" type="number" min="0" onChange={(dados) =>{setDano(dados.target.value)}} value={dano}/>
-          <Input id="vida" hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain"} name="vida" type="number" min="0" onChange={(dados) =>{setVida(dados.target.value)}} value={vida}/>
+          <Input id="dano" hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain" ||BG == "Biome"} name="dano" type="number" min="0" onChange={(dados) =>{setDano(dados.target.value)}} value={dano}/>
+          <Input id="vida" hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain"||BG == "Biome"} name="vida" type="number" min="0" onChange={(dados) =>{setVida(dados.target.value)}} value={vida}/>
           </div>
         </form>
         <div className="buttonSave">

@@ -36,7 +36,7 @@ bottom: -7px;
 .effect{
     position: absolute;
     width: 302px;
-    height: 138px;
+    height: 150px;
     left: 9px;
     top: 35px;
     line-height: 18.5px;
@@ -75,13 +75,38 @@ bottom: -7px;
 .Aterrar{
     color: rgb(139,69,19);
 };
-.virar{
+.Nascer{
+    color: green;
+};
+.Invocar{
+    color: #00868B;
+};
+.Voar{
+    color: #FFFAFA;
+};
+.Comprar{
+    color: #AFEEEE;
+};
+.Manutenção{
+    color: #8B8B7A;
+}
+.Rush{
+    color: #EE0000;
+};
+.Starter{
+    color: #FF4500;
+};
+.virar, .time, .mineral, .quadrado{
+    width: 18.5px;
+    height: 18.5px;
+};
+.resistencia{
+    width: 23.5px;
+    height: 18.5px;
+}
+/*.time{
     width: 20px;
     height: 20px;
-};
-.time{
-    width: 20px;
-    height: 20px;
-};
+};*/
 `;
 export default Main;
