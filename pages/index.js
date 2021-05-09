@@ -48,6 +48,9 @@ export default function Home() {
   var CUSTO;
   var IMG;
   var EFFECT;
+
+  var statusDescy;
+  var statusMy;
    
   var keywords = {
     ":Dest:" : 'Destruir',
@@ -67,7 +70,8 @@ export default function Home() {
    ":t:": 'time', 
    ":m:": "mineral", 
    ":q:": "quadrado", 
-    ":r:": "resistencia"};
+    ":r:": "resistencia", 
+  ":alc:" : "alcance"};
 
   if(digitsEffect <= 120){
     fontsize = 19;
@@ -105,6 +109,14 @@ export default function Home() {
     }}
 };
 
+  if(BG == "Construction"){
+    statusDescy = "statusConstruct"
+    statusMy = "statusMconstruct"
+  } else {
+     statusDescy = "statusDesc"
+     statusMy = "statusM"
+}
+
   return (
     <>
     <Head>
@@ -127,7 +139,7 @@ export default function Home() {
         <div id="text" className={EFFECT} style={{ fontSize: `${fontsize}px`}}></div>
         </Main>
         <Status>
-        <Status.dano hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain"||BG == "Biome"}>{`${dano}`}</Status.dano>
+        <Status.dano hidden={!(BG == "Creature" ||BG == "Queen")}>{`${dano}`}</Status.dano>
         <Status.vida hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain"||BG == "Biome"}>{`${vida}`}</Status.vida>
         </Status>
       </Card>
@@ -197,14 +209,14 @@ export default function Home() {
          $('#text').html(text);
          
           }} value={effect}></textarea>
-          <div className="statusDesc">
-          <span hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain" ||BG == "Biome" }>Dano</span>
+          <div className={`${statusDescy}`}>
+          <span hidden={!(BG == "Creature" ||BG == "Queen")}>Dano</span>
           
           <span hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain" ||BG == "Biome"}>Vida</span>
           
           </div>
-          <div className="statusM">
-          <Input id="dano" hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain" ||BG == "Biome"} name="dano" type="number" min="0" onChange={(dados) =>{setDano(dados.target.value)}} value={dano}/>
+          <div className={`${statusMy}`}>
+          <Input id="dano" hidden={!(BG == "Creature" ||BG == "Queen")} name="dano" type="number" min="0" onChange={(dados) =>{setDano(dados.target.value)}} value={dano}/>
           <Input id="vida" hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain"||BG == "Biome"} name="vida" type="number" min="0" onChange={(dados) =>{setVida(dados.target.value)}} value={vida}/>
           </div>
         </form>

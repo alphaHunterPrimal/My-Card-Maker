@@ -104,9 +104,9 @@ bottom: -7px;
     width: 23.5px;
     height: 18.5px;
 }
-/*.time{
+.time, .alcance{
     width: 20px;
     height: 20px;
-};*/
+};
 `;
 export default Main;

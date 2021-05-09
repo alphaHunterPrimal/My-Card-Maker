@@ -12,9 +12,20 @@ background-color: blueviolet;
     display: flex;
     justify-content: space-around;
 };
+.statusConstruct{
+    display: flex;
+    justify-content: center;
+};
 .statusM {
     display: flex;
     padding-left: 10px;
+};
+.statusMconstruct {
+    display: flex;
+    padding-left: 10%;
+    
+    justify-content: center;
+    
 };
 .buttonSave{
     display: flex;
