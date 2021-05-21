@@ -19,11 +19,13 @@ import ImgMov from '../src/styles/CardMaker/ImgMov';
 import createCard from '../src/database/createCard';
 //const Database = require("../src/database/db");
 //import mv from "mv";
-var allKeywords = []
+var allKeywords = "";
 export default function Home() {
   const router = useRouter();
-  const [custo, setCusto] = React.useState('0');
+  const [custoM, setCustoM] = React.useState('0');
+  const [custoE, setCustoE] = React.useState('0');
   const [ganho, setGanho] = React.useState('0');
+  
   const [nome, setNome] = React.useState('');
   const [mov, setMov] = React.useState('1');
   const [image, setImage] = React.useState('');
@@ -46,11 +48,54 @@ export default function Home() {
   var fontsize;
   var NOME;
   var CUSTO;
+  var CUSTOE;
   var IMG;
   var EFFECT;
+  var SELECTS;
+  
 
   var statusDescy;
   var statusMy;
+
+  const[energia, setE] = React.useState("false")
+   
+   //selecionar o tipo de carta de acordo com ele estar ou não com energia
+
+   if(energia == "true"){
+     if (BG == "Creature") {
+       setBG("CreatureE")
+     }
+     if(BG == "Spell") {
+       setBG("SpellE")
+     }
+     if(BG == "Trap") {
+       setBG("TrapE")
+     }
+     if(BG == "Construction") {
+       setBG("ConstructionE")
+     }
+     if(BG == "Terrain") {
+       setBG("TerrainE")
+     }
+   } else {
+     if(energia == "false"){
+      if (BG == "CreatureE") {
+        setBG("Creature")
+      }
+      if(BG == "SpellE") {
+        setBG("Spell")
+      }
+      if(BG == "TrapE") {
+        setBG("Trap")
+      }
+      if(BG == "ConstructionE" ) {
+        setBG("Construction")
+      }
+      if(BG == "TerrainE" ) {
+        setBG("Terrain")
+      }
+   }
+   }
    
   var keywords = {
     ":Dest:" : 'Destruir',
@@ -90,12 +135,30 @@ export default function Home() {
   if(BG == "Spell"||BG == "Trap"||BG == "Terrain"||BG == "Biome"){
     EFFECT = "effectTrue"
   } else { EFFECT = "effect"};
+
+
   if(BG == "Queen"||BG == "Biome"){
     IMG = "imgQueen"
   } else {IMG = "img1"};
+
+
   if(BG == "Spell"||BG == "Trap"||BG == "Terrain") {
-    CUSTO = "custo2"
-  } else {CUSTO = "custo1"}
+    CUSTO = "custoCentral"
+  } else {CUSTO = "custoM1"}
+
+  if(BG == "SpellE"||BG == "TrapE"||BG == "TerrainE"){
+    var sorc_anormal = true;
+    CUSTOE = "custoCentral"
+  } else {if(BG == "Spell"||BG == "Trap"||BG == "Terrain"){
+    sorc_anormal = false;
+  }}
+
+  if(BG == "CreatureE" || BG == "ConstructionE"){
+    CUSTO = "custoM2"
+    CUSTOE = "custoE"
+  }
+
+
   if (BG == "Queen" && digits <= 25 || BG == "Biome" && digits <= 25){
     NOME = "nomeQueen"
   } else{
@@ -108,14 +171,46 @@ export default function Home() {
       NOME = "nome2"
     }}
 };
+if(semcusto == true){
+  SELECTS = "selects1"
+} else {
+  SELECTS = "selects2"
+}
+
 
   if(BG == "Construction"){
     statusDescy = "statusConstruct"
     statusMy = "statusMconstruct"
+  } else 
+  { if(BG == "ConstructionE"){
+    statusDescy = "statusConstruct"
   } else {
      statusDescy = "statusDesc"
      statusMy = "statusM"
-}
+}}
+
+
+if(BG == "Spell"||BG == "SpellE"||BG == "Trap"||BG == "TrapE"||BG == "Terrain"||BG == "TerrainE"||BG == "Biome"){
+  var semvida = true
+} else {semvida = false}
+
+if(BG == "Queen" ||BG == "Biome"){
+  var semcusto = true
+  var displaivar = "none"
+} else {
+  semcusto = false
+displaivar = "block"}
+
+if(!(BG == "Creature" ||BG == "Construction" || BG == "CreatureE" ||BG == "ConstructionE")){
+  var semCC = true
+} else {semCC = false}
+
+if(!(BG == "Creature" ||BG == "CreatureE" || BG == "Queen")){
+  var semdano = true
+} else {semdano = false}
+
+
+
 
   return (
     <>
@@ -127,27 +222,34 @@ export default function Home() {
       <Card id="CARD" >
         <ImgBg  src={`${BGATUAL}`} alt="Bgatual"></ImgBg>
         <Top >
-        <span className={CUSTO} hidden={(BG == "Queen" ||BG == "Biome")}>{`${custo}`}</span>
-        <span className="ganho" hidden={!(BG == "Creature" ||BG == "Construction")}>{`${ganho}`}</span>
+        <span className={CUSTO} hidden={semcusto == true || sorc_anormal == true}>{`${custoM}`}</span>
+        {//o span na carta com o valor do custoM em energia
+        }
+        
+        <span className={CUSTOE} hidden={semcusto === true || energia === "false"}>{`${custoE}`}</span>
+        
+        <span className="ganho" hidden={semCC == true}>{`${ganho}`}</span>
         <span className={NOME}>{`${nome}`}</span>
-        <span className="mov" hidden={!(BG == "Creature")} style={{ fontWeight: "600", fontFamily: "'Oi', cursive", fontSize: "20px" }}>{`${mov}`}</span>
+        <span className="mov" hidden={!(BG == "Creature" || BG == "CreatureE")} style={{ fontWeight: "600", fontFamily: "'Oi', cursive", fontSize: "20px" }}>{`${mov}`}</span>
         </Top>
-        <ImgMov src={`${MVATUAL}`} alt="MVatual" hidden={!(BG == "Creature")}></ImgMov>
+        <ImgMov src={`${MVATUAL}`} alt="MVatual" hidden={!(BG == "Creature" || BG == "CreatureE")}></ImgMov>
         <Main>
         <img className={IMG} src={`${image}`} alt="image"></img>
         <p className="desc">{`${desc}`}</p>
         <div id="text" className={EFFECT} style={{ fontSize: `${fontsize}px`}}></div>
         </Main>
         <Status>
-        <Status.dano hidden={!(BG == "Creature" ||BG == "Queen")}>{`${dano}`}</Status.dano>
-        <Status.vida hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain"||BG == "Biome"}>{`${vida}`}</Status.vida>
+        <Status.dano hidden={semdano == true}>{`${dano}`}</Status.dano>
+        <Status.vida hidden={semvida == true}>{`${vida}`}</Status.vida>
         </Status>
       </Card>
       <Maker>
         <form onSubmit={(dados)=>{
           dados.preventDefault();
         }}>
+          <div className={SELECTS}>
           <label for="tipo">Tipo de carta</label>
+          <label for="variante" hidden={semcusto == true}> Variante </label>
           <select id="tipo" className="tipo" onChange = {(dados) => {
             setBG(dados.target.value)
             /*var cardType = document.getElementById("tipo").value;
@@ -158,19 +260,37 @@ export default function Home() {
              <option value={x}>{x} </option>
          ))}
           </select>
+          
+            
+         
+          <select id="variante" hidden={semcusto == true} style={{display: `${displaivar}`}} onChange={(dados) =>{
+              setE(dados.target.value)
+          }}>
+          <option value={"false"}  selected>False</option>
+          <option value={"true"}  >True</option>
+          </select>
+          </div>
 
-          <label for="custo" hidden={(BG == "Queen" ||BG == "Biome")}>Custo</label>
-          <Input id="custo" hidden={(BG == "Queen"||BG == "Biome")} name="custo" type="number" min="0" onChange={(dados) =>{setCusto(dados.target.value)}} value={custo}/>
+          
 
-          <label for="ganho" hidden={!(BG == "Creature" ||BG == "Construction")}>Ganho</label>
-          <Input id="ganho" name="ganho" hidden={!(BG == "Creature" ||BG == "Construction")} type="number" min="0" onChange={(dados) =>{setGanho(dados.target.value)}} value={ganho}/>
+          <label for="custoM" hidden={semcusto == true || sorc_anormal == true }>CustoM</label>
+          <Input id="custoM" hidden={semcusto == true|| sorc_anormal == true} name="custoM" type="number" min="0" onChange={(dados) =>{setCustoM(dados.target.value)}} value={custoM}/>
+
+          {// escolher o custo em energia 
+          }
+          <label for="custoE" hidden={energia == "false"}>CustoE</label>
+          <Input id="custoE" hidden={energia == "false"} name="custoE" type="number" min="0" onChange={(dados) =>{setCustoE(dados.target.value)}} value={custoE}/>
+           
+
+          <label for="ganho" hidden={semCC == true}>Ganho</label>
+          <Input id="ganho" name="ganho" hidden={semCC == true} type="number" min="0" onChange={(dados) =>{setGanho(dados.target.value)}} value={ganho}/>
 
           <label for="nome">Nome</label>
           <Input id="nome" name="nome" onChange={(dados) =>{setNome(dados.target.value)}} value={nome}/>
 
-          <label for="mov" hidden={!(BG == "Creature")}>Movimentacão</label>
-          <Input id="mov" hidden={!(BG == "Creature")} name="mov" type="number" min="1" onChange={(dados) =>{setMov(dados.target.value)}} value={mov}/>
-          <select hidden={!(BG == "Creature")} onChange = {(dados) => {setMV(dados.target.value)}}>
+          <label for="mov" hidden={!(BG == "Creature"|| BG == "CreatureE")}>Movimentacão</label>
+          <Input id="mov" hidden={!(BG == "Creature"|| BG == "CreatureE")} name="mov" type="number" min="1" onChange={(dados) =>{setMov(dados.target.value)}} value={mov}/>
+          <select hidden={!(BG == "Creature"|| BG == "CreatureE")} onChange = {(dados) => {setMV(dados.target.value)}}>
           {setasDeMov.map((x)=>(
              <option value={x}>{x} </option>
          ))}
@@ -210,14 +330,14 @@ export default function Home() {
          
           }} value={effect}></textarea>
           <div className={`${statusDescy}`}>
-          <span hidden={!(BG == "Creature" ||BG == "Queen")}>Dano</span>
+          <span hidden={semdano == true}>Dano</span>
           
-          <span hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain" ||BG == "Biome"}>Vida</span>
+          <span hidden={semvida == true}>Vida</span>
           
           </div>
           <div className={`${statusMy}`}>
-          <Input id="dano" hidden={!(BG == "Creature" ||BG == "Queen")} name="dano" type="number" min="0" onChange={(dados) =>{setDano(dados.target.value)}} value={dano}/>
-          <Input id="vida" hidden={BG == "Spell"||BG == "Trap"||BG == "Terrain"||BG == "Biome"} name="vida" type="number" min="0" onChange={(dados) =>{setVida(dados.target.value)}} value={vida}/>
+          <Input id="dano" hidden={semdano == true} name="dano" type="number" min="0" onChange={(dados) =>{setDano(dados.target.value)}} value={dano}/>
+          <Input id="vida" hidden={semvida == true} name="vida" type="number" min="0" onChange={(dados) =>{setVida(dados.target.value)}} value={vida}/>
           </div>
         </form>
         <div className="buttonSave">
@@ -233,7 +353,7 @@ export default function Home() {
               dload.download = `${nome}`
               dload.click()
                
-             // DB.push({type: `${BG}`, name: `${nome}`, custo: `${custo}`})        
+             // DB.push({type: `${BG}`, name: `${nome}`, custoM: `${custoM}`})        
               })   
             //router.push('/galeria')
             setDisplai("inline")
@@ -253,19 +373,25 @@ export default function Home() {
         <Input id="carta" name="carta" className="carta" style={{display: `${displai}`}} onChange={(dados) =>{setCarta(dados.target.value)}} value={carta}/>
         <button className="enviar" style={{display: `${displai}`}}
             onClick={async ()=>{
-            var ambos = desc.split(" - ")
-            var SETS = ambos[1]
-            console.log(SETS)
-            var ARCTYPES = ambos[0]
-            console.log(ARCTYPES)
-            var movement = [MV, mov]
-            console.log(movement)
-            //para cada keyword, colocá-la dentro do array se ela estiver no texto
-            $.each(keywords, function(key, link) {
-              if(effect.split(" ").includes(key) && !allKeywords.includes(link)){
-                allKeywords.push(link)
-              }
-           });
+              var ambos = desc.split(" - ")
+            
+              var SETS = ambos[1]
+              //console.log(SETS)
+              var ARCTYPES = ambos[0]
+              //console.log(ARCTYPES)
+              
+              //var movement = [MV, mov]
+              //console.log(movement)
+              //para cada keyword, colocá-la dentro de uma string se ela estiver no texto
+              $.each(keywords, function(key, link) {
+                if(effect.split(" ").includes(key) && !allKeywords.split(" ").includes(link)){
+                  if(allKeywords == "") {allKeywords = link} else {
+                    allKeywords = allKeywords + " " + link
+                  }
+                }
+             });
+             console.log(allKeywords)
+             console.log(allKeywords.split(" "))
            /*
            async function Salvar() {
              const insertedCards = {
@@ -274,7 +400,7 @@ export default function Home() {
               card: carta,
               sets: SETS,
               arctype: ARCTYPES,
-              custo: custo,
+              custoM: custoM,
               ganho: ganho,
               mov: mov,
               MV: MV, 
@@ -299,7 +425,7 @@ export default function Home() {
             card: `${carta}`,
             sets: `${SETS}`,
             arctype: `${ARCTYPES}`,
-            custo: `${custo}`,
+            custoM: `${custoM}`,
             ganho: `${ganho}`,
             mov: `${mov}`,
             vida: `${vida}`,

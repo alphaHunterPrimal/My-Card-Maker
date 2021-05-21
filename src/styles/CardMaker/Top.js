@@ -9,7 +9,7 @@ position: absolute;
 top: 97px;
 z-index: 3;
 font-weight: 600;
-.custo1{
+.custoM1{
     color: black;
     position: absolute;
     text-align:center;
@@ -18,7 +18,7 @@ font-weight: 600;
     top: 10px;
     
 };
-.custo2{
+.custoCentral{
     color: black;
     position: absolute;
     justify-self: center;
@@ -27,6 +27,25 @@ font-weight: 600;
     
     /*top: 25px;*/
 }
+.custoM2{
+    color: black;
+    position: absolute;
+    text-align:center;
+    width: 10%;
+    left: 17px;
+    top: 6px;
+    
+};
+.custoE{
+    color: black;
+    position: absolute;
+    text-align:center;
+    width: 10%;
+    left: 0px;
+    top: 21px;
+    
+};
+
 .ganho{
     color: black;
     position: absolute;

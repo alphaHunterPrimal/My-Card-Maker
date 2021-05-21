@@ -4,7 +4,17 @@ const Maker = styled.div `
 width: 30%;
 height: 100%;
 background-color: blueviolet;
-
+.selects1{
+display: block;
+}
+.selects2{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    
+    justify-content: space-around;
+    margin: 0 0 8px;
+}
 .tipo{
     display: block;
 }; 

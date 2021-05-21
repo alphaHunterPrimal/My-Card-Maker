@@ -9,6 +9,7 @@ import Voltar from "../src/styles/Galery/voltar"
 import TopBar from '../src/styles/Galery/TopBar';
 import Coment from '../src/styles/Galery/coment';
 import GaleryCards from '../src/styles/Galery/GaleryCards';
+import DiVariante from '../src/styles/Galery/variante';
 import DB, { filter } from '../db';
 
  var KEY = [
@@ -22,16 +23,20 @@ export default function Galeria(){
     const tiposDeCartas = ["Queen", "Creature", "Spell", "Trap", "Terrain", "Construction"];
     const Sets = ["", "firelizards"];
     const Arquétipo = ["", "mamals", "lizards", "constructo", "bio-constructo"];
-    const Custo = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
+    const CustoM = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
     const Ganho = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+    const CustoE = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
     const Mov = [ "1", "2", "3", "4", "5"];
+    
     const Vida = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
     const Dano = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
     const [type, setType] = React.useState('');
     const [sets, setSets] = React.useState('');
     const [arctype, setArctype] = React.useState('');
     
-    const [custo, setCusto] = React.useState('');
+    const [custoM, setCustoM] = React.useState('');
+    const [custoE, setCustoE] = React.useState('');
+    const [GE, setGE] = React.useState("false");
     const [ganho, setGanho] = React.useState('');
     const [mov, setMov] = React.useState('');
     const [dano, setDano] = React.useState('');
@@ -87,6 +92,21 @@ export default function Galeria(){
         </Head>
 
         <TopBar>
+        <DiVariante>
+        <span>Variantes</span>  
+        <form className="Gvariante">
+        <input name="onoff" type="radio" onClick={(dados) =>{
+              setGE(dados.target.value)
+              console.log(GE)
+            }} value={"false"}/>
+        <span>False</span>
+        <input name="onoff" type="radio" onClick={(dados) =>{
+              setGE(dados.target.value)
+              console.log(GE)
+            }} value={"true"}/>
+        <span>True</span> 
+        </form>
+        </DiVariante>
         <Voltar href="/"/*onClick={() => {router.push('/')}}*/>
             <img src="/arrow-back.svg"></img>
         </Voltar>
@@ -96,7 +116,8 @@ export default function Galeria(){
         <span>Sets</span> 
         <span>Arquétipo</span>  
           
-        <span style={{display: `${DpC}`}}>Custo</span>
+        <span style={{display: `${DpC}`}}>CustoM</span>
+        <span hidden={(GE == "false")}>CustoE</span>
         <span style={{display: `${DpG}`}}>Ganho</span>
         <span style={{display: `${DpMov}`}}>Mov</span>
         <span style={{display: `${DpDn}`}}>Dano</span>
@@ -142,8 +163,13 @@ export default function Galeria(){
              <option value={x}>{x} </option>
          ))}
             </select>
-            <select id="Gcusto" size="5" style={{display: `${DpC}`}} onChange={(dados) =>{setCusto(dados.target.value)}}>
-            {Custo.map((x)=>(
+            <select id="GcustoM" size="5" style={{display: `${DpC}`}} onChange={(dados) =>{setCustoM(dados.target.value)}}>
+            {CustoM.map((x)=>(
+             <option value={x}>{x} </option>
+         ))}
+            </select>
+            <select id="GcustoE" size="5" hidden={(GE == "false")} onChange={(dados) =>{setCustoE(dados.target.value)}}>
+            {CustoE.map((x)=>(
              <option value={x}>{x} </option>
          ))}
             </select>
@@ -169,7 +195,7 @@ export default function Galeria(){
             </select>
 
             {/*
-            <Input id="Gcusto" type="number" min="0" placeholder="0" name="custo" style={{display: `${DpC}`}} onChange={(dados) =>{setCusto(dados.target.value)}}value={custo}/> 
+            <Input id="GcustoM" type="number" min="0" placeholder="0" name="custoM" style={{display: `${DpC}`}} onChange={(dados) =>{setCustoM(dados.target.value)}}value={custoM}/> 
             <Input id="Gganho" type="number" min="0" placeholder="0" name="ganho" style={{display: `${DpG}`}} onChange={(dados) =>{setGanho(dados.target.value)}} value={ganho}/>
             <Input id="Gmov" type="number" min="0" placeholder="0" name="mov" style={{display: `${DpMov}`}} onChange={(dados) =>{setMov(dados.target.value)}} value={mov}/>
             <Input id="Gdano" type="number" min="0" placeholder="0" name="dano" style={{display: `${DpDn}`}} onChange={(dados) =>{setDano(dados.target.value)}} value={dano}/>
@@ -182,12 +208,13 @@ export default function Galeria(){
             if(type != ""){setNEWDB(NEWDB.filter((x) => (x.type == type )))}
             if(sets != ""){setNEWDB(NEWDB.filter((x) => (x.sets == sets )))}
             if(arctype != ""){setNEWDB(NEWDB.filter((x) => (x.arctype == arctype )))}
-            if(custo != ""){setNEWDB(NEWDB.filter((x) => (x.custo == custo )))}
+            if(custoM != ""){setNEWDB(NEWDB.filter((x) => (x.custoM == custoM )))}
+            if(custoE != ""){setNEWDB(NEWDB.filter((x) => (x.custoE == custoE )))}
             if(ganho != ""){setNEWDB(NEWDB.filter((x) => (x.ganho == ganho )))}
             if(mov != ""){setNEWDB(NEWDB.filter((x) => (x.mov == type )))}
             if(vida != ""){setNEWDB(NEWDB.filter((x) => (x.vida == vida )))}
             if(dano != ""){setNEWDB(NEWDB.filter((x) => (x.dano == dano )))}
-            if(kei != ""){setNEWDB(NEWDB.filter((x) => (x.KEYWORDS.includes(kei))))}
+            if(kei != ""){setNEWDB(NEWDB.filter((x) => (x.KEYWORDS.split(" ").includes(kei))))}
             //var indice = 1
             /*for (let i = 0; i < NEWDB.length; i++){
                 console.log("cheguei aqui")
@@ -276,7 +303,7 @@ export default function Galeria(){
             setType("")
             setSets("")
             setArctype("")
-            setCusto("")
+            setCustoM("")
             setGanho("")
             setMov("")
             setVida("")
