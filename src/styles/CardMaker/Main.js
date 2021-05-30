@@ -36,17 +36,16 @@ bottom: -7px;
 .effect{
     position: absolute;
     width: 302px;
-    height: 150px;
+    height: 160px;
     left: 9px;
     top: 35px;
-    line-height: 18.5px;
+    
     padding-left: 5px;
     overflow: hidden;
 
-
 };
 .effect > p{
-    font-size: 10px;
+    font-size: 6px;
 };
 .effectTrue{
     position: absolute;
@@ -54,13 +53,13 @@ bottom: -7px;
     height: 188px;
     left: 9px;
     top: 35px;
-    line-height: 18.5px;
+    
     padding-left: 5px;
     overflow: hidden;
-
+    
 };
 .effectTrue > p{
-    font-size: 10px;
+    font-size: 6px;
 };
 
 .Destruir{
@@ -97,16 +96,17 @@ bottom: -7px;
     color: #FF4500;
 };
 .virar, .time, .mineral, .quadrado{
+    
     width: 18.5px;
     height: 18.5px;
-};
+    ;};
 .resistencia{
     width: 23.5px;
     height: 18.5px;
 }
 .time, .alcance{
-    width: 20px;
-    height: 20px;
+    width: 18.5px;
+    height: 18.5px;
 };
 `;
 export default Main;

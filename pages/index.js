@@ -46,6 +46,7 @@ export default function Home() {
   var digits = nome.length;
   var digitsEffect = effect.length;
   var fontsize;
+  var line;
   var NOME;
   var CUSTO;
   var CUSTOE;
@@ -119,16 +120,21 @@ export default function Home() {
   ":alc:" : "alcance"};
 
   if(digitsEffect <= 120){
+    line = 19;
     fontsize = 19;
   } else {if(digitsEffect > 120 && digitsEffect <= 180){
+    line = 17
     fontsize = 17
   } else {if(digitsEffect > 180 && digitsEffect <= 240){
+    line = 16
     fontsize = 16
   } else {if(digitsEffect > 240 && digitsEffect <= 300){
+    line = 16
     fontsize = 15
   }
-  else {if(digitsEffect > 300){
-    fontsize = 14
+  else {if(digitsEffect > 400){
+    line = 16
+    fontsize = 12
   }}}
 }}
 
@@ -236,7 +242,7 @@ if(!(BG == "Creature" ||BG == "CreatureE" || BG == "Queen")){
         <Main>
         <img className={IMG} src={`${image}`} alt="image"></img>
         <p className="desc">{`${desc}`}</p>
-        <div id="text" className={EFFECT} style={{ fontSize: `${fontsize}px`}}></div>
+        <div id="text" className={EFFECT} style={{ fontSize: `${fontsize}px`, lineHeight: `${line}px`}}></div>
         </Main>
         <Status>
         <Status.dano hidden={semdano == true}>{`${dano}`}</Status.dano>
@@ -312,10 +318,17 @@ if(!(BG == "Creature" ||BG == "CreatureE" || BG == "Queen")){
 
           var text = document.querySelector("#edit").innerHTML;
           
+          /*var imeg = $("[name = imgs]")
+          imeg.width(50)
+          console.log(imeg)*/
+          
+          
          $.each(keyimgs, function(key, link) {
           var LINK = "/" + link + ".png" 
           text = text
-          .replace(new RegExp(key, 'g'), "<img class='"+ link + "'src='" + LINK + "'>");
+          .replace(new RegExp(key, 'g'),
+           "<img name='imgs' class='"+ link + "'src='" + LINK + "' style='width: " + fontsize + "px; height: " + fontsize + "px'>");
+          
       });
          $.each(keywords, function(key, link) {
           text = text
