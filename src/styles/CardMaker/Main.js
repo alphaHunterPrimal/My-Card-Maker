@@ -95,6 +95,9 @@ bottom: -7px;
 .Starter{
     color: #FF4500;
 };
+.Quest{
+    color: #20B2AA;
+};
 .virar, .time, .mineral, .quadrado{
     
     width: 18.5px;

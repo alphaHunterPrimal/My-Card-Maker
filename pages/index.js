@@ -103,13 +103,14 @@ export default function Home() {
     ":Obli:": 'Obliterar',
     ":Temp:": 'Temporaria',
     ":Ate:": 'Aterrar', 
-  ":Nas:": "Nascer",
+    ":Nas:": "Nascer",
    ":Inv:" : "Invocar",
     ":Voa:": "Voar",
      ":Com:": "Comprar",
     ":Man:" : "Manutenção",
     ":Rus:" : "Rush", 
-    ":Sta:" : "Starter"};
+    ":Sta:" : "Starter",
+   ":Que:": "Quest"};
 
   var keyimgs = {
    ":v:" : 'virar',
@@ -134,7 +135,7 @@ export default function Home() {
   }
   else {if(digitsEffect > 400){
     line = 16
-    fontsize = 12
+    fontsize = 14
   }}}
 }}
 
