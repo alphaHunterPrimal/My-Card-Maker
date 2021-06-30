@@ -4,33 +4,59 @@ const Top = styled.div `
 display: flex;
 width: 326.625px;
 height: 63px;
-/*justify-content: space-around;*/
 align-items: center;
 position: absolute;
-/*position: inherit;*/
 top: 97px;
 z-index: 3;
-.custo1{
+font-weight: 600;
+.custoM1{
     color: black;
     position: absolute;
-    left: 20px;
+    text-align:center;
+    width: 10%;
+    left: 10px;
     top: 10px;
+    
 };
-.custo2{
+.custoCentral{
     color: black;
     position: absolute;
     justify-self: center;
+    text-align: center;
     left: 30px;
+    
     /*top: 25px;*/
 }
-.ganho{
-    color: blue;
+.custoM2{
+    color: black;
     position: absolute;
-    left: 40px;
-    top: 30px;
+    text-align:center;
+    width: 10%;
+    left: 17px;
+    top: 6px;
+    
+};
+.custoE{
+    color: black;
+    position: absolute;
+    text-align:center;
+    width: 10%;
+    left: 0px;
+    top: 21px;
+    
+};
+
+.ganho{
+    color: black;
+    position: absolute;
+    width: 10%;
+    text-align: center;
+    left: 29px;
+    top: 32px;
+    
 };
 .nome1{
-    color: red;
+    
     position: absolute;
     font-size: 19px;
     max-width: 195px;
@@ -40,7 +66,7 @@ z-index: 3;
     left: 70px;
 };
 .nome2{
-    color: red;
+    
     position: absolute;
     font-size: 15px;
     max-width: 195px;
@@ -50,7 +76,8 @@ z-index: 3;
     left: 70px;
 };
 .nomeQueen{
-    color: blue;
+    font-weight: 800;
+    color: black;
     position: absolute;
     font-size: 28px;
     width: 300px;
@@ -60,7 +87,8 @@ z-index: 3;
     left: 10px;
 };
 .nomeQueen2{
-    color: blue;
+    font-weight: 800;
+    color: Black;
     position: absolute;
     font-size: 20px;
     width: 300px;
@@ -70,11 +98,15 @@ z-index: 3;
     left: 10px;
 };
 .mov{
-    color: red;
-    font-weight: 600;
+    color: white;
+    font-size: 20px;
+    
     position: absolute;
-    left: 293px;
+    width: 10%;
+    text-align: center;
+    left: 281px;
     right: 0px;
+    
 }
 `;
 

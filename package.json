@@ -7,12 +7,19 @@
     "start": "next start"
   },
   "dependencies": {
+    "aws-sdk": "^2.876.0",
+    "html2canvas": "^1.0.0-rc.7",
+    "jquery": "^3.5.1",
+    "mv": "^2.1.1",
     "next": "latest",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-is": "^16.8.0",
+    "sqlite-async": "^1.1.1",
+    "sqlite3": "^5.0.2",
     "styled-components": "^5.0.0"
   },
+
   "devDependencies": {
     "babel-plugin-styled-components": "^1.8.0"
   },
