@@ -7,9 +7,9 @@ Criado com o objetivo de editar templates de cartas feitas por mim, de modo a au
 - CSS (styled components)
 - Regex
 ## Tecnologias e dependências importantes
-- Next.js
-- React
-- Styled Components
-- html2canvas
-- Jquery (apenas em algumas partes como testes)
-- Sqlite (ainda em teste também)
+- [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org)
+- [Styled Components](https://styled-components.com/)
+- [html2canvas](https://github.com/niklasvh/html2canvas)
+- [Jquery](https://jquery.com/) (apenas em algumas partes como testes)
+- [Sqlite](https://www.sqlite.org/index.html) (ainda em teste também)
