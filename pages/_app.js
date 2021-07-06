@@ -1,4 +1,7 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import Home from '.'
+import Galeria from './galeria'
+import { InitialContextProvider } from '../src/contexts/initialContext'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -19,7 +22,9 @@ export default function App({ Component, pageProps }) {
     <>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
+        <InitialContextProvider>
+        <Component {...pageProps}/>
+        </InitialContextProvider>
       </ThemeProvider>
     </>
   )

@@ -136,23 +136,7 @@ export default function Galeria(){
              <option value={x}>{x} </option>
          ))}
             </select>
-             {/*<input id="KEi"  style={{width: "70px", fontSize: "10px"}} onChange={(dados) => {
-                     setTeixto(dados.target.value)
-                     //var testo = document.querySelector("#KEi").innerHTML
-                     console.log(teixto)
-                     var splitado = teixto.split(" ")
-                     $.each(KEY, function(x, y) {
-                        if(splitado.includes(y) && !key.includes(y)){
-                            key.push(y)
-                        }
-                     });
-                     console.log(splitado)
-                     console.log(key)
-                     
-                     
-                 
-                 }
-                 } value={teixto}></input>*/}
+
             <select id="sets" onChange={(dados) => {setSets(dados.target.value)}}>
             {Sets.map((x)=>(
              <option value={x}>{x} </option>
@@ -194,14 +178,6 @@ export default function Galeria(){
          ))}
             </select>
 
-            {/*
-            <Input id="GcustoM" type="number" min="0" placeholder="0" name="custoM" style={{display: `${DpC}`}} onChange={(dados) =>{setCustoM(dados.target.value)}}value={custoM}/> 
-            <Input id="Gganho" type="number" min="0" placeholder="0" name="ganho" style={{display: `${DpG}`}} onChange={(dados) =>{setGanho(dados.target.value)}} value={ganho}/>
-            <Input id="Gmov" type="number" min="0" placeholder="0" name="mov" style={{display: `${DpMov}`}} onChange={(dados) =>{setMov(dados.target.value)}} value={mov}/>
-            <Input id="Gdano" type="number" min="0" placeholder="0" name="dano" style={{display: `${DpDn}`}} onChange={(dados) =>{setDano(dados.target.value)}} value={dano}/>
-            <Input id="Gvida" type="number" min="0" placeholder="0" name="vida" style={{display: `${DpVida}`}} onChange={(dados) =>{setVida(dados.target.value)}} value={vida}/> */}
-            
-            
         </Filters>
         <button className="submitar" onClick={async () => {
             setNEWDB(DB);
@@ -215,88 +191,6 @@ export default function Galeria(){
             if(vida != ""){setNEWDB(NEWDB.filter((x) => (x.vida == vida )))}
             if(dano != ""){setNEWDB(NEWDB.filter((x) => (x.dano == dano )))}
             if(kei != ""){setNEWDB(NEWDB.filter((x) => (x.KEYWORDS.split(" ").includes(kei))))}
-            //var indice = 1
-            /*for (let i = 0; i < NEWDB.length; i++){
-                console.log("cheguei aqui")
-            }
-            */
-            /*NEWDB.map((x) => {
-                for (let i = 0; i < NEWDB.length; i++){
-                    console.log("cheguei aqui")
-                    if(NEWDB[i].KEYWORDS[i].includes(key[i])){
-                        console.log("sim")
-                    } else { console.log("não")}
-                }
-            })*/
-            /*setNEWDB(
-                NEWDB.map((x) => 
-                (x.KEYWORDS.map((y) =>
-                (   
-                    key.includes(y) ?
-                    console.log(y) :
-                    console.log("não")
-                    
-                ))
-                )))*/
-                /*
-                if(key != "") {
-                await NEWDB.map((x) => {
-                    /*
-                    var kei = key.toString()
-                    var xei = x.KEYWORDS.toString()
-                    console.log(kei)
-                    console.log(xei)
-                    
-                    //var pode = true
-                    if(key.includes(x.KEYWORDS.forEach((y) => {return y}
-                    ))){
-                        console.log("opa")
-                    }
-                    
-                    if(!key.includes(x.KEYWORDS)){
-                        console.log("apo")
-                    }
-                    
-                    if(x.KEYWORDS.every(key.map(x => 
-                        `${x}`
-                    ))){
-                        console.log("opa")
-                    }
-                    
-                    
-                        x.KEYWORDS.map((y) => {
-                            console.log(indice)
-                            if(x.id == indice){
-                               
-                            if(key.includes(y)){
-                                //verificar = true
-                                console.log("deu")
-                                
-                                
-                            }
-                            if(!key.includes(y)) {
-                                var index = indice - 1  
-                                         
-                                setNEWDB(NEWDB.splice(index, 1))
-                                indice = indice + 1
-                                //setIndice(indexis)
-                                console.log("não deu")
-                                
-                            }
-                            else {
-
-                            }
-                        }
-                             } )
-                    
-                    
-
-                    
-                }) 
-               }*/
-
-            
-            
             
             console.log(NEWDB)
         
