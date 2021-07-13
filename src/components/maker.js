@@ -80,9 +80,7 @@ var keyimgs = {
 const tiposDeCartas = ["Queen", "Biome", "Creature", "Spell", "Trap", "Terrain", "Construction"];
 const setasDeMov = ["Arrow1", "Arrow2", "Arrow3"]
 
-useEffect(() => {tudo()
-console.log(energia)
-console.log(BG)} , [BG, energia, digitsEffect, digits, semcusto])
+useEffect(() => {tudo()} , [BG, energia, digitsEffect, digits, semcusto])
 
     return(
 <Maker>
@@ -192,7 +190,8 @@ console.log(BG)} , [BG, energia, digitsEffect, digits, semcusto])
         <div className="buttonSave">
         <button 
            className="salvar"
-           onClick={async()=>{
+           onClick={
+            async()=>{
             await html2canvas(document.querySelector("#CARD")).then( async canvas => {
               //document.body.appendChild(canvas)
               var dload = document.querySelector("#download")

@@ -4,7 +4,7 @@ import Top from "../styles/CardMaker/Top";
 import ImgMov from "../styles/CardMaker/ImgMov";
 import Main from "../styles/CardMaker/Main";
 import Status from "../styles/CardMaker/Status";
-import React, {useEffect} from "react"
+import React, {useEffect, useRef} from "react"
 import { useInitial } from "../contexts/initialContext";
 export function CARD(){
     var {
@@ -40,7 +40,15 @@ export function CARD(){
         energia, 
     }  = useInitial()
     useEffect(() => {tudo()} , [BG, energia, digitsEffect, digits, semcusto])
-    return(<Card id="CARD" >
+    /*const FancyButton = React.forwardRef((props, ref) => (
+      <button ref={ref} className="FancyButton">
+        {props.children}
+      </button>
+    ));*/
+    const Ref = React.createRef();
+    //useEffect(() =>{console.log(Ref.current)}, [BG])
+    return(
+    <Card id="CARD" >
     <ImgBg  src={`${BGATUAL}`} alt="Bgatual"></ImgBg>
     <Top >
     <span className={CUSTO} hidden={semcusto == true || sorc_anormal == true}>{`${custoM}`}</span>
@@ -57,12 +65,17 @@ export function CARD(){
     <Main>
     <img className={IMG} src={`${image}`} alt="image"></img>
     <p className="desc">{`${desc}`}</p>
-    <div id="text" className={EFFECT} style={{ fontSize: `${fontsize}px`, lineHeight: `${line}px`}}></div>
+    <div id="text" ref={Ref} className={EFFECT} style={{ fontSize: `${fontsize}px`, lineHeight: `${line}px`}}></div>
     </Main>
     <Status>
     <Status.dano hidden={semdano == true}>{`${dano}`}</Status.dano>
     <Status.vida hidden={semvida == true}>{`${vida}`}</Status.vida>
     </Status>
-  </Card>)
+    {/*<FancyButton ref={Ref} onClick={() => {fala()}}>Click me!</FancyButton>*/}
+  </Card>
+  
+  
+  
+  )
     
 }
