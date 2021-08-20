@@ -27,7 +27,7 @@ font-weight: 600;
     
     /*top: 25px;*/
 }
-.custoM2{
+.custoE{
     color: black;
     position: absolute;
     text-align:center;
@@ -36,7 +36,7 @@ font-weight: 600;
     top: 6px;
     
 };
-.custoE{
+.custoM2{
     color: black;
     position: absolute;
     text-align:center;

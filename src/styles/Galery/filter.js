@@ -11,9 +11,10 @@ bottom: -3vh;
 select{
 font-size: 2vh;
 border-radius: 8px;
-margin: 0 5px;
+margin: 0 0.35vw;
 width: 6vw;
-height: 40px;
+height: 5.5vh;
+
 };
 
 `;

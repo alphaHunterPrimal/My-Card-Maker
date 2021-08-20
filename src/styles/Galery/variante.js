@@ -7,13 +7,13 @@ const DiVariante = styled.div`
     height: 80px;
     left: 85vw;
     top: 2vh;
-    font-size: 2.5vh;
+    font-size: 1.4vw;//2.5vh
 
     .Gvariante{
     display: flex;
     justify-content:space-around;
-    width: 100px;
-    height: 70px;
+    width: 7.3vw;//100px
+    height: 9.625vh;//70px
 } 
 `;
 export default DiVariante;

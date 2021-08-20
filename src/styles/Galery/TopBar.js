@@ -13,12 +13,14 @@ justify-content: flex-end;
  font-size: 2vh;
  position: absolute;
  border-radius: 8px;
- width: 80px;
- height: 40px;
+ width: 6vw;//80px;
+ height: 5.5vh;//40px
 background-color: white;
 justify-items: center;
 left: 3vw;
 top: 22vh;  
+
 }
+
 `;
 export default TopBar

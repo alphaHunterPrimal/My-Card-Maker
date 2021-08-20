@@ -5,7 +5,6 @@ import html2canvas from "html2canvas";
 import Maker from "../styles/CardMaker/Maker";
 import {useRouter} from 'next/router';
 import Input from "../styles/CardMaker/Input"
-import {useAuth} from "../contexts/AuthContext"
 export function MAKER(){
   //const { user, signInWithGoogle } = useAuth()
     var allKeywords = "";
@@ -17,7 +16,8 @@ var {
   displaivar,
   semCC ,
   semdano ,
-    tudo, 
+    tudo,
+    reset, 
     digits,
     digitsEffect,
     fontsize,
@@ -85,6 +85,9 @@ const tiposDeCartas = ["Queen", "Biome", "Creature", "Spell", "Trap", "Terrain",
 const setasDeMov = ["Arrow1", "Arrow2", "Arrow3"]
 
 useEffect(() => {tudo()} , [BG, energia, digitsEffect, digits, semcusto])
+useEffect(()=>{
+reset()
+}, [BG])
 /*
 async function login(){
   if (!user) {
@@ -99,13 +102,11 @@ async function login(){
         }}>
           <div className={SELECTS}>
           <p>Tipo de carta</p>
-          {/*<label for="tipo">Tipo de carta</label>*/}
+          
           <p hidden={semcusto == true}> Variante</p>
-          {/*<label for="variante" hidden={semcusto == true}> Variante </label> */}
           <select id="tipo" className="tipo" onChange = {(dados) => {
             setBG(dados.target.value)
-            /*var cardType = document.getElementById("tipo").value;
-            Bgatual = "Bg." + cardType;*/
+
             console.log(BGATUAL)
           }}>
           {tiposDeCartas.map((x)=>(
@@ -125,25 +126,25 @@ async function login(){
 
           
           <p hidden={semcusto == true || sorc_anormal == true }>CustoM</p>
-          {/*<label for="custoM" hidden={semcusto == true || sorc_anormal == true }>CustoM</label>*/}
+          
           <Input id="custoM" hidden={semcusto == true|| sorc_anormal == true} name="custoM" type="number" min="0" onChange={(dados) =>{setCustoM(dados.target.value)}} value={custoM}/>
 
           {// escolher o custo em energia 
           }
           <p hidden={energia == "false"}>CustoE</p>
-          {/*<label for="custoE" hidden={energia == "false"}>CustoE</label>*/}
+        
           <Input id="custoE" hidden={energia == "false"} name="custoE" type="number" min="0" onChange={(dados) =>{setCustoE(dados.target.value)}} value={custoE}/>
            
           <p hidden={semCC == true}>Ganho</p>
-          {/*<label for="ganho" hidden={semCC == true}>Ganho</label>*/}
+    
           <Input id="ganho" name="ganho" hidden={semCC == true} type="number" min="0" onChange={(dados) =>{setGanho(dados.target.value)}} value={ganho}/>
 
           <p>Nome</p>
-          {/*<label for="nome">Nome</label>*/}
+         
           <Input id="nome" name="nome" onChange={(dados) =>{setNome(dados.target.value)}} value={nome}/>
 
           <p hidden={!(BG == "Creature"|| BG == "CreatureE")}>Movimentacão</p>
-          {/*<label for="mov" hidden={!(BG == "Creature"|| BG == "CreatureE")}>Movimentacão</label>*/}
+      
           <Input id="mov" hidden={!(BG == "Creature"|| BG == "CreatureE")} name="mov" type="number" min="1" onChange={(dados) =>{setMov(dados.target.value)}} value={mov}/>
           <select hidden={!(BG == "Creature"|| BG == "CreatureE")} onChange = {(dados) => {setMV(dados.target.value)}}>
           {setasDeMov.map((x)=>(
@@ -155,7 +156,7 @@ async function login(){
           <Input id="image" name="image" onChange={(dados) =>{setImage(dados.target.value)}} value={image}/>
 
           <p>Descricão</p>
-          {/*<label for="descricão">Descricão</label>*/}
+     
           <Input id="descricão" name="descricão" onChange={(dados) =>{setDesc(dados.target.value)}} value={desc}/>
           
           <p>Efeitos</p>
@@ -236,13 +237,9 @@ async function login(){
         <div className="final" >
         <Input id="carta" name="carta" className="carta" style={{display: `${displai}`}} onChange={(dados) =>{setCarta(dados.target.value)}} value={carta}/>
         <button className="enviar" style={{display: `${displai}`}}
-            //onClick={() => {console.log("oi")}
-              /*async function login(){
-                if (!user) {
-                  await signInWithGoogle()
-                }
-                setTimeout(()=>{router.push('/galeria')}, 3000)//login()//async ()=>{
-              /*
+            onClick={(e) => { 
+              e.preventDefault()
+              //setTimeout(()=>{router.push('/galeria')}, 3000)
               var ambos = desc.split(" - ")
             
               var SETS = ambos[1]
@@ -262,10 +259,38 @@ async function login(){
              });
              console.log(allKeywords)
              console.log(allKeywords.split(" "))
-             }
+             
 
-       }    
-}*/>Enviar</button>
+
+             
+             var galeries = {
+               typo: BG, 
+               keywords: allKeywords, 
+               sets: SETS, 
+               arctype: ARCTYPES, 
+               card: carta, 
+               custom: custoM, 
+               custoe: custoE, 
+               ganho: ganho, 
+               mov: mov, 
+               direc: MV, 
+               dano: dano, 
+               vida: vida
+             }
+             fetch('/api/galeries', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(galeries)
+            })
+            .then(async (response) => {
+              const dados = await response.json();
+              console.log(dados.registroCriado);
+            })
+            }
+          }
+>Enviar</button>
         </div>
 
       </Maker>

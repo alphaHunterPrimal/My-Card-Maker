@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {useRouter} from 'next/router'
 import Head from 'next/head';
 import $, { ready } from "jquery";
@@ -10,15 +10,29 @@ import TopBar from '../src/styles/Galery/TopBar';
 import Coment from '../src/styles/Galery/coment';
 import GaleryCards from '../src/styles/Galery/GaleryCards';
 import DiVariante from '../src/styles/Galery/variante';
-import DB, { filter } from '../db';
+//import DB, { filter } from '../db';
 
- var KEY = [
-    'Destruir',
-    'Obliterar',
-    'Temporaria',
-    'Aterrar'];
+
 //var key = []
-export default function Galeria(){
+export default function Galeria(props){
+    /*const [procura, setProcura] = React.useState('');
+    var allKeywords = "";*/
+    var KEY = [ 
+        'Destruir',
+        'Obliterar',
+        'Temporaria',
+        'Aterrar', 
+        "Nascer",
+        "Morrer",
+        "Invocar",
+        "Voar",
+         "Comprar",
+        "Manutenção",
+        "Rush", 
+        "Starter",
+       "Quest",
+       "Menace"];
+
     const router = useRouter();
     const tiposDeCartas = ["Queen", "Creature", "Spell", "Trap", "Terrain", "Construction"];
     const Sets = ["", "firelizards"];
@@ -27,7 +41,7 @@ export default function Galeria(){
     const Ganho = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
     const CustoE = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
     const Mov = [ "1", "2", "3", "4", "5"];
-    
+    const Direcoes = ["Arrow1", "Arrow2", "Arrow3"]
     const Vida = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
     const Dano = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
     const [type, setType] = React.useState('');
@@ -39,9 +53,10 @@ export default function Galeria(){
     const [GE, setGE] = React.useState("false");
     const [ganho, setGanho] = React.useState('');
     const [mov, setMov] = React.useState('');
+    const [direc, setDirec] = React.useState('');
     const [dano, setDano] = React.useState('');
     const [vida, setVida] = React.useState('');
-    const [NEWDB, setNEWDB] = React.useState(DB);
+    const [NEWDB, setNEWDB] = React.useState(props.DB);
     const [kei, setKei] = React.useState("");
     //const [indice, setIndice] = React.useState("1");
     var DpC;
@@ -49,15 +64,14 @@ export default function Galeria(){
     var DpMov;
     var DpDn;
     var DpVida;
-
+    var DpDirec;
     const [teixto, setTeixto] = React.useState("") 
-
-
 
     if(type == "Queen"){
         DpC = 'none'
         DpG = "none"
         DpMov = "none"
+        DpDirec = "none"
         DpDn = "inline"
         DpVida = "inline"
     };
@@ -65,6 +79,7 @@ export default function Galeria(){
         DpC = "inline"
         DpG = "inline"
         DpMov = "inline"
+        DpDirec = "inline"
         DpDn = "inline"
         DpVida = "inline"
     };
@@ -72,6 +87,7 @@ export default function Galeria(){
         DpC = "inline"
         DpG = "none"
         DpMov = "none"
+        DpDirec = "none"
         DpDn = "none"
         DpVida = "none"
     };
@@ -80,6 +96,7 @@ export default function Galeria(){
         DpC = "inline"
         DpG = "inline"
         DpMov = "none"
+        DpDirec = "none"
         DpDn = "inline"
         DpVida = "inline"
     }
@@ -120,22 +137,48 @@ export default function Galeria(){
         <span hidden={(GE == "false")}>CustoE</span>
         <span style={{display: `${DpG}`}}>Ganho</span>
         <span style={{display: `${DpMov}`}}>Mov</span>
+        <span style={{display: `${DpDirec}`}}>Direc</span>
         <span style={{display: `${DpDn}`}}>Dano</span>
         <span style={{display: `${DpVida}`}}>Vida</span>
         </Coment>
-        <Filters>
+        <Filters onSubmit={function(e){e.preventDefault()}}>
         
         <select id="tipos" onChange={(dados) => {setType(dados.target.value)}}>
             {tiposDeCartas.map((x)=>(
              <option value={x}>{x} </option>
          ))}
          </select>
-         <select id="Gkei" size="5" onChange={(dados) =>{setKei(dados.target.value)
+
+{ 
+    /*
+  <Input onChange={(dados) =>{setProcura(dados.target.value)
+                      $.each(KEY, function(key, link) {
+                    if(procura.split(" ").includes(link) && !allKeywords.split(" ").includes(link)){
+                      if(allKeywords == "") {allKeywords = link} else {
+                        allKeywords = allKeywords + " " + link
+                      }
+                    }
+                 });
+                 console.log(procura)}
+                 
+} value={procura}></Input> {  
+    */
+}
+
+
+
+
+
+
+            
+            <select id="Gkei"  onChange={(dados) =>{setKei(dados.target.value)
              console.log(dados.target.value)}}>
             {KEY.map((x)=>(
              <option value={x}>{x} </option>
          ))}
-            </select>
+            </select> 
+                
+            
 
             <select id="sets" onChange={(dados) => {setSets(dados.target.value)}}>
             {Sets.map((x)=>(
@@ -147,32 +190,37 @@ export default function Galeria(){
              <option value={x}>{x} </option>
          ))}
             </select>
-            <select id="GcustoM" size="5" style={{display: `${DpC}`}} onChange={(dados) =>{setCustoM(dados.target.value)}}>
+            <select id="GcustoM"  style={{display: `${DpC}`}} onChange={(dados) =>{setCustoM(dados.target.value)}}>
             {CustoM.map((x)=>(
              <option value={x}>{x} </option>
          ))}
             </select>
-            <select id="GcustoE" size="5" hidden={(GE == "false")} onChange={(dados) =>{setCustoE(dados.target.value)}}>
+            <select id="GcustoE" hidden={(GE == "false")} onChange={(dados) =>{setCustoE(dados.target.value)}}>
             {CustoE.map((x)=>(
              <option value={x}>{x} </option>
          ))}
             </select>
-            <select id="Gganho" size="4" style={{display: `${DpG}`}} onChange={(dados) =>{setGanho(dados.target.value)}}>
+            <select id="Gganho"  style={{display: `${DpG}`}} onChange={(dados) =>{setGanho(dados.target.value)}}>
             {Ganho.map((x)=>(
              <option value={x}>{x} </option>
          ))}
             </select>
-            <select id="Gmov"  size="3" style={{display: `${DpMov}`}} onChange={(dados) =>{setMov(dados.target.value)}}>
+            <select id="Gmov"   style={{display: `${DpMov}`}} onChange={(dados) =>{setMov(dados.target.value)}}>
             {Mov.map((x)=>(
              <option value={x}>{x} </option>
          ))}
             </select>
-            <select id="Gdano" size="5" style={{display: `${DpDn}`}} onChange={(dados) =>{setDano(dados.target.value)}}>
+            <select id="Gdirec"  style={{display: `${DpDirec}`}} onChange={(dados) =>{setDirec(dados.target.value)}}>
+            {Direcoes.map((x)=>(
+             <option value={x}>{x} </option>
+         ))}
+            </select>
+            <select id="Gdano"  style={{display: `${DpDn}`}} onChange={(dados) =>{setDano(dados.target.value)}}>
             {Dano.map((x)=>(
              <option value={x}>{x} </option>
          ))}
             </select>
-            <select id="Gvida" size="5" style={{display: `${DpVida}`}} onChange={(dados) =>{setVida(dados.target.value)}}>
+            <select id="Gvida"  style={{display: `${DpVida}`}} onChange={(dados) =>{setVida(dados.target.value)}}>
             {Vida.map((x)=>(
              <option value={x}>{x} </option>
          ))}
@@ -180,19 +228,21 @@ export default function Galeria(){
 
         </Filters>
         <button className="submitar" onClick={async () => {
-            setNEWDB(DB);
-            if(type != ""){setNEWDB(NEWDB.filter((x) => (x.type == type )))}
+            setNEWDB(props.DB)
+            console.log(NEWDB)
+            if(type != ""){setNEWDB(NEWDB.filter((x) => (x.typo == type )))}
             if(sets != ""){setNEWDB(NEWDB.filter((x) => (x.sets == sets )))}
             if(arctype != ""){setNEWDB(NEWDB.filter((x) => (x.arctype == arctype )))}
-            if(custoM != ""){setNEWDB(NEWDB.filter((x) => (x.custoM == custoM )))}
-            if(custoE != ""){setNEWDB(NEWDB.filter((x) => (x.custoE == custoE )))}
+            if(custoM != ""){setNEWDB(NEWDB.filter((x) => (x.custom == custoM )))}
+            if(custoE != ""){setNEWDB(NEWDB.filter((x) => (x.custoe == custoE )))}
             if(ganho != ""){setNEWDB(NEWDB.filter((x) => (x.ganho == ganho )))}
-            if(mov != ""){setNEWDB(NEWDB.filter((x) => (x.mov == type )))}
+            if(mov != ""){setNEWDB(NEWDB.filter((x) => (x.mov == mov )))}
+            if(direc != ""){setNEWDB(NEWDB.filter((x) => (x.direc == direc )))}
             if(vida != ""){setNEWDB(NEWDB.filter((x) => (x.vida == vida )))}
             if(dano != ""){setNEWDB(NEWDB.filter((x) => (x.dano == dano )))}
-            if(kei != ""){setNEWDB(NEWDB.filter((x) => (x.KEYWORDS.split(" ").includes(kei))))}
+            if(kei != ""){setNEWDB(NEWDB.filter((x) => (x.keywords.split(" ").includes(kei))))}
             
-            console.log(NEWDB)
+            
         
             setType("")
             setSets("")
@@ -200,14 +250,15 @@ export default function Galeria(){
             setCustoM("")
             setGanho("")
             setMov("")
+            setDirec("")
             setVida("")
             setDano("")
             //indice = 1
             setKei("")
             
            
-            
-        }}>Filtrar</button>
+              }     
+        }>Filtrar</button>
         </TopBar>
         <GaleryCards>
         {NEWDB.map((x)=>(
@@ -218,4 +269,41 @@ export default function Galeria(){
         </>
 
     )
+}
+export async function getServerSideProps(ctx){
+    const resposta = await fetch('https://graphql.datocms.com/', {
+        method: 'POST',
+        headers: {
+          'Authorization': '4743c2042e55f3385c756ec8477396',
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({ "query": `query {
+          allGaleries {
+            typo 
+            keywords
+            sets 
+            arctype
+            card 
+            custom
+            custoe
+            ganho
+            mov 
+            direc 
+            dano 
+            vida
+          }
+        }` })
+      })
+    const db = await resposta.json()
+    const DB = db.data.allGaleries
+    //console.log(db)
+    console.log(DB)
+
+
+    return {
+        props: {
+            DB,
+        }
+    }
 }

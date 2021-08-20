@@ -1,5 +1,5 @@
 //importando o sqlite
-const Database = require("sqlite-async")
+//const Database = require("sqlite-async")
 //criando as identificacões string
 function execute(db){
     return db.exec(`

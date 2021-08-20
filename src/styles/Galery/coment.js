@@ -6,8 +6,8 @@ display: flex;
 justify-content: center;
 
 span{
-    font-size: 2.5vh;
-    margin: 0 5px;
+    font-size: 1.5vw; //2.5vh
+    margin: 0 0.35vw;
     width: 6vw;
     text-align: center;
 }

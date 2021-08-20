@@ -9,6 +9,7 @@ type InitialContextType = {
   semCC: boolean, setSemCC: React.Dispatch<React.SetStateAction<boolean>>,
   semdano: boolean, setSemdano: React.Dispatch<React.SetStateAction<boolean>>,
   tudo: () => void,
+  reset: () => void,
   digits: number, 
   digitsEffect: number,
   fontsize: number, setFontsize: React.Dispatch<React.SetStateAction<number>>,
@@ -109,7 +110,54 @@ export const InitialContextProvider = (props: InitialContextProviderProps) => {
     const [semdano,setSemdano] = useState<boolean>(false);
     const [semvida,setSemvida] = useState<boolean>(false);
     const [displaivar,setDisplaivar] = useState<string>("");
-
+    function reset(){
+      if(BG == "Queen"){
+setCustoM("")
+setCustoE("")
+setGanho("")
+setMov("")
+setMV("")
+setDano("0")
+setVida("0")
+      }
+      if(BG == "Biome"){
+setCustoM("")
+setCustoE("")
+setGanho("")
+setMov("")
+setMV("")
+setDano("")
+setVida("")
+      }
+      if(BG == "Creature" || BG == "CreatureE"){
+setCustoM("0")
+setCustoE("0")
+setGanho("0")
+setMov("1")
+setMV("arrow1")
+setDano("0")
+setVida("0")
+      }
+      
+      if(BG == "Spell"||BG == "SpellE"||BG == "Trap"||BG == "TrapE"||BG == "Terrain"||BG == "TerrainE"){
+setCustoM("0")
+setCustoE("0")
+setGanho("")
+setMov("")
+setMV("")
+setDano("")
+setVida("")
+      }
+      if(BG == "Construction" || BG == "ConstructionE"){
+setCustoM("0")
+setCustoE("0")
+setGanho("0")
+setMov("")
+setMV("")
+setDano("")
+setVida("0")
+      }
+    }
     function tudo(){
       
       if(energia == "true"){
@@ -256,7 +304,7 @@ export const InitialContextProvider = (props: InitialContextProviderProps) => {
         semdano , setSemdano ,
 
         tudo,
-
+        reset, 
         digits,
         digitsEffect,
 

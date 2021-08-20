@@ -4,17 +4,17 @@ const GaleryCards = styled.div`
 display: grid;
 
 width: calc(90vw + 60px);
-height: 75vh;
+//height: 75vh;
 z-index: 2;
 /*justify-content: flex-start;*/
 padding: 6vh calc(5vw - 30px);
-grid-template-columns: repeat(auto-fill, 18vw);
+grid-template-columns: repeat(auto-fill, 20vw);
 grid-column-gap: 0.7vw;
 grid-row-gap: 3vh;
 justify-content: center;
 img{
-    width: 15vw; //163 -> 0,704
-    height: 21.3vw;
+    width: 20vw; //163 -> 0,704
+    height: 28.4vw;
     justify-self: center;
     align-self: center;
 }
