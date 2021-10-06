@@ -62,6 +62,8 @@ var keywords = {
   ":Dest:" : 'Destruir',
   ":Obli:": 'Obliterar',
   ":Temp:": 'Temporaria',
+  ":Inst:" : "Instant",
+  ":Fas:": "Fast",
   ":Ate:": 'Aterrar', 
   ":Nas:": "Nascer",
   ":Mor:" : "Morrer",
@@ -72,7 +74,9 @@ var keywords = {
   ":Rus:" : "Rush", 
   ":Sta:" : "Starter",
  ":Que:": "Quest",
- ":Men:" : "Menace"};
+ ":Men:" : "Menace", 
+":Cel:" : "Celeridade", 
+":Prt:": "Pronto"};
 
 var keyimgs = {
  ":v:" : 'virar',

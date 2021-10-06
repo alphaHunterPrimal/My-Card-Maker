@@ -71,6 +71,10 @@ bottom: -7px;
 .Temporaria{
     color: blue;
 };
+.Fast{
+    color: #FFD700;
+    font-weight: 800;
+}
 .Aterrar{
     color: rgb(139,69,19);
 };
@@ -83,8 +87,8 @@ bottom: -7px;
 .Invocar{
     color: #00868B;
 };
-.Voar{
-    color: #FFFAFA;
+.Voar, .Instant, .Celeridade, .Pronto{
+    color: #00BFFF;
 };
 .Comprar{
     color: #00CED1;
