@@ -22,8 +22,9 @@ font-weight: 600;
     color: black;
     position: absolute;
     justify-self: center;
+    width: 10%;
     text-align: center;
-    left: 30px;
+    left: 17.5px;
     
     /*top: 25px;*/
 }

@@ -108,8 +108,7 @@ bottom: -7px;
 .Menace{
     color: #FF0000;
 }
-.virar, .time, .mineral, .quadrado{
-    
+.virar, .time, .mineral, .quadrado, .time, .alcance{
     width: 18.5px;
     height: 18.5px;
     ;};
@@ -117,9 +116,10 @@ bottom: -7px;
     width: 23.5px;
     height: 18.5px;
 }
-.time, .alcance{
-    width: 18.5px;
-    height: 18.5px;
-};
+.arrow1{
+    width: 20px;
+    height: 20px;
+}
+
 `;
 export default Main;

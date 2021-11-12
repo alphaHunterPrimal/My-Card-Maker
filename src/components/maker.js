@@ -5,6 +5,10 @@ import html2canvas from "html2canvas";
 import Maker from "../styles/CardMaker/Maker";
 import {useRouter} from 'next/router';
 import Input from "../styles/CardMaker/Input"
+
+
+import { upload64 } from '/My-Card-Maker/pages/api/s3'
+
 export function MAKER(){
   //const { user, signInWithGoogle } = useAuth()
     var allKeywords = "";
@@ -58,6 +62,7 @@ var {
     setDisplai,
 
 } = useInitial()
+
 var keywords = {
   ":Dest:" : 'Destruir',
   ":Obli:": 'Obliterar',
@@ -84,7 +89,10 @@ var keyimgs = {
  ":m:": "mineral", 
  ":q:": "quadrado", 
   ":r:": "resistencia", 
-":alc:" : "alcance"};
+":alc:" : "alcance",
+ ":a1:": "arrow1"};
+
+
 const tiposDeCartas = ["Queen", "Biome", "Creature", "Spell", "Trap", "Terrain", "Construction"];
 const setasDeMov = ["Arrow1", "Arrow2", "Arrow3"]
 
@@ -212,17 +220,24 @@ async function login(){
         <button 
            className="salvar"
            onClick={
+             
             async()=>{
+            // var Uerieli = "https://galery-card-images.s3.sa-east-1.amazonaws.com/" + nome +".jpg"
+            //  setBG(Uerieli)
+              
             await html2canvas(document.querySelector("#CARD")).then( async canvas => {
               //document.body.appendChild(canvas)
               var dload = document.querySelector("#download")
-              var image = canvas.toDataURL("image/png")//.replace("image/png", "image/octet-stream");
+              var image = await canvas.toDataURL("image/png") //.replace("image/png", "image/octet-stream");
               //Canvas2Image.saveAsPNG(canvas)
+              console.log(image)
+              upload64(image, nome)
+              
               dload.href = image;
               dload.download = `${nome}`
               dload.click()
                
-             // DB.push({type: `${BG}`, name: `${nome}`, custoM: `${custoM}`})        
+                   
               })   
             //router.push('/galeria')
             setDisplai("inline")
@@ -239,7 +254,7 @@ async function login(){
         </div>
         <a id="download"></a>
         <div className="final" >
-        <Input id="carta" name="carta" className="carta" style={{display: `${displai}`}} onChange={(dados) =>{setCarta(dados.target.value)}} value={carta}/>
+     {/* <Input id="carta" name="carta" className="carta" style={{display: `${displai}`}} onChange={(dados) =>{setCarta(dados.target.value)}} value={carta}/>*/}
         <button className="enviar" style={{display: `${displai}`}}
             onClick={(e) => { 
               e.preventDefault()
@@ -264,10 +279,11 @@ async function login(){
              console.log(allKeywords)
              console.log(allKeywords.split(" "))
              
-
-
+             var Uerieli = "https://galery-card-images.s3.sa-east-1.amazonaws.com/" + nome.split(" ").join("_") +".jpg"
+             setCarta(Uerieli)
              
              var galeries = {
+               name: nome,
                typo: BG, 
                keywords: allKeywords, 
                sets: SETS, 

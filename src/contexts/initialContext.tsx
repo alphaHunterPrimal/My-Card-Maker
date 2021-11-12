@@ -199,7 +199,7 @@ setVida("0")
       if(digitsEffect <= 120){
         setLine(19)
         setFontsize(19)
-      } else {if(digitsEffect > 120 && digitsEffect <= 180){
+      } else {if(digitsEffect > 180 && digitsEffect <= 190){
         setLine(17)
         setFontsize(16)
       } else {if(digitsEffect > 190 && digitsEffect <= 240){
