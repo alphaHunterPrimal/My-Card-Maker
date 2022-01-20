@@ -53,9 +53,9 @@ export function CARD(){
     
     <span className="ganho" hidden={semCC == true}>{`${ganho}`}</span>
     <span className={NOME}>{`${nome}`}</span>
-    <span className="mov" hidden={!(BG == "Creature" || BG == "CreatureE")} style={{ fontWeight: "600", fontFamily: "'Oi', cursive", fontSize: "20px" }}>{`${mov}`}</span>
+    <span className="mov" hidden={!(BG == "Criatura" || BG == "CriaturaE")} style={{ fontWeight: "600", fontFamily: "'Oi', cursive", fontSize: "20px" }}>{`${mov}`}</span>
     </Top>
-    <ImgMov src={`${MVATUAL}`} alt="MVatual" hidden={!(BG == "Creature" || BG == "CreatureE")}></ImgMov>
+    <ImgMov src={`${MVATUAL}`} alt="MVatual" hidden={!(BG == "Criatura" || BG == "CriaturaE")}></ImgMov>
     <Main>
     <img className={IMG} src={`${image}`} alt="image"></img>
     <p className="desc">{`${desc}`}</p>

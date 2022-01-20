@@ -10,43 +10,37 @@ import TopBar from '../src/styles/Galery/TopBar';
 import Coment from '../src/styles/Galery/coment';
 import GaleryCards from '../src/styles/Galery/GaleryCards';
 import DiVariante from '../src/styles/Galery/variante';
+import Divuser from '../src/styles/Galery/divuser';
+import Inputlog from '../src/styles/Login/Inputlog';
+import { useArray } from '../src/contexts/arrayContext';
 //import DB, { filter } from '../db';
 
 
 //var key = []
 export default function Galeria(props){
+    const router = useRouter();
     /*const [procura, setProcura] = React.useState('');
     var allKeywords = "";*/
-    var KEY = [ 
-        'Destruir',
-        'Obliterar',
-        'Temporaria',
-        'Aterrar', 
-        "Nascer",
-        "Morrer",
-        "Invocar",
-        "Voar",
-         "Comprar",
-        "Manutenção",
-        "Rush", 
-        "Starter",
-       "Quest",
-       "Menace"];
-
-    const router = useRouter();
-    const tiposDeCartas = ["Queen", "Creature", "Spell", "Trap", "Terrain", "Construction"];
-    const Sets = ["", "firelizards"];
-    const Arquétipo = ["", "mamals", "lizards", "constructo", "bio-constructo"];
-    const CustoM = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
-    const Ganho = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-    const CustoE = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-    const Mov = [ "1", "2", "3", "4", "5"];
-    const Direcoes = ["Arrow1", "Arrow2", "Arrow3"]
-    const Vida = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
-    const Dano = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
+    var {
+        Velocidade,
+        tiposDeCartas,
+        Sets,
+        Arquétipo,
+        ArquétipoEfeitos,
+        CustoM,
+        Ganho,
+        CustoE,
+        Mov,
+        Direcoes,
+        Vida,
+        Dano,
+        KEY,
+        KEI
+    } = useArray()
     const [type, setType] = React.useState('');
     const [sets, setSets] = React.useState('');
     const [arctype, setArctype] = React.useState('');
+    const [speed, setSpeed] = React.useState('');
     
     const [custoM, setCustoM] = React.useState('');
     const [custoE, setCustoE] = React.useState('');
@@ -61,45 +55,66 @@ export default function Galeria(props){
     //const [indice, setIndice] = React.useState("1");
     var DpC;
     var DpG;
+    var DpVelo;
     var DpMov;
     var DpDn;
     var DpVida;
     var DpDirec;
     const [teixto, setTeixto] = React.useState("") 
-
-    if(type == "Queen"){
+    
+    const[autor, setAutor] = React.useState("")
+    if(type == "Rainha"){
         DpC = 'none'
         DpG = "none"
+        DpVelo = "none"
         DpMov = "none"
         DpDirec = "none"
         DpDn = "inline"
         DpVida = "inline"
     };
-    if(type == "Creature"){
+    if(type == "Criatura"){
         DpC = "inline"
         DpG = "inline"
+        DpVelo = "none"
         DpMov = "inline"
         DpDirec = "inline"
         DpDn = "inline"
         DpVida = "inline"
     };
-    if(type == "Spell"||type == "Trap"||type == "Terrain"){
+    if(type == "Armadilha"||type == "Terreno"){
         DpC = "inline"
         DpG = "none"
+        DpVelo = "none"
         DpMov = "none"
         DpDirec = "none"
         DpDn = "none"
         DpVida = "none"
     };
+    if(type == "Efeito"){
+        DpC = "inline"
+        DpG = "none"
+        DpVelo = "inline"
+        DpMov = "none"
+        DpDirec = "none"
+        DpDn = "none"
+        DpVida = "none"
+    }
 
-    if(type == "Construction"){
+    if(type == "Construcao"){
         DpC = "inline"
         DpG = "inline"
+        DpVelo = "none"
         DpMov = "none"
         DpDirec = "none"
         DpDn = "inline"
         DpVida = "inline"
     }
+    useEffect(() => {setNEWDB(NEWDB.filter((x) => (x.author == "eulegosou" )));
+     console.log(
+        NEWDB.map((x)=>(
+            console.log(x.author)
+         ))
+    )} , [])
     
 
     return(
@@ -109,19 +124,22 @@ export default function Galeria(props){
         </Head>
 
         <TopBar>
+        <Divuser>
+            <Inputlog placeholder="Procure cartas pelo criador delas!" onChange={(dados) => {setAutor(dados.target.value)}} value={autor}></Inputlog>
+        </Divuser>   
         <DiVariante>
         <span>Variantes</span>  
         <form className="Gvariante">
-        <input name="onoff" type="radio" onClick={(dados) =>{
+        <input name="onoff" type="radio" checked onClick={(dados) =>{
               setGE(dados.target.value)
               console.log(GE)
             }} value={"false"}/>
-        <span>False</span>
+        <span>Off</span>
         <input name="onoff" type="radio" onClick={(dados) =>{
               setGE(dados.target.value)
               console.log(GE)
             }} value={"true"}/>
-        <span>True</span> 
+        <span>On</span> 
         </form>
         </DiVariante>
         <Voltar href="/"/*onClick={() => {router.push('/')}}*/>
@@ -129,12 +147,13 @@ export default function Galeria(props){
         </Voltar>
         <Coment >
         <span>Tipo</span> 
-        <span>Keywords</span> 
+        <span>Palavras Chave</span> 
         <span>Sets</span> 
-        <span>Arquétipo</span>  
+        <span style={{display: `${DpVelo}`}}>Rapidez</span> 
+        <span >Arquétipo</span>  
           
         <span style={{display: `${DpC}`}}>CustoM</span>
-        <span hidden={(GE == "false")}>CustoE</span>
+        <span hidden={(GE == "false" || type == "Rainha" || type == "Bioma")}>CustoE</span>
         <span style={{display: `${DpG}`}}>Ganho</span>
         <span style={{display: `${DpMov}`}}>Mov</span>
         <span style={{display: `${DpDirec}`}}>Direc</span>
@@ -143,7 +162,7 @@ export default function Galeria(props){
         </Coment>
         <Filters onSubmit={function(e){e.preventDefault()}}>
         
-        <select id="tipos" onChange={(dados) => {setType(dados.target.value)}}>
+        <select id="tipos" onClick={(dados) => {setType(dados.target.value)}}>
             {tiposDeCartas.map((x)=>(
              <option value={x}>{x} </option>
          ))}
@@ -165,11 +184,6 @@ export default function Galeria(props){
     */
 }
 
-
-
-
-
-
             
             <select id="Gkei"  onChange={(dados) =>{setKei(dados.target.value)
              console.log(dados.target.value)}}>
@@ -185,8 +199,20 @@ export default function Galeria(props){
              <option value={x}>{x} </option>
          ))}
             </select>
-            <select id="arquétipos" onChange={(dados) => {setArctype(dados.target.value)}}>
-            {Arquétipo.map((x)=>(
+
+            <select id="velocidades" onChange={(dados) => {setSpeed(dados.target.value)}}>
+            {Velocidade.map((x)=>(
+             <option value={x}>{x} </option>
+         ))}
+            </select>
+
+            <select id="arquétipos" style={{display: `${DpVelo}`}} onChange={(dados) => {setArctype(dados.target.value)}}>
+            {
+            type == "Efeito" ? ArquétipoEfeitos.map((x)=>(
+                <option value={x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c")}>{x} </option>
+            ))
+            :
+            Arquétipo.map((x)=>(
              <option value={x}>{x} </option>
          ))}
             </select>
@@ -195,7 +221,7 @@ export default function Galeria(props){
              <option value={x}>{x} </option>
          ))}
             </select>
-            <select id="GcustoE" hidden={(GE == "false")} onChange={(dados) =>{setCustoE(dados.target.value)}}>
+            <select id="GcustoE" hidden={(GE == "false" || type == "Rainha" || type == "Bioma")} onChange={(dados) =>{setCustoE(dados.target.value)}}>
             {CustoE.map((x)=>(
              <option value={x}>{x} </option>
          ))}
@@ -229,10 +255,12 @@ export default function Galeria(props){
         </Filters>
         <button className="submitar" onClick={async () => {
             setNEWDB(props.DB)
-            console.log(NEWDB)
+            console.log(NEWDB)         
             if(type != ""){setNEWDB(NEWDB.filter((x) => (x.typo == type )))}
+            if(autor != ""){setNEWDB(NEWDB.filter((x) => (x.author == autor )))}
             if(sets != ""){setNEWDB(NEWDB.filter((x) => (x.sets == sets )))}
             if(arctype != ""){setNEWDB(NEWDB.filter((x) => (x.arctype == arctype )))}
+            if(speed != ""){setNEWDB(NEWDB.filter((x) => (x.velocidade == speed )))}
             if(custoM != ""){setNEWDB(NEWDB.filter((x) => (x.custom == custoM )))}
             if(custoE != ""){setNEWDB(NEWDB.filter((x) => (x.custoe == custoE )))}
             if(ganho != ""){setNEWDB(NEWDB.filter((x) => (x.ganho == ganho )))}
@@ -245,8 +273,10 @@ export default function Galeria(props){
             
         
             setType("")
+            setAutor("")
             setSets("")
             setArctype("")
+            setSpeed("")
             setCustoM("")
             setGanho("")
             setMov("")
@@ -255,13 +285,18 @@ export default function Galeria(props){
             setDano("")
             //indice = 1
             setKei("")
-            
+
+            //$('#tipos').val("")
            
               }     
         }>Filtrar</button>
         </TopBar>
         <GaleryCards>
-        {NEWDB.map((x)=>(
+        {NEWDB.sort(function(a,b) {
+    if(a.name < b.name) return -1;
+    if(a.name > b.name) return 1;
+    return 0;
+}).map((x)=>(
             <img src={x.card}/>
          ))}
         </GaleryCards>
@@ -280,14 +315,17 @@ export async function getServerSideProps(ctx){
         },
         body: JSON.stringify({ "query": `query {
           allGaleries {
+            name
+            author
             typo 
             keywords
             sets 
-            arctype
+            velocidade
+            arctype 
             card 
             custom
-            custoe
-            ganho
+            custoe 
+            ganho 
             mov 
             direc 
             dano 

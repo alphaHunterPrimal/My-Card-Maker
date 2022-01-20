@@ -1,13 +1,18 @@
+
 import React, { createContext, useState, useContext, ReactNode, useEffect } from "react";
 
 
 type InitialContextType = {
+inicial: boolean, setInicial:React.Dispatch<React.SetStateAction<boolean>>,
+fonte: boolean, setFonte:React.Dispatch<React.SetStateAction<boolean>>,
+
   sorc_anormal: boolean, setSorc_anormal: React.Dispatch<React.SetStateAction<boolean>>,
   semvida: boolean, setSemvida: React.Dispatch<React.SetStateAction<boolean>>,
   semcusto: boolean, setSemcusto: React.Dispatch<React.SetStateAction<boolean>>,
   displaivar: string, setDisplaivar: React.Dispatch<React.SetStateAction<string>>,
   semCC: boolean, setSemCC: React.Dispatch<React.SetStateAction<boolean>>,
   semdano: boolean, setSemdano: React.Dispatch<React.SetStateAction<boolean>>,
+  
   tudo: () => void,
   reset: () => void,
   digits: number, 
@@ -55,8 +60,8 @@ type InitialContextType = {
   displai: string,
   setDisplai: React.Dispatch<React.SetStateAction<string>>,
 
-  tiposDeCartas: string[], 
-  setasDeMov: string[], 
+  //tiposDeCartas: string[], 
+  //setasDeMov: string[], 
   /*keywords: {}, 
   keyimgs: {}*/
 }
@@ -66,10 +71,12 @@ type InitialContextProviderProps = {
 export const InitialContext = createContext({} as InitialContextType);
 
 export const InitialContextProvider = (props: InitialContextProviderProps) => {
-    
+   const [inicial, setInicial] = React.useState<boolean>(false);
+
+
     const [custoM, setCustoM] = React.useState<string>('0');
     const [custoE, setCustoE] = React.useState<string>('0');
-
+   
     const [ganho, setGanho] = React.useState<string>('0');
     
     const [nome, setNome] = React.useState<string>('');
@@ -79,15 +86,13 @@ export const InitialContextProvider = (props: InitialContextProviderProps) => {
     const [effect, setEffect] = React.useState<string>('');
     const [dano, setDano] = React.useState<string>('0');
     const [vida, setVida] = React.useState<string>('0');
-    const [BG, setBG] = React.useState('Queen');
+    const [BG, setBG] = React.useState('Rainha');
     var BGATUAL = "/" + BG + ".png";
-    const [MV, setMV] = React.useState<string>('arrow1');
+    const [MV, setMV] = React.useState<string>("Seta1");
     var MVATUAL = "/" + MV + ".png";
   
     const [carta, setCarta] = React.useState('');
     const [displai, setDisplai] = React.useState("none")
-    const tiposDeCartas = ["Queen", "Biome", "Creature", "Spell", "Trap", "Terrain", "Construction"];
-    const setasDeMov = ["Arrow1", "Arrow2", "Arrow3"]
     const [fontsize, setFontsize] = useState<number>(0)
     const [line, setLine] = useState<number>(0)
     const [NOME, setNOME] = useState<string>("")
@@ -110,8 +115,10 @@ export const InitialContextProvider = (props: InitialContextProviderProps) => {
     const [semdano,setSemdano] = useState<boolean>(false);
     const [semvida,setSemvida] = useState<boolean>(false);
     const [displaivar,setDisplaivar] = useState<string>("");
+
+    const [fonte, setFonte] = useState<boolean>(false);
     function reset(){
-      if(BG == "Queen"){
+      if(BG == "Rainha"){
 setCustoM("")
 setCustoE("")
 setGanho("")
@@ -120,7 +127,7 @@ setMV("")
 setDano("0")
 setVida("0")
       }
-      if(BG == "Biome"){
+      if(BG == "Bioma"){
 setCustoM("")
 setCustoE("")
 setGanho("")
@@ -129,17 +136,17 @@ setMV("")
 setDano("")
 setVida("")
       }
-      if(BG == "Creature" || BG == "CreatureE"){
+      if(BG == "Criatura" || BG == "CriaturaE"){
 setCustoM("0")
 setCustoE("0")
 setGanho("0")
 setMov("1")
-setMV("arrow1")
+setMV("Seta1")
 setDano("0")
 setVida("0")
       }
       
-      if(BG == "Spell"||BG == "SpellE"||BG == "Trap"||BG == "TrapE"||BG == "Terrain"||BG == "TerrainE"){
+      if(BG == "Efeito"||BG == "EfeitoE"||BG == "Armadilha"||BG == "ArmadilhaE"||BG == "Terreno"||BG == "TerrenoE"){
 setCustoM("0")
 setCustoE("0")
 setGanho("")
@@ -148,7 +155,7 @@ setMV("")
 setDano("")
 setVida("")
       }
-      if(BG == "Construction" || BG == "ConstructionE"){
+      if(BG == "Construcao" || BG == "ConstrucaoE"){
 setCustoM("0")
 setCustoE("0")
 setGanho("0")
@@ -161,51 +168,52 @@ setVida("0")
     function tudo(){
       
       if(energia == "true"){
-          if (BG == "Creature") {
-            setBG("CreatureE")
+          if (BG == "Criatura") {
+            setBG("CriaturaE")
           }
-          if(BG == "Spell") {
-            setBG("SpellE")
+          if(BG == "Efeito") {
+            setBG("EfeitoE")
           }
-          if(BG == "Trap") {
-            setBG("TrapE")
+          if(BG == "Armadilha") {
+            setBG("ArmadilhaE")
           }
-          if(BG == "Construction") {
-            setBG("ConstructionE")
+          if(BG == "Construcao") {
+            setBG("ConstrucaoE")
           }
-          if(BG == "Terrain") {
-            setBG("TerrainE")
+          if(BG == "Terreno") {
+            setBG("TerrenoE")
           }
         } else {
           if(energia == "false"){
-           if (BG == "CreatureE") {
-             setBG("Creature")
+           if (BG == "CriaturaE") {
+             setBG("Criatura")
            }
-           if(BG == "SpellE") {
-             setBG("Spell")
+           if(BG == "EfeitoE") {
+             setBG("Efeito")
            }
-           if(BG == "TrapE") {
-             setBG("Trap")
+           if(BG == "ArmadilhaE") {
+             setBG("Armadilha")
            }
-           if(BG == "ConstructionE" ) {
-             setBG("Construction")
+           if(BG == "ConstrucaoE" ) {
+             setBG("Construcao")
            }
-           if(BG == "TerrainE" ) {
-             setBG("Terrain")
+           if(BG == "TerrenoE" ) {
+             setBG("Terreno")
            }
         }
         }
-        
+
+      /*  
       if(digitsEffect <= 120){
         setLine(19)
         setFontsize(19)
-      } else {if(digitsEffect > 180 && digitsEffect <= 190){
+      } else {if(digitsEffect > 180 && digitsEffect <= 240){
         setLine(17)
         setFontsize(16)
-      } else {if(digitsEffect > 190 && digitsEffect <= 240){
+      } else {if(digitsEffect > 240 && digitsEffect <= 300){
         setLine(16)
         setFontsize(15)
-      } else {if(digitsEffect > 240 && digitsEffect <= 300){
+      } else {if(digitsEffect > 300 && digitsEffect <= 350){
         setLine(15)
         setFontsize(15)
       }
@@ -213,56 +221,56 @@ setVida("0")
         setLine(13)
         setFontsize(13)
       }}}
-    }}
+    }}*/
     
-      if(BG == "Spell"||BG == "Trap"||BG == "Terrain"||BG == "Biome"){
+      if(BG == "Efeito"||BG == "Armadilha"||BG == "Terreno"||BG == "Bioma"){
         setEFFECT("effectTrue")
       } else { setEFFECT("effect")};
     
     
-      if(BG == "Queen"||BG == "Biome"){
-        setIMG("imgQueen")
+      if(BG == "Rainha"||BG == "Bioma"){
+        setIMG("imgRainha")
       } else {setIMG("img1")};
     
     
-      if(BG == "Spell"||BG == "Trap"||BG == "Terrain") {
+      if(BG == "Efeito"||BG == "Armadilha"||BG == "Terreno") {
         setCUSTO("custoCentral")
       } else {setCUSTO("custoM1")}
     
-      if(BG == "SpellE"||BG == "TrapE"||BG == "TerrainE"){
+      if(BG == "EfeitoE"||BG == "ArmadilhaE"||BG == "TerrenoE"){
          setSorc_anormal(true)
         setCUSTOE("custoCentral")
-      } else {if(BG == "Spell"||BG == "Trap"||BG == "Terrain"){
+      } else {if(BG == "Efeito"||BG == "Armadilha"||BG == "Terreno"){
         setSorc_anormal(false);
       }}
     
-      if(BG == "CreatureE" || BG == "ConstructionE"){
+      if(BG == "CriaturaE" || BG == "ConstrucaoE"){
         setSorc_anormal(false)
         setCUSTO("custoM2")
         setCUSTOE("custoE")
       }
     
     
-      if (BG == "Queen" && digits <= 25 || BG == "Biome" && digits <= 25){
-        setNOME("nomeQueen")
+      if (BG == "Rainha" && digits <= 25 || BG == "Bioma" && digits <= 25){
+        setNOME("nomeRainha")
       } else{
-        if (BG == "Queen" && digits > 25 || BG == "Biome" && digits > 25){
-          setNOME("nomeQueen2")
-        } else{    if (digits < 25) {
+        if (BG == "Rainha" && digits > 25 || BG == "Bioma" && digits > 25){
+          setNOME("nomeRainha2")
+        } else{    if (digits < 30) {
           setNOME("nome1")
         };
-          if (digits >= 25){
+          if (digits >= 30){
           setNOME("nome2")
         }}
     };
 
     
     
-      if(BG == "Construction"){
+      if(BG == "Construcao"){
         setStatusDescy("statusConstruct")
         setStatusMy("statusMconstruct")
       } else 
-      { if(BG == "ConstructionE"){
+      { if(BG == "ConstrucaoE"){
         setStatusDescy("statusConstruct")
       } else {
          setStatusDescy("statusDesc")
@@ -274,28 +282,32 @@ setVida("0")
     } else {
       setSELECTS("selects2")
     }
-    if(BG == "Spell"||BG == "SpellE"||BG == "Trap"||BG == "TrapE"||BG == "Terrain"||BG == "TerrainE"||BG == "Biome"){
+    if(BG == "Efeito"||BG == "EfeitoE"||BG == "Armadilha"||BG == "ArmadilhaE"||BG == "Terreno"||BG == "TerrenoE"||BG == "Bioma"){
        setSemvida(true)
     } else {setSemvida(false)}
     
-    if(BG == "Queen" ||BG == "Biome"){
+    if(BG == "Rainha" ||BG == "Bioma"){
       setSemcusto(true)
       setDisplaivar("none")
     } else {
       setSemcusto(false)
      setDisplaivar("block")}
     
-    if(!(BG == "Creature" ||BG == "Construction" || BG == "CreatureE" ||BG == "ConstructionE")){
+    if(!(BG == "Criatura" ||BG == "Construcao" || BG == "CriaturaE" ||BG == "ConstrucaoE")){
        setSemCC(true)
     } else { setSemCC(false)}
     
-    if(!(BG == "Creature" ||BG == "CreatureE" || BG == "Queen")){
+    if(!(BG == "Criatura" ||BG == "CriaturaE" || BG == "Rainha")){
        setSemdano(true)
     } else {setSemdano(false)}
 
     }
   return(
       <InitialContext.Provider value={{
+
+
+        fonte, setFonte,
+        inicial, setInicial,
         sorc_anormal , setSorc_anormal ,
         semvida , setSemvida ,
         semcusto , setSemcusto ,
@@ -303,6 +315,7 @@ setVida("0")
         semCC , setSemCC ,
         semdano , setSemdano ,
 
+        
         tudo,
         reset, 
         digits,
@@ -352,8 +365,8 @@ setVida("0")
         setCarta, 
         displai,
         setDisplai,
-        tiposDeCartas, 
-        setasDeMov, 
+       // tiposDeCartas, 
+       //setasDeMov, 
         /*keywords, 
         keyimgs,*/
         
