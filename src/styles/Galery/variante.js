@@ -8,8 +8,11 @@ const DiVariante = styled.div`
     left: 85vw;
     top: 2vh;
     font-size: 1.4vw;//2.5vh
-
+    input{
+        cursor: pointer;
+    }
     .Gvariante{
+        
     display: flex;
     justify-content:space-around;
     width: 7.3vw;//100px

@@ -76,7 +76,7 @@ font-weight: 600;
     justify-self: center;
     left: 70px;
 };
-.nomeQueen{
+.nomeRainha{
     font-weight: 800;
     color: black;
     position: absolute;
@@ -87,7 +87,7 @@ font-weight: 600;
     white-space: nowrap;
     left: 10px;
 };
-.nomeQueen2{
+.nomeRainha2{
     font-weight: 800;
     color: Black;
     position: absolute;

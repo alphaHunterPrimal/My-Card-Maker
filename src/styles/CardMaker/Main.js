@@ -16,7 +16,7 @@ bottom: -9px;
 
 };
 
-.imgQueen{
+.imgRainha{
 z-index: 5;
 width: 308px;
 height: 178px;
@@ -62,6 +62,7 @@ bottom: -7px;
     font-size: 6px;
 };
 
+
 .Destruir{
     color: red;
 };
@@ -71,7 +72,7 @@ bottom: -7px;
 .Temporaria{
     color: blue;
 };
-.Fast{
+.Rápido{
     color: #FFD700;
     font-weight: 800;
 }
@@ -87,7 +88,7 @@ bottom: -7px;
 .Invocar{
     color: #00868B;
 };
-.Voar, .Instant, .Celeridade, .Pronto{
+.Voar, .Imediato, .Celeridade, .Pronto, .Puro{
     color: #00BFFF;
 };
 .Comprar{
@@ -96,19 +97,19 @@ bottom: -7px;
 .Manutenção{
     color: #8B8B7A;
 }
-.Rush{
+.Atroz{
     color: #EE0000;
 };
-.Starter{
+.Inicial{
     color: #FF4500;
 };
-.Quest{
+.Meta{
     color: #20B2AA;
 };
-.Menace{
+.Ameaçador{
     color: #FF0000;
 }
-.virar, .time, .mineral, .quadrado, .time, .alcance{
+.virar, .time, .mineral, .quadrado, .tempo, .alcance{
     width: 18.5px;
     height: 18.5px;
     ;};

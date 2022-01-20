@@ -14,6 +14,7 @@ border-radius: 8px;
 margin: 0 0.35vw;
 width: 6vw;
 height: 5.5vh;
+cursor: pointer;
 
 };
 
