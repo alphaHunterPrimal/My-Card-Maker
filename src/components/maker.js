@@ -11,12 +11,17 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import { upload64 } from '/My-Card-Maker/pages/api/s3'
 import User from "../styles/Login/User";
 import { useArray } from "../contexts/arrayContext";
+import { useAuth } from "../contexts/AuthContext";
 
 export function MAKER(){
-  const { data: session } = useSession()
+  //const { data: session } = useSession()
   //const { user, signInWithGoogle } = useAuth()
     var allKeywords = "";
     const router = useRouter();
+    var {
+      inicial, superuser, setInicial, setSuperuser
+    } = useAuth()
+    
 var {
   fonte, setFonte,
   sorc_anormal ,
@@ -161,10 +166,10 @@ async function login(){
     return(
       <>
 
-{/*      <User>
-      <button onClick={() => saida == "none"? setSaida("inline") : setSaida("none")}>Logado como "{session.user.email.replace(/@gmail.com/, "")}"</button>
-      <button style={{display: `${saida}`}} onClick={() => signOut()}>Sair</button>
-      </User> */}
+     <User>
+      <button onClick={() => saida == "none"? setSaida("inline") : setSaida("none")}>Logado como "{superuser}"</button>
+      <button style={{display: `${saida}`}} onClick={() => setSuperuser("")}>Sair</button>
+      </User> 
 <Maker>
         <form onSubmit={(dados)=>{
           dados.preventDefault();
@@ -400,7 +405,7 @@ else{
              console.log(allKeywords.split(" "))
              
             setCarta(Uerieli)
-             var autor = "eulegosou"//session.user.email.replace(/@gmail.com/, "")
+             var autor = superuser//session.user.email.replace(/@gmail.com/, "")
              //console.log(autor)
 if(BG == "Efeito"){
   var galeries = {

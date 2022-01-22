@@ -3,7 +3,7 @@ import React, { createContext, useState, useContext, ReactNode, useEffect } from
 
 
 type InitialContextType = {
-inicial: boolean, setInicial:React.Dispatch<React.SetStateAction<boolean>>,
+
 fonte: boolean, setFonte:React.Dispatch<React.SetStateAction<boolean>>,
 
   sorc_anormal: boolean, setSorc_anormal: React.Dispatch<React.SetStateAction<boolean>>,
@@ -71,7 +71,7 @@ type InitialContextProviderProps = {
 export const InitialContext = createContext({} as InitialContextType);
 
 export const InitialContextProvider = (props: InitialContextProviderProps) => {
-   const [inicial, setInicial] = React.useState<boolean>(false);
+   
 
 
     const [custoM, setCustoM] = React.useState<string>('0');
@@ -307,7 +307,7 @@ setVida("0")
 
 
         fonte, setFonte,
-        inicial, setInicial,
+        
         sorc_anormal , setSorc_anormal ,
         semvida , setSemvida ,
         semcusto , setSemcusto ,

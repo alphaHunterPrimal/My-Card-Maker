@@ -26,13 +26,17 @@ export default function App({ Component, session, pageProps }) {
       <GlobalStyle />
       <ThemeProvider theme={theme}>
       <ArrayContextProvider>
-      <SessionProvider session={session}>
+        <AuthContextProvider>
+        {/*<SessionProvider session={session}>*/}
       <InitialContextProvider>
 
        <Component {...pageProps}/>
 
       </InitialContextProvider>
-      </SessionProvider>
+      {/*</SessionProvider>*/}
+
+        </AuthContextProvider>
+
       </ArrayContextProvider>
 
       </ThemeProvider>

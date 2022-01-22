@@ -109,7 +109,7 @@ export default function Galeria(props){
         DpDn = "inline"
         DpVida = "inline"
     }
-    useEffect(() => {setNEWDB(NEWDB.filter((x) => (x.author == "eulegosou" )));
+    useEffect(() => {setNEWDB(NEWDB.filter((x) => (x.author == "Eumesmo" )));
      console.log(
         NEWDB.map((x)=>(
             console.log(x.author)
