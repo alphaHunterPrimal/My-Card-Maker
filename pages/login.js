@@ -1,16 +1,21 @@
 import React, {useEffect } from "react"
-import {useInitial} from "../contexts/initialContext" 
-import {useRouter} from 'next/router';
-import Input from "../styles/CardMaker/Input"
-import Baselog from "../styles/Login/Baselog";
-import Logar from "../styles/Login/Logar"
-import Cadastro from "../styles/Login/Cadastro";
-import Campolog from "../styles/Login/Campolog";
-import Inputlog from "../styles/Login/Inputlog";
-import Logos from "../styles/Login/Logos";
-import { useAuth } from "../contexts/AuthContext";
+import {useInitial} from "../src/contexts/initialContext" 
+import router, {useRouter} from 'next/router';
+import Input from "../src/styles/CardMaker/Input"
+import Baselog from "../src/styles/Login/Baselog";
+import Logar from "../src/styles/Login/Logar"
+import Cadastro from "../src/styles/Login/Cadastro";
+import Campolog from "../src/styles/Login/Campolog";
+import Inputlog from "../src/styles/Login/Inputlog";
+import Logos from "../src/styles/Login/Logos";
+import { useAuth } from "../src/contexts/AuthContext";
+import nookies, { parseCookies, setCookie, destroyCookie} from "nookies";
+import { v4 as uuid } from 'uuid'
+import jwt from "jsonwebtoken"
+import { route } from "next/dist/server/router";
 
-export function LOGIN(){
+const crypto = require('crypto');
+export default function LOGIN(props){
     const [NEWAUTH, setNEWAUTH] = React.useState();
     useEffect(() => {
         fetch('https://graphql.datocms.com/', {
@@ -63,9 +68,32 @@ export function LOGIN(){
     <footer>
     <Logar onClick={
     async() => {
-        if(NEWAUTH.filter((x) => (x.usuario == User)) != ""){
-            if(NEWAUTH.find((x) => (x.usuario == User && x.senha == Senha))){
-                setSuperuser(User)
+        if(NEWAUTH.filter((x) => (x.usuario == User.trim())) != ""){
+            if(NEWAUTH.find((x) => (x.usuario == User.trim() && x.senha == Senha.trim()))){
+
+              const tokenjwt = jwt.sign({username: User.trim()}, "my-secret", {expiresIn: 3600})
+              //console.log(jwt.decode(tokenjwt))
+          //encodificar()
+
+            //const testedeusuario = await encodificar(User)
+
+              //const { 'nextauth.token': token } = parseCookies()
+
+                /*const {token, user} = {
+                  token: uuid(),
+                  user: User.trim()
+                }*/
+                setCookie(null, 'myuser.token', tokenjwt, {
+                  maxAge: 60 * 60 * 1, // 1 hour
+                })
+                const { ['myuser.token']: token } = parseCookies()
+
+                const {username} = jwt.decode(token);
+                console.log(username)
+                router.push('/')
+               
+                //api.defaults.headers['Authorization'] = `Bearer ${token}`;
+                //setSuperuser(User)
                 //setInicial(true)
               }
             else{alert("Senha ou usuário incorretos!")}}
@@ -124,14 +152,20 @@ export function LOGIN(){
                                     console.log(dados.registroCriado);
                                   }) 
                                   alert("Cadastro criado com sucesso!")
+                                  /*
+                                  const {token, user} = {
+                                    token: uuid(),
+                                    user: User
+                                  }
+                                  setCookie(undefined, 'myuser.token', token, {
+                                    maxAge: 60 * 60 * 1, // 1 hour
+                                  })*/
+
                                   setSuperuser(User)
-                                  setTimeout(() => {setInicial(true)}, 4000)
+                                  //setTimeout(() => {setInicial(true)}, 4000)
     
                               
-                              
-                                  
-                              
-                                        
+                                           
                     }alert("Algo deu errado ")
                 }
                 }
@@ -146,6 +180,7 @@ export function LOGIN(){
     </>
     )
     }
+
 
 
 

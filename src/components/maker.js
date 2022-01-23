@@ -13,9 +13,17 @@ import User from "../styles/Login/User";
 import { useArray } from "../contexts/arrayContext";
 import { useAuth } from "../contexts/AuthContext";
 
-export function MAKER(){
+import jwt from "jsonwebtoken"
+import nookies, { parseCookies, setCookie, destroyCookie } from "nookies";
+export function MAKER(props){
   //const { data: session } = useSession()
   //const { user, signInWithGoogle } = useAuth()
+  
+ //const { ['myuser.token']: token } = parseCookies()
+  //const {username} = jwt.decode(token)
+
+  
+  //const {username} = await jwt.decode(token);
     var allKeywords = "";
     const router = useRouter();
     var {
@@ -168,7 +176,9 @@ async function login(){
 
      <User>
       <button onClick={() => saida == "none"? setSaida("inline") : setSaida("none")}>Logado como "{superuser}"</button>
-      <button style={{display: `${saida}`}} onClick={() => setSuperuser("")}>Sair</button>
+      <button style={{display: `${saida}`}} onClick={() => {destroyCookie(null, "myuser.token")
+      setSuperuser("")
+       router.push('/login')}}>Sair</button>
       </User> 
 <Maker>
         <form onSubmit={(dados)=>{
@@ -464,4 +474,14 @@ if(BG == "Efeito"){
       </Maker>
       </>
     )
+}
+
+export async function getInitialProps(ctx){
+  //const apiClient = getAPIClient(ctx);
+  const { ['myuser.token']: token } = parseCookies(ctx)
+
+  const {username} = jwt.decode(token);
+  return {
+    props: {username}
+  }
 }
