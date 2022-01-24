@@ -114,7 +114,7 @@ bottom: -7px;
     height: 18.5px;
     ;};
 .resistencia{
-    width: 23.5px;
+    width: 18.5px;
     height: 18.5px;
 }
 .arrow1{

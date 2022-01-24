@@ -21,8 +21,8 @@ export function MAKER(props){
   
  //const { ['myuser.token']: token } = parseCookies()
   //const {username} = jwt.decode(token)
-
   
+  const AWSlink = process.env.NEXT_PUBLIC_AWS_LINK
   //const {username} = await jwt.decode(token);
     var allKeywords = "";
     const router = useRouter();
@@ -98,7 +98,7 @@ var keywords = {
   ":Dest:" : 'Destruir',
   ":Obli:": 'Obliterar',
   ":Temp:": 'Temporaria',
-  ":Inst:" : "Instant",
+  ":Ime:" : "Imediato",
   ":Rap:": "Rápido",
   ":Ate:": 'Aterrar', 
   ":Nas:": "Nascer",
@@ -107,10 +107,10 @@ var keywords = {
   ":Voa:": "Voar",
    ":Com:": "Comprar",
   ":Man:" : "Manutenção",
-  ":Rus:" : "Rush", 
-  ":Sta:" : "Starter",
- ":Que:": "Quest",
- ":Men:" : "Menace", 
+  ":Atr:" : "Atroz", 
+  ":Ini:" : "Inicial",
+ ":Met:": "Meta",
+ ":Ame:" : "Ameaçador", 
 ":Cel:" : "Celeridade", 
 ":Prt:": "Pronto", 
 ":Pur:" : "Puro"};
@@ -363,7 +363,8 @@ KEI.map((x, index) => (
               e.preventDefault()
 
               var NOme = nome.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c").replace(/é/g, "e").replace(/í/g, "i").replace(/á/g, "a")
-              var Uerieli = "https://galery-card-images.s3.sa-east-1.amazonaws.com/" + NOme.split(" ").join("_")// +".jpg"
+              var Uerieli = AWSlink + NOme.split(" ").join("_")// +".jpg"
+              
 
         //se estiverem faltando os dados, nem gastar tempo tentando enviar
               if(nome != "" && ARCTYPES != "" && SETS != "" && autor != "" && digitsEffect > 5){
@@ -484,6 +485,8 @@ export async function getInitialProps(ctx){
   const { ['myuser.token']: token } = parseCookies(ctx)
 
   const {username} = jwt.decode(token);
+  
+  
   return {
     props: {username}
   }

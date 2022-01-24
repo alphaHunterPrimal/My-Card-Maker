@@ -1,13 +1,15 @@
 import { SiteClient } from 'datocms-client';
 
 export default async function criadorCartas(req, res){
+    const full = process.env.FULL
+    const GALERY = process.env.GALERY_ID
     if(req.method === 'POST') {
-        const TOKEN = 'e34de55ff09441611766d0fcd65144';
+        const TOKEN = full;
         const client = new SiteClient(TOKEN);
         
         // Validar os dados, antes de sair cadastrando
         const registroCriado = await client.items.create({
-            itemType: "1083243", // ID do Model de "Galery" criado pelo Dato
+            itemType: GALERY, // ID do Model de "Galery" criado pelo Dato
             ...req.body,
         })
     

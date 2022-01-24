@@ -1,5 +1,5 @@
 import aws from "aws-sdk"
-
+//require('dotenv/config');
 //import dotenv from "dotenv"
 
 //dotenv.config()
@@ -24,13 +24,13 @@ export async function upload64(base64, name){
 
   const region = "sa-east-1"
   const bucketName = "galery-card-images"
-  const accessKeyId = "AKIA6OYYWLV6MBCVGNHK" //process.env.AWS_ACCESS_KEY_ID
-  const secretAccessKey = "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"//process.env.AWS_SECRET_ACCESS_KEY
+  const accessKeyId =  process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID //"AKIA6OYYWLV6MBCVGNHK"//
+  const secretAccessKey = process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY //"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"//
   
   aws.config.setPromisesDependency(require('bluebird'));
     aws.config.update({
-      accessKeyId: "AKIA6OYYWLV6MBCVGNHK",
-      secretAccessKey: "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",
+      accessKeyId: accessKeyId,
+      secretAccessKey: secretAccessKey,
        region: region,
        signatureVersion: 'v4', });
   

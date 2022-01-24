@@ -62,8 +62,8 @@ export function CARD(){
     <div id="text" ref={Ref} className={EFFECT} style={{ fontSize: `${fontsize}px`, lineHeight: `${line}px`}}></div>
     </Main>
     <Status>
-    <Status.dano hidden={semdano == true}>{`${dano}`}</Status.dano>
-    <Status.vida hidden={semvida == true}>{`${vida}`}</Status.vida>
+    <Status.dano hidden={semdano == true} style={{ fontWeight: "600", fontFamily: "'Oi', cursive", fontSize: "20px", color: "white" }}>{`${dano}`}</Status.dano>
+    <Status.vida hidden={semvida == true} style={{ fontWeight: "600", fontFamily: "'Oi', cursive", fontSize: "20px", color: "white" }}>{`${vida}`}</Status.vida>
     </Status>
   </Card>
   

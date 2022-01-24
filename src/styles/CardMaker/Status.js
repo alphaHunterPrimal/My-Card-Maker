@@ -23,7 +23,7 @@ text-align: center;
 Status.vida = styled.span `
 position: absolute;
 width: 10%;
-right: -13px;
+right: -14px;
 text-align: center;
 
 `;

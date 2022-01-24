@@ -14,14 +14,18 @@ import { v4 as uuid } from 'uuid'
 import jwt from "jsonwebtoken"
 import { route } from "next/dist/server/router";
 
+
+//require('dotenv/config');
+
 const crypto = require('crypto');
 export default function LOGIN(props){
     const [NEWAUTH, setNEWAUTH] = React.useState();
+    
     useEffect(() => {
-        fetch('https://graphql.datocms.com/', {
+      fetch('https://graphql.datocms.com/', {
       method: 'POST',
       headers: {
-        'Authorization': '4743c2042e55f3385c756ec8477396',
+        'Authorization': props.autorizacao,
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
@@ -54,6 +58,7 @@ export default function LOGIN(props){
     return(
         <>
     <Logos>
+     
     {props.username != undefined && 
             <Baselog>
             <header>
@@ -75,11 +80,10 @@ export default function LOGIN(props){
     //: null
     }
     {props.username === undefined ?
-        cadastrar === false &&
+        cadastrar === false ?
           
           
-          
-          
+
           <Baselog>
           <header>
           <strong>Meu Criador de Cartas</strong>
@@ -128,7 +132,7 @@ export default function LOGIN(props){
            
       :
       
-          cadastrar === true &&
+          //cadastrar === true &&
           <Baselog>
           <header>
           <strong>Meu Criador de Cartas</strong>
@@ -199,8 +203,8 @@ export default function LOGIN(props){
                                     
                                 
                                              
-                      }alert("Algo deu errado ")
-                  }
+                      }else {alert("Algo deu errado ")}
+                  } 
                   }
               } else {alert("Preencha todos os campos")}
               
@@ -211,12 +215,8 @@ export default function LOGIN(props){
           </Baselog> 
     
     
-    
-    
-    
-    
-    
-    }
+: null 
+}
 
     </Logos>       
     </>
@@ -226,16 +226,17 @@ export default function LOGIN(props){
     export async function getServerSideProps(ctx){
       //const apiClient = getAPIClient(ctx);
       const { ['myuser.token']: token } = parseCookies(ctx)
+      const autorizacao = process.env.AUTHORIZATION
       if(token != null ){
         const {username} = jwt.decode(token);
               
       return {
-        props: {username}
+        props: {username, autorizacao}
       }
       }
       if(token == null){
         return {
-          props: {}
+          props: {autorizacao}
         }
       }
     }

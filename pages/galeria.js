@@ -322,10 +322,11 @@ export default function Galeria(props){
     )
 }
 export async function getServerSideProps(ctx){
+    const autorizacao = process.env.AUTHORIZATION
     const resposta = await fetch('https://graphql.datocms.com/', {
         method: 'POST',
         headers: {
-          'Authorization': '4743c2042e55f3385c756ec8477396',
+          'Authorization': autorizacao,
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
