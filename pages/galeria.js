@@ -15,7 +15,10 @@ import Inputlog from '../src/styles/Login/Inputlog';
 import { useArray } from '../src/contexts/arrayContext';
 //import DB, { filter } from '../db';
 
-
+import jwt from "jsonwebtoken"
+import nookies, { parseCookies, setCookie, destroyCookie } from "nookies";
+import User from '../src/styles/Login/User';
+import { useAuth } from '../src/contexts/AuthContext';
 //var key = []
 export default function Galeria(props){
     const router = useRouter();
@@ -37,6 +40,10 @@ export default function Galeria(props){
         KEY,
         KEI
     } = useArray()
+    var {
+        inicial, superuser, setInicial, setSuperuser
+      } = useAuth()
+      const[saida, setSaida] = React.useState("none")
     const [type, setType] = React.useState('');
     const [sets, setSets] = React.useState('');
     const [arctype, setArctype] = React.useState('');
@@ -145,6 +152,15 @@ export default function Galeria(props){
         <Voltar href="/"/*onClick={() => {router.push('/')}}*/>
             <img src="/arrow-back.svg"></img>
         </Voltar>
+
+        <div style={{position: "absolute", top: "3vh", left: "7vw"}}>
+<User>
+      <button onClick={() => saida == "none"? setSaida("inline") : setSaida("none")}>Logado como "{superuser}"</button>
+      <button style={{display: `${saida}`}} onClick={() => {destroyCookie(null, "myuser.token")
+      setSuperuser("")
+       router.push('/login')}}>Sair</button>
+      </User> 
+</div>
         <Coment >
         <span>Tipo</span> 
         <span>Palavras Chave</span> 
@@ -339,9 +355,22 @@ export async function getServerSideProps(ctx){
     console.log(DB)
 
 
+    const { ['myuser.token']: token } = parseCookies(ctx)
+
+    if(!token) {
+      return {
+        redirect: {
+          destination: '/login',
+          permanent: false,
+        }
+      }
+    }
+  
+    const {username} = jwt.decode(token);
+
     return {
         props: {
-            DB,
+            DB, username
         }
     }
 }

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 const User = styled.div`
-position: absolute;
+/*position: absolute;
 top: 1vh;
-left: 1vw;
+left: 1vw;*/
 height: 4.9vh;
 width: 10vw;
 background-color: blueviolet;

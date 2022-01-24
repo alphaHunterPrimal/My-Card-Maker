@@ -174,12 +174,15 @@ async function login(){
     return(
       <>
 
-     <User>
+<div style={{position: "absolute", top: "1vh", left: "1vw"}}>
+<User>
       <button onClick={() => saida == "none"? setSaida("inline") : setSaida("none")}>Logado como "{superuser}"</button>
       <button style={{display: `${saida}`}} onClick={() => {destroyCookie(null, "myuser.token")
       setSuperuser("")
        router.push('/login')}}>Sair</button>
       </User> 
+</div>
+
 <Maker>
         <form onSubmit={(dados)=>{
           dados.preventDefault();
