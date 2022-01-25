@@ -313,7 +313,10 @@ export default function Galeria(props){
     if(a.name > b.name) return 1;
     return 0;
 }).map((x)=>(
-            <img src={x.card}/>
+    
+     <img src={x.card}/>
+    
+            
          ))}
         </GaleryCards>
         
