@@ -19,6 +19,7 @@ import jwt from "jsonwebtoken"
 import nookies, { parseCookies, setCookie, destroyCookie } from "nookies";
 import User from '../src/styles/Login/User';
 import { useAuth } from '../src/contexts/AuthContext';
+import Modal from '../src/components/Modal';
 //var key = []
 export default function Galeria(props){
     const router = useRouter();
@@ -60,6 +61,9 @@ export default function Galeria(props){
     const [NEWDB, setNEWDB] = React.useState(props.DB);
     const [kei, setKei] = React.useState("");
     //const [indice, setIndice] = React.useState("1");
+    const [showModal, setShowModal] = React.useState(false);
+    const [zoomCarta, setZoomCarta] = React.useState("");
+    
     var DpC;
     var DpG;
     var DpVelo;
@@ -216,13 +220,13 @@ export default function Galeria(props){
          ))}
             </select>
 
-            <select id="velocidades" onChange={(dados) => {setSpeed(dados.target.value)}}>
+            <select id="velocidades" style={{display: `${DpVelo}`}} onChange={(dados) => {setSpeed(dados.target.value)}}>
             {Velocidade.map((x)=>(
              <option value={x}>{x} </option>
          ))}
             </select>
 
-            <select id="arquétipos" style={{display: `${DpVelo}`}} onChange={(dados) => {setArctype(dados.target.value)}}>
+            <select id="arquétipos" onChange={(dados) => {setArctype(dados.target.value)}}>
             {
             type == "Efeito" ? ArquétipoEfeitos.map((x)=>(
                 <option value={x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c")}>{x} </option>
@@ -308,18 +312,32 @@ export default function Galeria(props){
         }>Filtrar</button>
         </TopBar>
         <GaleryCards>
+        
         {NEWDB.sort(function(a,b) {
     if(a.name < b.name) return -1;
     if(a.name > b.name) return 1;
     return 0;
 }).map((x)=>(
-    
-     <img src={x.card}/>
-    
+    <>
+    <button onClick={() => {
+        setShowModal(true)
+        setZoomCarta(x.card)
+        }}>
+     <img src={x.card} />
+
+    </button>
+
+    </>
             
          ))}
+
         </GaleryCards>
-        
+        <Modal
+             onClose={() => setShowModal(false)}
+             show={showModal}
+           >
+            <img src={zoomCarta}/>
+           </Modal>
         </>
 
     )

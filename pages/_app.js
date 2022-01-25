@@ -1,11 +1,11 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
-import Home from '.'
-import Galeria from './galeria'
-//import { Provider } from 'next-auth/client';
+
 import { InitialContextProvider } from '../src/contexts/initialContext'
 import {AuthContextProvider} from "../src/contexts/AuthContext"
-import { SessionProvider } from 'next-auth/react';
+//import { SessionProvider } from 'next-auth/react';
+
 import {ArrayContextProvider} from "../src/contexts/arrayContext"
+//import 'bootstrap/dist/css/bootstrap.css';
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
@@ -31,7 +31,7 @@ export default function App({ Component, session, pageProps }) {
       <InitialContextProvider>
 
        <Component {...pageProps}/>
-
+       <div id="modal-root"></div>
       </InitialContextProvider>
       {/*</SessionProvider>*/}
 
