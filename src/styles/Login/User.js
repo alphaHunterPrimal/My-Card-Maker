@@ -21,12 +21,13 @@ button {
     border-radius: 5px;
     cursor: pointer;
 }
+
 button + button {
     
     background-color: blueviolet;
     position: relative;
     //bottom: 1vh;
-    //width: 3vw;
+    width: 10vw;
     //height: 2.5vh;
     border-radius: 5px;
     cursor: pointer;

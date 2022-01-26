@@ -1,6 +1,6 @@
 
 import React, { createContext, useState, useContext, ReactNode, useEffect } from "react";
-
+import $, { ready } from "jquery";
 
 type InitialContextType = {
 
@@ -71,7 +71,6 @@ type InitialContextProviderProps = {
 export const InitialContext = createContext({} as InitialContextType);
 
 export const InitialContextProvider = (props: InitialContextProviderProps) => {
-   
 
 
     const [custoM, setCustoM] = React.useState<string>('0');
@@ -304,7 +303,6 @@ setVida("0")
     }
   return(
       <InitialContext.Provider value={{
-
 
         fonte, setFonte,
         

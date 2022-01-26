@@ -85,6 +85,7 @@ var {
 var {
 KEYY, KEI, tiposDeCartas, Direcoes, ArquétipoEfeitos, CriarVelocidade
 } = useArray()
+useEffect(() => {tiposDeCartas.shift()}, [])
 
 function botaofonte(){
   if(fonte == false){
@@ -177,7 +178,7 @@ async function login(){
 <div style={{position: "absolute", top: "1vh", left: "1vw"}}>
 <User>
       <button onClick={() => saida == "none"? setSaida("inline") : setSaida("none")}>Logado como "{superuser}"</button>
-      <button style={{display: `${saida}`}} onClick={() => {destroyCookie(null, "myuser.token")
+      <button  style={{display: `${saida}`}} onClick={() => {destroyCookie(null, "myuser.token")
       setSuperuser("")
        router.push('/login')}}>Sair</button>
       </User> 

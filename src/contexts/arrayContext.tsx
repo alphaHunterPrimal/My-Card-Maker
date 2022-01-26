@@ -8,6 +8,7 @@ tiposDeCartas: string[],
 Sets: string[],
 Arquétipo: string[],
 ArquétipoEfeitos: string[],
+ArquétipoArmadilhas: string[],
 Velocidade: string[],
 CriarVelocidade: string[],
 CustoM: string[],
@@ -30,8 +31,9 @@ type ArrayContextProviderProps = {
 export const ArrayContext = createContext({} as ArrayContextType);
 
 export function ArrayContextProvider(props: ArrayContextProviderProps) {
-    const tiposDeCartas = ["Rainha", "Criatura", "Efeito", "Armadilha", "Terreno", "Construcao"];
+    const tiposDeCartas = ["", "Rainha", "Criatura", "Efeito", "Armadilha", "Terreno", "Construcao"];
     const ArquétipoEfeitos = ["Ação", "Técnica", "Mutação", "Evolução"]
+    const ArquétipoArmadilhas = ["Armadilha", "Armadilha de Campo", "Auto-Armadilha"]
     const Sets = ["", "Pyrossaurs", "Lizardpliers", "Rockrar", "Alissaurs"];
     const Arquétipo = ["", "Réptil", "Constructo", "Bio-constructo"];
     
@@ -60,15 +62,11 @@ while(a <11){
   a++
 }
 
-    //const CustoM = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
-    //onst Ganho = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-    //const CustoE = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
     const Mov = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
     const Velocidade = ["","Imediata", "Rápida", "Lenta"]
     const CriarVelocidade = ["Imediata", "Rápida", "Lenta"]
     const Direcoes = ["Seta1", "Seta2", "Seta3"]
-    //const Vida = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
-    //const Dano = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
+ 
     var KEY = [
         "", 
         'Destruir',
@@ -148,6 +146,7 @@ while(a <11){
 
   return (
     <ArrayContext.Provider value={{
+      ArquétipoArmadilhas,
       CriarVelocidade,
       ArquétipoEfeitos,
       Velocidade,

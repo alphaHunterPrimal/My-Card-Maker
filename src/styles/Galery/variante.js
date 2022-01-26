@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 const DiVariante = styled.div` 
-    position: absolute;
+    //position: absolute;
     display: block;
     width: 110px;
     height: 80px;
-    left: 85vw;
-    top: 2vh;
+   // left: 85vw;
+   // top: 10vh;
     font-size: 1.4vw;//2.5vh
     input{
         cursor: pointer;
