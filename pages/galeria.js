@@ -48,6 +48,7 @@ export default function Galeria(props){
         inicial, superuser, setInicial, setSuperuser
       } = useAuth()
       const[saida, setSaida] = React.useState("none")
+    const [name, setName] = React.useState('');
     const [type, setType] = React.useState('');
     const [sets, setSets] = React.useState('');
     const [arctype, setArctype] = React.useState('');
@@ -156,12 +157,12 @@ export default function Galeria(props){
         DpDn = "inline"
         DpVida = "inline"
     }
-    useEffect(() => {setNEWDB(NEWDB.filter((x) => (x.author == "Eumesmo" )));
-     console.log(
+    useEffect(() => {setNEWDB(NEWDB.filter((x) => (x.author == "Eumesmo" )))
+     /*console.log(
         NEWDB.map((x)=>(
             console.log(x.author)
          ))
-    )} , [])
+    )*/} , [])
     
 
     return(
@@ -172,14 +173,18 @@ export default function Galeria(props){
 
         <TopBar>
         <Divuser>
+            {/*
             <Inputlog placeholder="Procure cartas pelo criador delas!" onChange={(dados) => {setAutor(dados.target.value)}} value={autor}></Inputlog>
+            */}
+            
+            <Inputlog placeholder="Procure cartas pelo nome delas!" onChange={(dados) => {setName(dados.target.value)}} value={name}></Inputlog>
         </Divuser>   
 
         <Voltar href="/"/*onClick={() => {router.push('/')}}*/>
             <img src="/arrow-back.svg"></img>
         </Voltar>
 
-        <div style={{position: "absolute", top: "3vh", right: "7vw"}}>
+        <div style={{position: "absolute", top: "2vh", right: "2vw"}}>
 <User>
       <button onClick={() => saida == "none"? setSaida("inline") : setSaida("none")}>Logado como "{superuser}"</button>
       <button style={{display: `${saida}`}} onClick={() => {destroyCookie(null, "myuser.token")
@@ -215,7 +220,8 @@ export default function Galeria(props){
          </select>
       
             <select id="Gkei" style={{display: `${DpKey}`}}  onChange={(dados) =>{setKei(dados.target.value)
-             console.log(dados.target.value)}}>
+             //console.log(dados.target.value)
+             }}>
             {KEY.map((x)=>(
              <option selected={x == kei} value={x}>{x} </option>
          ))}
@@ -286,12 +292,12 @@ export default function Galeria(props){
         <form className="Gvariante" hidden={(type == "Rainha" || type == "Bioma"|| type == "")}>
         <input name="onoff" type="radio" checked onClick={(dados) =>{
               setGE(dados.target.value)
-              console.log(GE)
+              //console.log(GE)
             }} value={"false"}/>
         <span>Off</span>
         <input name="onoff" type="radio" onClick={(dados) =>{
               setGE(dados.target.value)
-              console.log(GE)
+              //console.log(GE)
             }} value={"true"}/>
         <span>On</span> 
         </form>
@@ -300,10 +306,21 @@ export default function Galeria(props){
         </Filters>
         <div className="resolve-filter">
         <button className="submitar" onClick={async () => {
+                  /*var falsaProcura = "Hexadragão  "
+                  var falsaProcuraSemiArray = falsaProcura.trim()
                   
+                  var falsaProcuraArray = falsaProcuraSemiArray.split("")*/
+                  var tamanho = name.trim().length
+                  if(name != ""){
+
+                      setNEWDB(NEWDB.filter((x) => (x.name.split("").splice(0, tamanho).toString().replace(/,/g, "") == name.trim()
+                       //falsaProcuraArray.toString().replace(/,/g, "")
+                       )))
+                      
+                      }
                   if(type != ""){setNEWDB(NEWDB.filter((x) => (x.typo == type )))}
                   if(autor != ""){setNEWDB(NEWDB.filter((x) => (x.author == autor )))}
-                  if(sets != ""){setNEWDB(NEWDB.filter((x) => (x.sets == sets )))}
+                  
                   if(arctype != ""){setNEWDB(NEWDB.filter((x) => (x.arctype == arctype )))}
                   if(speed != ""){setNEWDB(NEWDB.filter((x) => (x.velocidade == speed )))}
                   if(custoM != ""){setNEWDB(NEWDB.filter((x) => (x.custom == custoM )))}
@@ -314,16 +331,15 @@ export default function Galeria(props){
                   if(vida != ""){setNEWDB(NEWDB.filter((x) => (x.vida == vida )))}
                   if(dano != ""){setNEWDB(NEWDB.filter((x) => (x.dano == dano )))}
                   if(kei != ""){setNEWDB(NEWDB.filter((x) => (x.keywords.split(" ").includes(kei))))}
-      
-      
+
                   setShowReset(false)
                  
                     }     
               }>Filtrar</button>
               <button className="resetar" hidden={showReset} onClick={async() => {
                   setNEWDB(props.DB)
-                  console.log(NEWDB)   
-      
+                  //console.log(NEWDB)   
+                  setName("")
                   setType("")
                   setAutor("")
                   setSets("")
@@ -415,7 +431,7 @@ export async function getServerSideProps(ctx){
     const db = await resposta.json()
     const DB = db.data.allGaleries
     //console.log(db)
-    console.log(DB)
+    //console.log(DB)
 
 
     const { ['myuser.token']: token } = parseCookies(ctx)
