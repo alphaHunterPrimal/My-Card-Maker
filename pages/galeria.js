@@ -22,7 +22,6 @@ import { useAuth } from '../src/contexts/AuthContext';
 import Modal from '../src/components/Modal';
 import { route } from 'next/dist/server/router';
 
-import MySelect from '../src/components/multiSelect';
 import Select, { components } from "react-select";
 import makeAnimated from "react-select/animated";
 
@@ -34,6 +33,9 @@ export default function Galeria(props){
     const router = useRouter();
 
     const [selectedOption, setSelectedOption] = React.useState(null);
+    const [selectedArctype, setSelectedArctype] = React.useState(null);
+    const [selectedEffect, setSelectedEffect] = React.useState(null);
+    const [selectedTrap, setSelectedTrap] = React.useState(null);
 
     var {
         Velocidade,
@@ -94,6 +96,13 @@ export default function Galeria(props){
     const [teixto, setTeixto] = React.useState("") 
     
     const[autor, setAutor] = React.useState("")
+    
+    useEffect(() => {setNEWDB(NEWDB.filter((x) => (x.author == "Eumesmo" )))
+     /*console.log(
+        NEWDB.map((x)=>(
+            console.log(x.author)
+         ))
+    )*/} , [])
     if(type == ""){
         DpSets = "none"
         DpKey = "none"
@@ -129,6 +138,7 @@ export default function Galeria(props){
         DpDirec = "inline"
         DpDn = "inline"
         DpVida = "inline"
+
     };
     if(type == "Armadilha"||type == "Terreno"){
         DpSets = "inline"
@@ -141,6 +151,7 @@ export default function Galeria(props){
         DpDirec = "none"
         DpDn = "none"
         DpVida = "none"
+
     };
     if(type == "Efeito"){
         DpSets = "inline"
@@ -153,8 +164,8 @@ export default function Galeria(props){
         DpDirec = "none"
         DpDn = "none"
         DpVida = "none"
-    }
 
+    }
     if(type == "Construcao"){
         DpSets = "inline"
         DpKey = "inline"
@@ -166,23 +177,39 @@ export default function Galeria(props){
         DpDirec = "none"
         DpDn = "inline"
         DpVida = "inline"
+        
+        
+        
     }
-    useEffect(() => {setNEWDB(NEWDB.filter((x) => (x.author == "Eumesmo" )))
-     /*console.log(
-        NEWDB.map((x)=>(
-            console.log(x.author)
-         ))
-    )*/} , [])
+
 
     //colocando as opções dentro do options
     const options = []
+    const optionsArctype = []
+    const optionsEffect = []
+    const optionsTrap = []
     useEffect(() => {KEY.shift()}, [])
     KEY.map((x)=>(
         options.push({value: x, label: x })
     ))
+
+    Arquétipo.map((x)=>(
+        optionsArctype.push({value: x, label: x })
+    ))
+    ArquétipoEfeitos.map((x)=>(
+        optionsEffect.push({value: x, label: x })
+    ))
+    ArquétipoArmadilhas.map((x)=>(
+        optionsTrap.push({value: x, label: x })
+    ))
+    useEffect(() => {
+        setSelectedArctype(null)
+        setSelectedEffect(null)
+        setSelectedTrap(null)
+
+},[type])
     
-
-
+    
 
 
     return(
@@ -242,7 +269,6 @@ export default function Galeria(props){
       id="Gkei"
       style={{display: `${DpKey}`}}>
  <Select
-  
   isMulti={true}
  //defaultValue={selectedOption}
  onChange={(dados) => {
@@ -253,14 +279,10 @@ export default function Galeria(props){
    )
    :
    console.log("null")
-  
  }
  }
-
  options={options}
  value={selectedOption}
- 
- 
 />
       </div>
                 
@@ -278,19 +300,69 @@ export default function Galeria(props){
          ))}
             </select>
 
-            <select id="arquétipos" style={{display: `${DpArc}`}} onChange={(dados) => {setArctype(dados.target.value)}}>
-            {
-            type == "Efeito" ? ArquétipoEfeitos.map((x)=>(
-                <option selected={x == arctype} value={x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c")}>{x} </option>
-            ))
-            :
-            type == "Armadilha" ? ArquétipoArmadilhas.map((x)=>(
-                <option selected={x == arctype} value={x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c")}>{x} </option>
-            )):
-            Arquétipo.map((x)=>(
-             <option selected={x == arctype} value={x}>{x} </option>
-         ))}
-            </select>
+<div id="arquétipos" style={{display: `${DpArc}`}}  >
+{
+            type == "Efeito" ?
+                
+            <Select
+                isMulti={true}
+               onChange={(dados) => {
+
+                 setSelectedEffect(dados)
+                 setArctype(dados)
+                 selectedEffect != null ?
+                 (arctype.map((x)=>(console.log(x)))
+                 )
+                 :
+                 console.log("null")
+               }
+               }
+               options={optionsEffect}
+               value={selectedEffect}
+              />
+
+
+            : type == "Armadilha" ?
+            
+                
+                <Select
+                isMulti={true}
+               onChange={(dados) => {
+                 setSelectedTrap(dados)
+                 setArctype(dados)
+                 selectedTrap != null ?
+                 (arctype.map((x)=>(console.log(x)))
+                 )
+                 :
+                 console.log("null")
+               }
+               }
+               options={optionsTrap}
+               value={selectedTrap}
+              />
+            
+            : 
+                <Select
+                isMulti={true}
+               onChange={(dados) => {
+
+                 setSelectedArctype(dados)
+                 setArctype(dados)
+                 selectedArctype != null ?
+                 (arctype.map((x)=>(console.log(x)))
+                 )
+                 :
+                 console.log("null")
+               }
+               }
+               options={optionsArctype}
+               value={selectedArctype}
+              />
+            
+
+        }
+</div>
+
             <select id="GcustoM"  style={{display: `${DpC}`}} onChange={(dados) =>{setCustoM(dados.target.value)}}>
             {CustoM.map((x)=>(
              <option selected={x == custoM} value={x}>{x} </option>
@@ -345,10 +417,7 @@ export default function Galeria(props){
         </Filters>
         <div className="resolve-filter">
         <button className="submitar" onClick={async () => {
-                  /*var falsaProcura = "Hexadragão  "
-                  var falsaProcuraSemiArray = falsaProcura.trim()
-                  
-                  var falsaProcuraArray = falsaProcuraSemiArray.split("")*/
+
                   var tamanho = name.trim().length
                   if(name != ""){
 
@@ -360,7 +429,21 @@ export default function Galeria(props){
                   if(type != ""){setNEWDB(NEWDB.filter((x) => (x.typo == type )))}
                   if(autor != ""){setNEWDB(NEWDB.filter((x) => (x.author == autor )))}
                   
-                  if(arctype != ""){setNEWDB(NEWDB.filter((x) => (x.arctype == arctype )))}
+                  //if(arctype != ""){setNEWDB(NEWDB.filter((x) => (x.arctype == arctype )))}
+                  if(arctype != null && arctype != undefined && arctype != []){
+                      if(type == "Efeito" ||type == "Armadilha" ){
+                        arctype.map((x) => (
+                            setNEWDB(NEWDB.filter((y) => (y.arctype.replace(" de ", " ").split(" ").includes(x
+                                .value
+                                .replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c").replace(/é/g, "e").replace(/í/g, "i").replace(/á/g, "a")))))
+                        ))
+                      } else {
+                        arctype.map((x) => (
+                            setNEWDB(NEWDB.filter((y) => (y.arctype.replace(" de ", " ").split(" ").includes(x.value))))
+                        ))
+                      }
+
+                    }
                   if(speed != ""){setNEWDB(NEWDB.filter((x) => (x.velocidade == speed )))}
                   if(custoM != ""){setNEWDB(NEWDB.filter((x) => (x.custom == custoM )))}
                   if(custoE != ""){setNEWDB(NEWDB.filter((x) => (x.custoe == custoE )))}
@@ -380,8 +463,7 @@ export default function Galeria(props){
                     }     
               }>Filtrar</button>
               <button className="resetar" hidden={showReset} onClick={async() => {
-                  setNEWDB(props.DB)
-                  //console.log(NEWDB)   
+                  setNEWDB(props.DB)  
                   setName("")
                   setType("")
                   setAutor("")
@@ -394,9 +476,12 @@ export default function Galeria(props){
                   setDirec("")
                   setVida("")
                   setDano("")
-                  //indice = 1
+
                   setKei("")
                   setSelectedOption(null)
+                  setSelectedArctype(null)
+                  setSelectedEffect(null)
+                  setSelectedTrap(null)
       
                   
                   setShowReset(true)

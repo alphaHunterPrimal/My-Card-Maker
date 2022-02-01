@@ -32,10 +32,11 @@ export const ArrayContext = createContext({} as ArrayContextType);
 
 export function ArrayContextProvider(props: ArrayContextProviderProps) {
     const tiposDeCartas = ["", "Rainha", "Criatura", "Efeito", "Armadilha", "Terreno", "Construcao"];
-    const ArquétipoEfeitos = ["Ação", "Técnica", "Mutação", "Evolução"]
-    const ArquétipoArmadilhas = ["Armadilha", "Armadilha de Campo", "Auto-Armadilha"]
+    const Arquétipo = ["Único", "Fogo",  "Rocha","Réptil","Insectóide", "Constructo", "Bio-constructo"];
+    const ArquétipoEfeitos = [ "Única","Ação", "Técnica", "Mutação", "Evolução"]
+    const ArquétipoArmadilhas = [ "Única", "Armadilha", "Armadilha de Campo", "Auto-Armadilha"]
     const Sets = ["", "Pyrossaurs", "Lizardpliers", "Rockrar", "Alissaurs"];
-    const Arquétipo = ["", "Réptil", "Constructo", "Bio-constructo"];
+    
     
 
 
