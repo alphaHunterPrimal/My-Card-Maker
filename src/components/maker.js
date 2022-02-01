@@ -280,8 +280,6 @@ async function login(){
          
           }} value={effect}></textarea>
 
-
-
 <div className="fonte-div">
 <button onClick={() => {botaofonte()}}>Fonte:</button>
 {fonte == false && <span>Modo Automático</span>}
@@ -302,11 +300,6 @@ KEI.map((x, index) => (
   </div>
 </div>
 </div>
-
-
-
-
-          
           
           <div className={`${statusDescy}`}>
           <span hidden={semdano == true}>Dano</span>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Component } from 'react';
 import {useRouter} from 'next/router'
 import Head from 'next/head';
 import $, { ready } from "jquery";
@@ -13,7 +13,7 @@ import DiVariante from '../src/styles/Galery/variante';
 import Divuser from '../src/styles/Galery/divuser';
 import Inputlog from '../src/styles/Login/Inputlog';
 import { useArray } from '../src/contexts/arrayContext';
-//import DB, { filter } from '../db';
+
 
 import jwt from "jsonwebtoken"
 import nookies, { parseCookies, setCookie, destroyCookie } from "nookies";
@@ -21,11 +21,20 @@ import User from '../src/styles/Login/User';
 import { useAuth } from '../src/contexts/AuthContext';
 import Modal from '../src/components/Modal';
 import { route } from 'next/dist/server/router';
-//var key = []
+
+import MySelect from '../src/components/multiSelect';
+import Select, { components } from "react-select";
+import makeAnimated from "react-select/animated";
+
+
+
+
+
 export default function Galeria(props){
     const router = useRouter();
-    /*const [procura, setProcura] = React.useState('');
-    var allKeywords = "";*/
+
+    const [selectedOption, setSelectedOption] = React.useState(null);
+
     var {
         Velocidade,
         tiposDeCartas,
@@ -63,8 +72,9 @@ export default function Galeria(props){
     const [dano, setDano] = React.useState('');
     const [vida, setVida] = React.useState('');
     const [NEWDB, setNEWDB] = React.useState(props.DB);
-    const [kei, setKei] = React.useState("");
-    //const [indice, setIndice] = React.useState("1");
+    const [kei, setKei] = React.useState(null);
+
+
     const [showModal, setShowModal] = React.useState(false);
     const [showReset, setShowReset] = React.useState(true);
     const [zoomCarta, setZoomCarta] = React.useState("");
@@ -163,7 +173,17 @@ export default function Galeria(props){
             console.log(x.author)
          ))
     )*/} , [])
+
+    //colocando as opções dentro do options
+    const options = []
+    useEffect(() => {KEY.shift()}, [])
+    KEY.map((x)=>(
+        options.push({value: x, label: x })
+    ))
     
+
+
+
 
     return(
         <>
@@ -218,15 +238,34 @@ export default function Galeria(props){
              <option selected={x == type} value={x}>{x} </option>
          ))}
          </select>
-      
-            <select id="Gkei" style={{display: `${DpKey}`}}  onChange={(dados) =>{setKei(dados.target.value)
-             //console.log(dados.target.value)
-             }}>
-            {KEY.map((x)=>(
-             <option selected={x == kei} value={x}>{x} </option>
-         ))}
-            </select> 
+      <div 
+      id="Gkei"
+      style={{display: `${DpKey}`}}>
+ <Select
+  
+  isMulti={true}
+ //defaultValue={selectedOption}
+ onChange={(dados) => {
+   setSelectedOption(dados)
+   setKei(dados)
+   selectedOption != null ?
+   (kei.map((x)=>(console.log(x)))
+   )
+   :
+   console.log("null")
+  
+ }
+ }
+
+ options={options}
+ value={selectedOption}
+ 
+ 
+/>
+      </div>
                 
+
+
             <select id="sets" style={{display: `${DpSets}`}} style={{display: `${DpSets}`}} onChange={(dados) => {setSets(dados.target.value)}}>
             {Sets.map((x)=>(
              <option selected={x == sets} value={x}>{x} </option>
@@ -330,7 +369,11 @@ export default function Galeria(props){
                   if(direc != ""){setNEWDB(NEWDB.filter((x) => (x.direc == direc )))}
                   if(vida != ""){setNEWDB(NEWDB.filter((x) => (x.vida == vida )))}
                   if(dano != ""){setNEWDB(NEWDB.filter((x) => (x.dano == dano )))}
-                  if(kei != ""){setNEWDB(NEWDB.filter((x) => (x.keywords.split(" ").includes(kei))))}
+                  if(kei != null && kei != undefined && kei != []){
+                    kei.map((x) => (
+                        setNEWDB(NEWDB.filter((y) => (y.keywords.split(" ").includes(x.value))))
+                    ))
+                    }
 
                   setShowReset(false)
                  
@@ -353,6 +396,7 @@ export default function Galeria(props){
                   setDano("")
                   //indice = 1
                   setKei("")
+                  setSelectedOption(null)
       
                   
                   setShowReset(true)
