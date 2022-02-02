@@ -4,6 +4,7 @@ const Coment = styled.div`
 position: relative;
 display: flex;
 justify-content: center;
+width: 100%;
 
 span{
     font-size: 1.5vw; //2.5vh

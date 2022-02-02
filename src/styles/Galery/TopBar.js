@@ -7,7 +7,7 @@ background-color: blueviolet;
 
 width: 100vw;
 height: 20vh;
-z-index: 1;
+z-index: 2;
 justify-content: flex-end;
 padding: 0 0 5vh 0;
 .resolve-filter{

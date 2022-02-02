@@ -24,6 +24,7 @@ import { route } from 'next/dist/server/router';
 
 import Select, { components } from "react-select";
 import makeAnimated from "react-select/animated";
+import DivFiltros from '../src/styles/Galery/divFiltros';
 
 
 
@@ -82,7 +83,10 @@ export default function Galeria(props){
     const [zoomCarta, setZoomCarta] = React.useState("");
 
    
-    
+    const [DpCE, setDpCE] = React.useState("none");
+    var DpClassCustos;
+    var DpClassMov
+    var DpInputEnergia;
     var DpC;
     var DpG;
     var DpVelo;
@@ -97,7 +101,8 @@ export default function Galeria(props){
     
     const[autor, setAutor] = React.useState("")
     
-    useEffect(() => {setNEWDB(NEWDB.filter((x) => (x.author == "Eumesmo" )))
+    useEffect(() => {
+      setNEWDB(NEWDB.filter((x) => (x.author == "Eumesmo" )))
      /*console.log(
         NEWDB.map((x)=>(
             console.log(x.author)
@@ -114,6 +119,9 @@ export default function Galeria(props){
         DpDirec = "none"
         DpDn = "none"
         DpVida = "none"
+        DpInputEnergia = "none"
+        DpClassCustos = "none"
+        DpClassMov = "none"
     };
     if(type == "Rainha"){
         DpSets = "inline"
@@ -126,59 +134,72 @@ export default function Galeria(props){
         DpDirec = "none"
         DpDn = "inline"
         DpVida = "inline"
+        DpInputEnergia = "none"
+        DpClassCustos = "none"
+        DpClassMov = "none"
     };
     if(type == "Criatura"){
         DpSets = "inline"
         DpKey = "inline"
         DpArc = "inline"
-        DpC = "inline"
-        DpG = "inline"
+        DpC = "flex"
+        DpG = "flex"
         DpVelo = "none"
         DpMov = "inline"
         DpDirec = "inline"
         DpDn = "inline"
         DpVida = "inline"
+        DpInputEnergia = "flex"
+        DpClassCustos = "flex"
+        DpClassMov = "flex"
 
     };
     if(type == "Armadilha"||type == "Terreno"){
         DpSets = "inline"
         DpKey = "inline"
         DpArc = "inline"
-        DpC = "inline"
+        DpC = "flex"
         DpG = "none"
         DpVelo = "none"
         DpMov = "none"
         DpDirec = "none"
         DpDn = "none"
         DpVida = "none"
+        DpInputEnergia = "flex"
+        DpClassCustos = "flex"
+        DpClassMov = "none"
 
     };
     if(type == "Efeito"){
         DpSets = "inline"
         DpKey = "inline"
         DpArc = "inline"
-        DpC = "inline"
+        DpC = "flex"
         DpG = "none"
         DpVelo = "inline"
         DpMov = "none"
         DpDirec = "none"
         DpDn = "none"
         DpVida = "none"
+        DpInputEnergia = "flex"
+        DpClassCustos = "flex"
+        DpClassMov = "none"
 
     }
     if(type == "Construcao"){
         DpSets = "inline"
         DpKey = "inline"
         DpArc = "inline"
-        DpC = "inline"
-        DpG = "inline"
+        DpC = "flex"
+        DpG = "flex"
         DpVelo = "none"
         DpMov = "none"
         DpDirec = "none"
         DpDn = "inline"
         DpVida = "inline"
-        
-        
+        DpInputEnergia = "flex"
+        DpClassCustos = "flex"
+        DpClassMov = "none"
         
     }
 
@@ -203,6 +224,7 @@ export default function Galeria(props){
         optionsTrap.push({value: x, label: x })
     ))
     useEffect(() => {
+        setDpCE("none")
         setSelectedArctype(null)
         setSelectedEffect(null)
         setSelectedTrap(null)
@@ -239,182 +261,8 @@ export default function Galeria(props){
        router.push('/login')}}>Sair</button>
       </User> 
 </div>
-        <Coment >
-        <span>Tipo</span> 
-        <span style={{display: `${DpKey}`}}>Palavras Chave</span> 
-        <span style={{display: `${DpSets}`}}>Sets</span> 
-        <span style={{display: `${DpVelo}`}}>Rapidez</span> 
-        <span style={{display: `${DpArc}`}}>Arquétipo</span>  
-          
-        <span style={{display: `${DpC}`}}>CustoM</span>
-        <span hidden={(GE == "false" || type == "Rainha" || type == "Bioma")}>CustoE</span>
-        <span style={{display: `${DpG}`}}>Ganho</span>
-        <span style={{display: `${DpMov}`}}>Mov</span>
-        <span style={{display: `${DpDirec}`}}>Direc</span>
-        <span style={{display: `${DpDn}`}}>Dano</span>
-        <span style={{display: `${DpVida}`}}>Vida</span>
-        
-        <span hidden={(type == "Rainha" || type == "Bioma"|| type == "")}>Variantes</span>  
-
-        
-        </Coment>
-        <Filters onSubmit={function(e){e.preventDefault()}}>
-        
-        <select id="tipos" onClick={(dados) => {setType(dados.target.value)}}>
-            {tiposDeCartas.map((x)=>(
-             <option selected={x == type} value={x}>{x} </option>
-         ))}
-         </select>
-      <div 
-      id="Gkei"
-      style={{display: `${DpKey}`}}>
- <Select
-  isMulti={true}
- //defaultValue={selectedOption}
- onChange={(dados) => {
-   setSelectedOption(dados)
-   setKei(dados)
-   selectedOption != null ?
-   (kei.map((x)=>(console.log(x)))
-   )
-   :
-   console.log("null")
- }
- }
- options={options}
- value={selectedOption}
-/>
-      </div>
-                
 
 
-            <select id="sets" style={{display: `${DpSets}`}} style={{display: `${DpSets}`}} onChange={(dados) => {setSets(dados.target.value)}}>
-            {Sets.map((x)=>(
-             <option selected={x == sets} value={x}>{x} </option>
-         ))}
-            </select>
-
-            <select id="velocidades" style={{display: `${DpVelo}`}} onChange={(dados) => {setSpeed(dados.target.value)}}>
-            {Velocidade.map((x)=>(
-             <option selected={x == speed} value={x}>{x} </option>
-         ))}
-            </select>
-
-<div id="arquétipos" style={{display: `${DpArc}`}}  >
-{
-            type == "Efeito" ?
-                
-            <Select
-                isMulti={true}
-               onChange={(dados) => {
-
-                 setSelectedEffect(dados)
-                 setArctype(dados)
-                 selectedEffect != null ?
-                 (arctype.map((x)=>(console.log(x)))
-                 )
-                 :
-                 console.log("null")
-               }
-               }
-               options={optionsEffect}
-               value={selectedEffect}
-              />
-
-
-            : type == "Armadilha" ?
-            
-                
-                <Select
-                isMulti={true}
-               onChange={(dados) => {
-                 setSelectedTrap(dados)
-                 setArctype(dados)
-                 selectedTrap != null ?
-                 (arctype.map((x)=>(console.log(x)))
-                 )
-                 :
-                 console.log("null")
-               }
-               }
-               options={optionsTrap}
-               value={selectedTrap}
-              />
-            
-            : 
-                <Select
-                isMulti={true}
-               onChange={(dados) => {
-
-                 setSelectedArctype(dados)
-                 setArctype(dados)
-                 selectedArctype != null ?
-                 (arctype.map((x)=>(console.log(x)))
-                 )
-                 :
-                 console.log("null")
-               }
-               }
-               options={optionsArctype}
-               value={selectedArctype}
-              />
-            
-
-        }
-</div>
-
-            <select id="GcustoM"  style={{display: `${DpC}`}} onChange={(dados) =>{setCustoM(dados.target.value)}}>
-            {CustoM.map((x)=>(
-             <option selected={x == custoM} value={x}>{x} </option>
-         ))}
-            </select>
-            <select id="GcustoE" hidden={(GE == "false" || type == "Rainha" || type == "Bioma")} onChange={(dados) =>{setCustoE(dados.target.value)}}>
-            {CustoE.map((x)=>(
-             <option selected={x == custoE}  value={x}>{x} </option>
-         ))}
-            </select>
-            <select id="Gganho"  style={{display: `${DpG}`}} onChange={(dados) =>{setGanho(dados.target.value)}}>
-            {Ganho.map((x)=>(
-             <option selected={x == ganho} value={x}>{x} </option>
-         ))}
-            </select>
-            <select id="Gmov"   style={{display: `${DpMov}`}} onChange={(dados) =>{setMov(dados.target.value)}}>
-            {Mov.map((x)=>(
-             <option selected={x == mov} value={x}>{x} </option>
-         ))}
-            </select>
-            <select id="Gdirec"  style={{display: `${DpDirec}`}} onChange={(dados) =>{setDirec(dados.target.value)}}>
-            {Direcoes.map((x)=>(
-             <option selected={x == direc} value={x}>{x} </option>
-         ))}
-            </select>
-            <select id="Gdano"  style={{display: `${DpDn}`}} onChange={(dados) =>{setDano(dados.target.value)}}>
-            {Dano.map((x)=>(
-             <option selected={x == dano} value={x}>{x} </option>
-         ))}
-            </select>
-            <select id="Gvida"  style={{display: `${DpVida}`}} onChange={(dados) =>{setVida(dados.target.value)}}>
-            {Vida.map((x)=>(
-             <option selected={x == vida} value={x}>{x} </option>
-         ))}
-            </select>
-        
-
-        <form className="Gvariante" hidden={(type == "Rainha" || type == "Bioma"|| type == "")}>
-        <input name="onoff" type="radio" checked onClick={(dados) =>{
-              setGE(dados.target.value)
-              //console.log(GE)
-            }} value={"false"}/>
-        <span>Off</span>
-        <input name="onoff" type="radio" onClick={(dados) =>{
-              setGE(dados.target.value)
-              //console.log(GE)
-            }} value={"true"}/>
-        <span>On</span> 
-        </form>
-        
-
-        </Filters>
         <div className="resolve-filter">
         <button className="submitar" onClick={async () => {
 
@@ -495,8 +343,235 @@ export default function Galeria(props){
 
         </div>
 
-
         </TopBar>
+
+        <DivFiltros>
+        <Filters onSubmit={function(e){e.preventDefault()}}>
+
+<div className='principal'>
+  <div>
+  <p>Tipo</p>
+  <p style={{display: `${DpSets}`}}>Sets</p>
+  </div>
+
+<div>
+<select id="tipos" onClick={(dados) => {setType(dados.target.value)}}>
+            {tiposDeCartas.map((x)=>(
+             <option selected={x == type} value={x}>{x} </option>
+         ))}
+         </select>
+         <select id="sets" style={{display: `${DpSets}`}} style={{display: `${DpSets}`}} onChange={(dados) => {setSets(dados.target.value)}}>
+            {Sets.map((x)=>(
+             <option selected={x == sets} value={x}>{x} </option>
+         ))}
+            </select>
+
+</div>
+
+
+</div>
+
+<div id="Gkei" style={{display: `${DpKey}`}} className='palavrasChaveDiv'>
+<p style={{display: `${DpKey}`}}>Palavras Chave</p> 
+ <Select
+ className="selectKey"
+  isMulti={true}
+ //defaultValue={selectedOption}
+ onChange={(dados) => {
+   setSelectedOption(dados)
+   setKei(dados)
+   selectedOption != null ?
+   (kei.map((x)=>(console.log(x)))
+   )
+   :
+   console.log("null")
+ }
+ }
+ options={options}
+ value={selectedOption}
+/> </div> 
+
+<div id="arquétipos" className='arquetipoDiv' style={{display: `${DpArc}`}}  >
+<p style={{display: `${DpArc}`}}>Arquétipo</p> 
+{
+            type == "Efeito" ?
+                
+            <Select
+            className="selectArc"
+                isMulti={true}
+               onChange={(dados) => {
+
+                 setSelectedEffect(dados)
+                 setArctype(dados)
+                 selectedEffect != null ?
+                 (arctype.map((x)=>(console.log(x)))
+                 )
+                 :
+                 console.log("null")
+               }
+               }
+               options={optionsEffect}
+               value={selectedEffect}
+              />
+
+
+            : type == "Armadilha" ?
+            
+                
+                <Select
+                className="selectArc"
+                isMulti={true}
+               onChange={(dados) => {
+                 setSelectedTrap(dados)
+                 setArctype(dados)
+                 selectedTrap != null ?
+                 (arctype.map((x)=>(console.log(x)))
+                 )
+                 :
+                 console.log("null")
+               }
+               }
+               options={optionsTrap}
+               value={selectedTrap}
+              />
+            
+            : 
+                <Select
+                className="selectArc"
+                isMulti={true}
+               onChange={(dados) => {
+
+                 setSelectedArctype(dados)
+                 setArctype(dados)
+                 selectedArctype != null ?
+                 (arctype.map((x)=>(console.log(x)))
+                 )
+                 :
+                 console.log("null")
+               }
+               }
+               options={optionsArctype}
+               value={selectedArctype}
+              />
+            
+
+        }
+</div>
+
+<div className='velocidadeDiv' style={{display: `${DpVelo}`}}>
+<p style={{display: `${DpVelo}`}}>Rapidez</p> 
+<select id="velocidades"  onChange={(dados) => {setSpeed(dados.target.value)}}>
+            {Velocidade.map((x)=>(
+             <option selected={x == speed} value={x}>{x} </option>
+         ))}
+            </select>
+
+</div>
+
+
+
+
+<div className='custos' style={{display: `${DpClassCustos}`}}>
+
+<div>
+        <p style={{display: `${DpC}`}}>CustoM</p>
+        <p style={{display: `${DpCE}`, justifyContent: "center"}} hidden={(GE == "false" || type == "Rainha" || type == "Bioma"| type == "")}>CustoE</p>
+        <p style={{display: `${DpG}`}}>Ganho</p>
+        <p hidden={(type == "Rainha" || type == "Bioma"|| type == "")}>Variantes</p>
+</div>
+
+<div>
+<select id="GcustoM"  style={{display: `${DpC}`}} onChange={(dados) =>{setCustoM(dados.target.value)}}>
+            {CustoM.map((x)=>(
+             <option selected={x == custoM} value={x}>{x} </option>
+         ))}
+            </select>
+            <select id="GcustoE" hidden={(GE == "false" || type == "Rainha" || type == "Bioma"|| type == "")} onChange={(dados) =>{setCustoE(dados.target.value)}}>
+            {CustoE.map((x)=>(
+             <option selected={x == custoE}  value={x}>{x} </option>
+         ))}
+            </select>
+            <select id="Gganho"  style={{display: `${DpG}`}} onChange={(dados) =>{setGanho(dados.target.value)}}>
+            {Ganho.map((x)=>(
+             <option selected={x == ganho} value={x}>{x} </option>
+         ))}
+          </select>
+
+          <form className="Gvariante" hidden={(type == "Rainha" || type == "Bioma"|| type == "")}   >
+            <div style={{display: `${DpInputEnergia}`}}>
+            <input  name="onoff" type="radio" checked={GE == "false"} onClick={(dados) =>{
+              setGE(dados.target.value)
+              setDpCE("none")
+
+            }} value={"false"}/>
+        <span>Off</span>
+            </div>
+            <div style={{display: `${DpInputEnergia}`}}>
+            <input name="onoff" type="radio" onClick={(dados) =>{
+              setGE(dados.target.value)
+              setDpCE("flex")
+            }} value={"true"}/>
+        <span>On</span> 
+            </div>
+
+        </form>
+
+</div>
+
+</div>
+
+<div className='movimentacao' style={{display: `${DpClassMov}`}}>
+
+
+<div>
+<p style={{display: `${DpMov}`}}>Mov</p>
+<p style={{display: `${DpDirec}`}}>Direc</p>
+  </div>  
+
+  <div>
+  <select id="Gmov"   style={{display: `${DpMov}`}} onChange={(dados) =>{setMov(dados.target.value)}}>
+            {Mov.map((x)=>(
+             <option selected={x == mov} value={x}>{x} </option>
+         ))}
+            </select>
+            <select id="Gdirec"  style={{display: `${DpDirec}`}} onChange={(dados) =>{setDirec(dados.target.value)}}>
+            {Direcoes.map((x)=>(
+             <option selected={x == direc} value={x}>{x} </option>
+         ))}
+          </select>
+
+  </div>
+
+
+</div>
+
+<div className='statusBase'>
+
+<div>
+<p style={{display: `${DpDn}`}}>Dano</p>
+<p style={{display: `${DpVida}`}}>Vida</p>
+</div>
+
+<div>
+
+<select id="Gdano"  style={{display: `${DpDn}`}} onChange={(dados) =>{setDano(dados.target.value)}}>
+            {Dano.map((x)=>(
+             <option selected={x == dano} value={x}>{x} </option>
+         ))}
+            </select>
+            <select id="Gvida"  style={{display: `${DpVida}`}} onChange={(dados) =>{setVida(dados.target.value)}}>
+            {Vida.map((x)=>(
+             <option selected={x == vida} value={x}>{x} </option>
+         ))}
+            </select>
+</div>
+
+</div>   
+
+
+
+        </Filters>
+</DivFiltros>
         <GaleryCards>
         
         {NEWDB.sort(function(a,b) {
