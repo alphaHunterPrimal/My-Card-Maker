@@ -4,7 +4,7 @@ const User = styled.div`
 /*position: absolute;
 top: 1vh;
 left: 1vw;*/
-height: 4.9vh;
+height: 6vh;
 width: 10vw;
 background-color: blueviolet;
 border-radius: 10px;
@@ -19,6 +19,8 @@ button {
     //width: 3vw;
     //height: 2.5vh;
     border-radius: 5px;
+    height: 6vh;
+    width: 100%;
     cursor: pointer;
 }
 
@@ -26,6 +28,7 @@ button + button {
     
     background-color: blueviolet;
     position: relative;
+    height: 3vh;
     //bottom: 1vh;
     width: 10vw;
     //height: 2.5vh;

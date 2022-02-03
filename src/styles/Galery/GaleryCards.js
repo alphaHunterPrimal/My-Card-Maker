@@ -5,7 +5,7 @@ display: grid;
 
 width: calc(90vw + 60px);
 //padding: 4vh 0 0 0;
-height: 69vh;
+height: 80vh;
 z-index: 2;
 /*justify-content: flex-start;*/
 padding: 5vh calc(5vw - 30px) 0 calc(5vw - 30px);

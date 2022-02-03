@@ -84,6 +84,7 @@ export default function Galeria(props){
 
    
     const [DpCE, setDpCE] = React.useState("none");
+    const [Aparecer, setAparecer] = React.useState("none");
     var DpClassCustos;
     var DpClassMov
     var DpInputEnergia;
@@ -240,15 +241,7 @@ export default function Galeria(props){
             <title>Galeria</title>
         </Head>
 
-        <TopBar>
-        <Divuser>
-            {/*
-            <Inputlog placeholder="Procure cartas pelo criador delas!" onChange={(dados) => {setAutor(dados.target.value)}} value={autor}></Inputlog>
-            */}
-            
-            <Inputlog placeholder="Procure cartas pelo nome delas!" onChange={(dados) => {setName(dados.target.value)}} value={name}></Inputlog>
-        </Divuser>   
-
+        <TopBar> 
         <Voltar href="/"/*onClick={() => {router.push('/')}}*/>
             <img src="/arrow-back.svg"></img>
         </Voltar>
@@ -262,90 +255,31 @@ export default function Galeria(props){
       </User> 
 </div>
 
+<div className='informarFiltro'>
+          <span>- Filtre as cartas pelas suas preferências - </span>
+          <div className="resolve-filter">
+         <div>
+         <button hidden={Aparecer == "flex"} className='aparecer' onClick={()=>{
+          setAparecer("flex")
+        }}>Abrir Filtro</button>
 
-        <div className="resolve-filter">
-        <button className="submitar" onClick={async () => {
+          <button hidden={Aparecer == "none"} className='aparecer' onClick={()=>{
+          setAparecer("none")
 
-                  var tamanho = name.trim().length
-                  if(name != ""){
+        }}>Fechar Filtro</button>           
+        
+        
+        
+        </div> 
 
-                      setNEWDB(NEWDB.filter((x) => (x.name.split("").splice(0, tamanho).toString().replace(/,/g, "") == name.trim()
-                       //falsaProcuraArray.toString().replace(/,/g, "")
-                       )))
-                      
-                      }
-                  if(type != ""){setNEWDB(NEWDB.filter((x) => (x.typo == type )))}
-                  if(autor != ""){setNEWDB(NEWDB.filter((x) => (x.author == autor )))}
-                  
-                  //if(arctype != ""){setNEWDB(NEWDB.filter((x) => (x.arctype == arctype )))}
-                  if(arctype != null && arctype != undefined && arctype != []){
-                      if(type == "Efeito" ||type == "Armadilha" ){
-                        arctype.map((x) => (
-                            setNEWDB(NEWDB.filter((y) => (y.arctype.replace(" de ", " ").split(" ").includes(x
-                                .value
-                                .replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c").replace(/é/g, "e").replace(/í/g, "i").replace(/á/g, "a")))))
-                        ))
-                      } else {
-                        arctype.map((x) => (
-                            setNEWDB(NEWDB.filter((y) => (y.arctype.replace(" de ", " ").split(" ").includes(x.value))))
-                        ))
-                      }
-
-                    }
-                  if(speed != ""){setNEWDB(NEWDB.filter((x) => (x.velocidade == speed )))}
-                  if(custoM != ""){setNEWDB(NEWDB.filter((x) => (x.custom == custoM )))}
-                  if(custoE != ""){setNEWDB(NEWDB.filter((x) => (x.custoe == custoE )))}
-                  if(ganho != ""){setNEWDB(NEWDB.filter((x) => (x.ganho == ganho )))}
-                  if(mov != ""){setNEWDB(NEWDB.filter((x) => (x.mov == mov )))}
-                  if(direc != ""){setNEWDB(NEWDB.filter((x) => (x.direc == direc )))}
-                  if(vida != ""){setNEWDB(NEWDB.filter((x) => (x.vida == vida )))}
-                  if(dano != ""){setNEWDB(NEWDB.filter((x) => (x.dano == dano )))}
-                  if(kei != null && kei != undefined && kei != []){
-                    kei.map((x) => (
-                        setNEWDB(NEWDB.filter((y) => (y.keywords.split(" ").includes(x.value))))
-                    ))
-                    }
-
-                  setShowReset(false)
-                 
-                    }     
-              }>Filtrar</button>
-              <button className="resetar" hidden={showReset} onClick={async() => {
-                  setNEWDB(props.DB)  
-                  setName("")
-                  setType("")
-                  setAutor("")
-                  setSets("")
-                  setArctype("")
-                  setSpeed("")
-                  setCustoM("")
-                  setGanho("")
-                  setMov("")
-                  setDirec("")
-                  setVida("")
-                  setDano("")
-
-                  setKei("")
-                  setSelectedOption(null)
-                  setSelectedArctype(null)
-                  setSelectedEffect(null)
-                  setSelectedTrap(null)
-      
-                  
-                  setShowReset(true)
-                
-
-              }}>
-      
-      
-             Resetar
-              </button>
-
+        </div>
         </div>
 
         </TopBar>
 
-        <DivFiltros>
+
+        
+        <DivFiltros style={{display: `${Aparecer}`}}>
         <Filters onSubmit={function(e){e.preventDefault()}}>
 
 <div className='principal'>
@@ -365,10 +299,91 @@ export default function Galeria(props){
              <option selected={x == sets} value={x}>{x} </option>
          ))}
             </select>
+            <button className="submitar" onClick={async () => {
+
+var tamanho = name.trim().length
+if(name != ""){
+
+    setNEWDB(NEWDB.filter((x) => (x.name.split("").splice(0, tamanho).toString().replace(/,/g, "") == name.trim()
+     //falsaProcuraArray.toString().replace(/,/g, "")
+     )))
+    
+    }
+if(type != ""){setNEWDB(NEWDB.filter((x) => (x.typo == type )))}
+if(autor != ""){setNEWDB(NEWDB.filter((x) => (x.author == autor )))}
+
+//if(arctype != ""){setNEWDB(NEWDB.filter((x) => (x.arctype == arctype )))}
+if(arctype != null && arctype != undefined && arctype != []){
+    if(type == "Efeito" ||type == "Armadilha" ){
+      arctype.map((x) => (
+          setNEWDB(NEWDB.filter((y) => (y.arctype.replace(" de ", " ").split(" ").includes(x
+              .value
+              .replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c").replace(/é/g, "e").replace(/í/g, "i").replace(/á/g, "a")))))
+      ))
+    } else {
+      arctype.map((x) => (
+          setNEWDB(NEWDB.filter((y) => (y.arctype.replace(" de ", " ").split(" ").includes(x.value))))
+      ))
+    }
+
+  }
+if(speed != ""){setNEWDB(NEWDB.filter((x) => (x.velocidade == speed )))}
+if(custoM != ""){setNEWDB(NEWDB.filter((x) => (x.custom == custoM )))}
+if(custoE != ""){setNEWDB(NEWDB.filter((x) => (x.custoe == custoE )))}
+if(ganho != ""){setNEWDB(NEWDB.filter((x) => (x.ganho == ganho )))}
+if(mov != ""){setNEWDB(NEWDB.filter((x) => (x.mov == mov )))}
+if(direc != ""){setNEWDB(NEWDB.filter((x) => (x.direc == direc )))}
+if(vida != ""){setNEWDB(NEWDB.filter((x) => (x.vida == vida )))}
+if(dano != ""){setNEWDB(NEWDB.filter((x) => (x.dano == dano )))}
+if(kei != null && kei != undefined && kei != []){
+  kei.map((x) => (
+      setNEWDB(NEWDB.filter((y) => (y.keywords.split(" ").includes(x.value))))
+  ))
+  }
+
+setShowReset(false)
+
+  }     
+}>Filtrar</button>
+<button className="resetar" hidden={showReset} onClick={async() => {
+setNEWDB(props.DB)  
+setName("")
+setType("")
+setAutor("")
+setSets("")
+setArctype("")
+setSpeed("")
+setCustoM("")
+setGanho("")
+setMov("")
+setDirec("")
+setVida("")
+setDano("")
+
+setKei("")
+setSelectedOption(null)
+setSelectedArctype(null)
+setSelectedEffect(null)
+setSelectedTrap(null)
+
+
+setShowReset(true)
+
+
+}}>
+
+
+Resetar
+</button>
 
 </div>
 
 
+</div>
+
+<div className='searchName'>
+<Inputlog placeholder="Procure cartas pelo nome delas!" onChange={(dados) => {setName(dados.target.value)}} value={name}></Inputlog>
+<Inputlog placeholder="Procure cartas pelo criador delas!" onChange={(dados) => {setAutor(dados.target.value)}} value={autor}></Inputlog>
 </div>
 
 <div id="Gkei" style={{display: `${DpKey}`}} className='palavrasChaveDiv'>
@@ -468,9 +483,6 @@ export default function Galeria(props){
 
 </div>
 
-
-
-
 <div className='custos' style={{display: `${DpClassCustos}`}}>
 
 <div>
@@ -567,8 +579,6 @@ export default function Galeria(props){
 </div>
 
 </div>   
-
-
 
         </Filters>
 </DivFiltros>

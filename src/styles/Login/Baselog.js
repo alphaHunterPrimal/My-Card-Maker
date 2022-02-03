@@ -18,7 +18,7 @@ flex-direction: column;
     font-size: 2.2vw;
     font-weight: 800;
     p {
-    font-size: 1vw;
+    font-size: 1.3vw;
     font-weight: 600;
     }
     
@@ -30,10 +30,11 @@ display: flex;
 flex-direction: column;
 justify-content: space-around;
 align-items: center;
+
  
 .sair{
-    height: 3.4vw;
-width: 7vw;
+    height: 4vw;
+width: 8vw;
 display: flex;
 cursor: pointer;
 background-color: rgba(138, 43, 226, 0.99);

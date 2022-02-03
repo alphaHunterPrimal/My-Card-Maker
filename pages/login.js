@@ -14,7 +14,6 @@ import { v4 as uuid } from 'uuid'
 import jwt from "jsonwebtoken"
 import { route } from "next/dist/server/router";
 
-
 //require('dotenv/config');
 
 const crypto = require('crypto');
@@ -54,6 +53,7 @@ export default function LOGIN(props){
     const [User, setUser] = React.useState("")
     const [Senha, setSenha] = React.useState("")
     const [cadastrar, setCadastrar] = React.useState(false)
+    const [tipoSenha, setTipoSenha] = React.useState("password")
     console.log(props.username)
     return(
         <>
@@ -91,7 +91,26 @@ export default function LOGIN(props){
           </header>
       <Campolog>
       <Inputlog required placeholder="usuario"onChange={(dados) => {setUser(dados.target.value)}} value={User}></Inputlog>
-      <Inputlog required placeholder="senha" onChange={(dados) => {setSenha(dados.target.value)}} value={Senha}></Inputlog>
+      
+      <div className="senha">
+      <Inputlog required placeholder="senha" type={tipoSenha} onChange={(dados) => {setSenha(dados.target.value)}} value={Senha}></Inputlog>
+      <button onClick={() => {
+        if(tipoSenha == "password"){
+          setTipoSenha("text")
+        }
+        if(tipoSenha == "text"){
+          setTipoSenha("password")
+        }
+        
+        }}>
+      <img src="/eye.png"></img>
+      </button>
+      </div>
+      
+      
+
+
+      
       
       </Campolog>
       <footer>
@@ -139,10 +158,23 @@ export default function LOGIN(props){
           <p>Faça o seu cadastro para poder começar a criar cartas!</p>
           </header>
       <Campolog>
-      <Inputlog required placeholder="usuário (não utilize caracteres especiais)" maxLength={15} onChange={(dados) => {setUser(dados.target.value)}} value={User}></Inputlog>
+      <Inputlog required placeholder="usuário" maxLength={15} onChange={(dados) => {setUser(dados.target.value)}} value={User}></Inputlog>
       <Inputlog required placeholder="e-mail" onChange={(dados) => {setEmail(dados.target.value)}} value={Email}></Inputlog>
-      <Inputlog required placeholder="senha (não utilize caracteres especiais)" maxLength={10} onChange={(dados) => {setSenha(dados.target.value)}} value={Senha}></Inputlog>
       
+      <div className="senha">
+      <Inputlog required type={tipoSenha} placeholder="senha" maxLength={10} onChange={(dados) => {setSenha(dados.target.value)}} value={Senha}></Inputlog>
+      <button onClick={() => {
+        if(tipoSenha == "password"){
+          setTipoSenha("text")
+        }
+        if(tipoSenha == "text"){
+          setTipoSenha("password")
+        }
+        
+        }}>
+      <img src="/eye.png"></img>
+      </button>
+      </div>
       </Campolog>
       <footer>
       <Logar onClick={() => {
