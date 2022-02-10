@@ -79,11 +79,11 @@ bottom: -7px;
 .Aterrar{
     color: rgb(139,69,19);
 };
-.Nascer{
+.Nascer, .Ressurgir{
     color: green;
 };
 .Morrer{
- color: #363636;
+ color: blueviolet;//#363636;
 };
 .Invocar{
     color: #00868B;
@@ -113,6 +113,10 @@ bottom: -7px;
     width: 18.5px;
     height: 18.5px;
     ;};
+.quebrar-cristal{
+    width: 15px;
+    height: 15px;
+}
 .resistencia{
     width: 18.5px;
     height: 18.5px;

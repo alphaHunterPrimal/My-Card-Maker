@@ -19,7 +19,7 @@ import jwt from "jsonwebtoken"
 import nookies, { parseCookies, setCookie, destroyCookie } from "nookies";
 import User from '../src/styles/Login/User';
 import { useAuth } from '../src/contexts/AuthContext';
-import Modal from '../src/components/Modal';
+import Modal from '../src/components/modal';
 import { route } from 'next/dist/server/router';
 
 import Select, { components } from "react-select";
@@ -312,7 +312,6 @@ if(name != ""){
 if(type != ""){setNEWDB(NEWDB.filter((x) => (x.typo == type )))}
 if(autor != ""){setNEWDB(NEWDB.filter((x) => (x.author == autor )))}
 
-//if(arctype != ""){setNEWDB(NEWDB.filter((x) => (x.arctype == arctype )))}
 if(arctype != null && arctype != undefined && arctype != []){
     if(type == "Efeito" ||type == "Armadilha" ){
       arctype.map((x) => (

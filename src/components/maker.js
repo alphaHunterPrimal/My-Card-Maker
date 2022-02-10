@@ -103,6 +103,7 @@ var keywords = {
   ":Rap:": "Rápido",
   ":Ate:": 'Aterrar', 
   ":Nas:": "Nascer",
+  ":Res:" : "Ressurgir",
   ":Mor:" : "Morrer",
  ":Inv:" : "Invocar",
   ":Voa:": "Voar",
@@ -118,7 +119,8 @@ var keywords = {
 
 var keyimgs = {
  ":v:" : 'virar',
- ":t:": 'tempo', 
+ ":t:": 'tempo',
+ ":qc:": "quebrar-cristal", 
  ":m:": "mineral", 
  ":q:": "quadrado", 
   ":r:": "resistencia", 
@@ -143,11 +145,11 @@ useEffect(()=>{
 useEffect(()=>{
   if(fonte == false){
     if(digitsEffect <= 120){
-      setLine(19)
-      setFontsize(19)
+      setLine(20)
+      setFontsize(20)
     } else {if(digitsEffect > 180 && digitsEffect <= 240){
-      setLine(17)
-      setFontsize(17)
+      setLine(18)
+      setFontsize(18)
     } else {if(digitsEffect > 240 && digitsEffect <= 300){
       setLine(16)
       setFontsize(16)
@@ -315,12 +317,40 @@ KEI.map((x, index) => (
         <div className="buttonSave">
         <button 
            className="salvar"
-           onClick={
+           onClick={async()=>{ 
+            var ambos = desc.split(" - ")
+            
+            var SETS = ambos[1]
+            //console.log(SETS)
+            var ARCTYPES = ambos[0].replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c")//.replace(/é/g, "e").replace(/í/g, "i").replace(/á/g, "a")
+            //console.log(ARCTYPES)
+
+
+          //separar a velocidade do arquétipo de uma carta de efeito
+            var Arkétipo = "";
+            var Speed = "";
              
-            async()=>{
+            if(BG == "Efeito"){
 
-
-
+              ArquétipoEfeitos.map((x) =>(
+                ARCTYPES.split(" ").includes(x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c"))?
+                Arkétipo = x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c"):
+              null
+              ))
+              if(ARCTYPES.split(" ").includes("Única")){
+                Arkétipo = Arkétipo + " Única"
+              }
+              CriarVelocidade.map((x) =>(
+                ARCTYPES.split(" ").includes(x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c"))?
+                Speed = x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c"):
+              null
+              ))
+              
+              }
+              console.log(Arkétipo)
+              console.log(ARCTYPES)
+              console.log(Speed)
+            /* 
             await html2canvas(document.querySelector("#CARD")).then( async canvas => {
               //document.body.appendChild(canvas)
               var dload = document.querySelector("#download")
@@ -333,9 +363,8 @@ KEI.map((x, index) => (
               dload.href = image;
               dload.download = `${nome}`
               dload.click()
-               
-                   
-              }) 
+
+              }) */
             //router.push('/galeria')
             setDisplai("inline")
 
@@ -373,7 +402,6 @@ else{
       alert("Incompleto")              
 }
 
-
               
               var ambos = desc.split(" - ")
             
@@ -387,11 +415,15 @@ else{
               var Arkétipo = "";
               var Speed = "";
               if(BG == "Efeito"){
+
               ArquétipoEfeitos.map((x) =>(
                 ARCTYPES.split(" ").includes(x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c"))?
                 Arkétipo = x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c"):
               null
               ))
+              if(ARCTYPES.split(" ").includes("Única")){
+                Arkétipo = Arkétipo + " Única"
+              }
               CriarVelocidade.map((x) =>(
                 ARCTYPES.split(" ").includes(x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c"))?
                 Speed = x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c"):
@@ -403,13 +435,12 @@ else{
               console.log(Speed)
               //para cada keyword, colocá-la dentro de uma string se ela estiver no texto
               $.each(keywords, function(key, link) {
-                if(effect.split(" ").includes(key) && !allKeywords.split(" ").includes(link)){
+                if(effect.replace("(", " ").replace("[", " ").replace(",", " ").replace("::", ":").split(" ").includes(key) && !allKeywords.split(" ").includes(link)){
                   if(allKeywords == "") {allKeywords = link} else {
                     allKeywords = allKeywords + " " + link
                   }
                 }
              });
-             console.log(allKeywords)
              console.log(allKeywords.split(" "))
              
             setCarta(Uerieli)
