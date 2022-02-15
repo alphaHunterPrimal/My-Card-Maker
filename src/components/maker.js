@@ -180,6 +180,7 @@ async function login(){
 <div style={{position: "absolute", top: "1vh", left: "1vw"}}>
 <User>
       <button onClick={() => saida == "none"? setSaida("inline") : setSaida("none")}>Logado como "{superuser}"</button>
+      <button style={{display: `${saida}`}} onClick={() => {router.push('/userhome')}}>Ir para o perfil</button>
       <button  style={{display: `${saida}`}} onClick={() => {destroyCookie(null, "myuser.token")
       setSuperuser("")
        router.push('/login')}}>Sair</button>
@@ -318,39 +319,8 @@ KEI.map((x, index) => (
         <button 
            className="salvar"
            onClick={async()=>{ 
-            var ambos = desc.split(" - ")
             
-            var SETS = ambos[1]
-            //console.log(SETS)
-            var ARCTYPES = ambos[0].replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c")//.replace(/é/g, "e").replace(/í/g, "i").replace(/á/g, "a")
-            //console.log(ARCTYPES)
-
-
-          //separar a velocidade do arquétipo de uma carta de efeito
-            var Arkétipo = "";
-            var Speed = "";
-             
-            if(BG == "Efeito"){
-
-              ArquétipoEfeitos.map((x) =>(
-                ARCTYPES.split(" ").includes(x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c"))?
-                Arkétipo = x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c"):
-              null
-              ))
-              if(ARCTYPES.split(" ").includes("Única")){
-                Arkétipo = Arkétipo + " Única"
-              }
-              CriarVelocidade.map((x) =>(
-                ARCTYPES.split(" ").includes(x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c"))?
-                Speed = x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c"):
-              null
-              ))
-              
-              }
-              console.log(Arkétipo)
-              console.log(ARCTYPES)
-              console.log(Speed)
-            /* 
+            
             await html2canvas(document.querySelector("#CARD")).then( async canvas => {
               //document.body.appendChild(canvas)
               var dload = document.querySelector("#download")
@@ -364,9 +334,12 @@ KEI.map((x, index) => (
               dload.download = `${nome}`
               dload.click()
 
-              }) */
+              })
             //router.push('/galeria')
-            setDisplai("inline")
+            if(superuser == "Eumesmo") {
+              setDisplai("inline")
+            }
+            
 
           }                          
 }>
@@ -384,118 +357,125 @@ KEI.map((x, index) => (
         <button className="enviar" style={{display: `${displai}`}}
             onClick={async(e) => { 
               e.preventDefault()
-
-              var NOme = nome.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c").replace(/é/g, "e").replace(/í/g, "i").replace(/á/g, "a")
-              var Uerieli = AWSlink + NOme.split(" ").join("_")// +".jpg"
+              if(superuser == "Eumesmo"){
+                var NOme = nome.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c").replace(/é/g, "e").replace(/í/g, "i").replace(/á/g, "a")
+                var Uerieli = AWSlink + NOme.split(" ").join("_")// +".jpg"
+                
+  
+          //se estiverem faltando os dados, nem gastar tempo tentando enviar
+                if(nome != "" && ARCTYPES != "" && SETS != "" && autor != ""){
+                  await html2canvas(document.querySelector("#CARD")).then( async canvas => {
+                    var image = await canvas.toDataURL("image/png")
+                    console.log(image)
+                    await upload64(image, NOme)
+                    console.log(NOme)       
+                    }) 
+  }
+  else{
+        alert("Incompleto")              
+  }
+  
+                
+                var ambos = desc.split(" - ")
               
-
-        //se estiverem faltando os dados, nem gastar tempo tentando enviar
-              if(nome != "" && ARCTYPES != "" && SETS != "" && autor != "" && digitsEffect > 5){
-                await html2canvas(document.querySelector("#CARD")).then( async canvas => {
-                  var image = await canvas.toDataURL("image/png")
-                  console.log(image)
-                  await upload64(image, NOme)
-                  console.log(NOme)       
-                  }) 
-}
-else{
-      alert("Incompleto")              
-}
-
-              
-              var ambos = desc.split(" - ")
-            
-              var SETS = ambos[1]
-              //console.log(SETS)
-              var ARCTYPES = ambos[0].replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c")//.replace(/é/g, "e").replace(/í/g, "i").replace(/á/g, "a")
-              //console.log(ARCTYPES)
-
-
-            //separar a velocidade do arquétipo de uma carta de efeito
-              var Arkétipo = "";
-              var Speed = "";
-              if(BG == "Efeito"){
-
-              ArquétipoEfeitos.map((x) =>(
-                ARCTYPES.split(" ").includes(x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c"))?
-                Arkétipo = x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c"):
-              null
-              ))
-              if(ARCTYPES.split(" ").includes("Única")){
-                Arkétipo = Arkétipo + " Única"
-              }
-              CriarVelocidade.map((x) =>(
-                ARCTYPES.split(" ").includes(x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c"))?
-                Speed = x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c"):
-              null
-              ))
-              
-              }
-              console.log(Arkétipo)
-              console.log(Speed)
-              //para cada keyword, colocá-la dentro de uma string se ela estiver no texto
-              $.each(keywords, function(key, link) {
-                if(effect.replace("(", " ").replace("[", " ").replace(",", " ").replace("::", ":").split(" ").includes(key) && !allKeywords.split(" ").includes(link)){
-                  if(allKeywords == "") {allKeywords = link} else {
-                    allKeywords = allKeywords + " " + link
-                  }
+                var SETS = ambos[1]
+                //console.log(SETS)
+                var ARCTYPES = ambos[0].replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c")//.replace(/é/g, "e").replace(/í/g, "i").replace(/á/g, "a")
+                //console.log(ARCTYPES)
+  
+  
+              //separar a velocidade do arquétipo de uma carta de efeito
+                var Arkétipo = "";
+                var Speed = "";
+                if(BG == "Efeito"){
+  
+                ArquétipoEfeitos.map((x) =>(
+                  ARCTYPES.split(" ").includes(x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c"))?
+                  Arkétipo = x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c"):
+                null
+                ))
+                if(ARCTYPES.split(" ").includes("Única")){
+                  Arkétipo = Arkétipo + " Única"
                 }
-             });
-             console.log(allKeywords.split(" "))
-             
-            setCarta(Uerieli)
-             var autor = superuser//session.user.email.replace(/@gmail.com/, "")
-             //console.log(autor)
-if(BG == "Efeito"){
-  var galeries = {
-    name: nome,
-    author: autor,
-    typo: BG, 
-    keywords: allKeywords, 
-    sets: SETS,
-    velocidade: Speed, 
-    arctype: Arkétipo, 
-    card: Uerieli, 
-    custom: custoM, 
-    custoe: custoE, 
-    ganho: ganho, 
-    mov: mov, 
-    direc: MV, 
-    dano: dano, 
-    vida: vida
+                CriarVelocidade.map((x) =>(
+                  ARCTYPES.split(" ").includes(x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c"))?
+                  Speed = x.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c"):
+                null
+                ))
+                
+                }
+                console.log(Arkétipo)
+                console.log(Speed)
+                //para cada keyword, colocá-la dentro de uma string se ela estiver no texto
+                $.each(keywords, function(key, link) {
+                  if(effect.replace("(", " ").replace("[", " ").replace(",", " ").replace("::", ":").split(" ").includes(key) && !allKeywords.split(" ").includes(link)){
+                    if(allKeywords == "") {allKeywords = link} else {
+                      allKeywords = allKeywords + " " + link
+                    }
+                  }
+               });
+               console.log(allKeywords.split(" "))
+               
+              setCarta(Uerieli)
+               var autor = superuser//session.user.email.replace(/@gmail.com/, "")
+               //console.log(autor)
+  if(BG == "Efeito"){
+    var galeries = {
+      name: nome,
+      author: autor,
+      typo: BG, 
+      keywords: allKeywords, 
+      sets: SETS,
+      velocidade: Speed, 
+      arctype: Arkétipo, 
+      card: Uerieli, 
+      custom: custoM, 
+      custoe: custoE, 
+      ganho: ganho, 
+      mov: mov, 
+      direc: MV, 
+      dano: dano, 
+      vida: vida
+    }
+  } else {
+    var galeries = {
+      name: nome,
+      author: autor,
+      typo: BG, 
+      keywords: allKeywords, 
+      sets: SETS,
+      velocidade: Speed, 
+      arctype: ARCTYPES, 
+      card: Uerieli, 
+      custom: custoM, 
+      custoe: custoE, 
+      ganho: ganho, 
+      mov: mov, 
+      direc: MV, 
+      dano: dano, 
+      vida: vida
+    }
   }
-} else {
-  var galeries = {
-    name: nome,
-    author: autor,
-    typo: BG, 
-    keywords: allKeywords, 
-    sets: SETS,
-    velocidade: Speed, 
-    arctype: ARCTYPES, 
-    card: Uerieli, 
-    custom: custoM, 
-    custoe: custoE, 
-    ganho: ganho, 
-    mov: mov, 
-    direc: MV, 
-    dano: dano, 
-    vida: vida
-  }
-}
+  
+               fetch('/api/galeries', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(galeries)
+              })
+              .then(async (response) => {
+                const dados = await response.json();
+                console.log(dados.registroCriado);
+              })
+              }
 
-             fetch('/api/galeries', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(galeries)
-            })
-            .then(async (response) => {
-              const dados = await response.json();
-              console.log(dados.registroCriado);
-            })
-            }
+
+
+
+              }
+
+              
           }
 >Enviar</button>
         </div>

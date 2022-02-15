@@ -242,13 +242,14 @@ export default function Galeria(props){
         </Head>
 
         <TopBar> 
-        <Voltar href="/"/*onClick={() => {router.push('/')}}*/>
+        <Voltar onClick={() => {router.back()}}>
             <img src="/arrow-back.svg"></img>
         </Voltar>
 
         <div style={{position: "absolute", top: "2vh", right: "2vw"}}>
 <User>
       <button onClick={() => saida == "none"? setSaida("inline") : setSaida("none")}>Logado como "{superuser}"</button>
+      <button style={{display: `${saida}`}} onClick={() => {router.push('/userhome')}}>Ir para o perfil</button>
       <button style={{display: `${saida}`}} onClick={() => {destroyCookie(null, "myuser.token")
       setSuperuser("")
        router.push('/login')}}>Sair</button>
@@ -303,8 +304,7 @@ export default function Galeria(props){
 
 var tamanho = name.trim().length
 if(name != ""){
-
-    setNEWDB(NEWDB.filter((x) => (x.name.split("").splice(0, tamanho).toString().replace(/,/g, "") == name.trim()
+    await setNEWDB(NEWDB.filter((x) => (x.name.split("").splice(0, tamanho).toString().replace(/,/g, "") == name.trim()
      //falsaProcuraArray.toString().replace(/,/g, "")
      )))
     
