@@ -10,7 +10,7 @@ import Voltar from '../src/styles/Galery/voltar';
 import BodyProfile from '../src/styles/UserHome/BodyProfile';
 import Input from '../src/styles/CardMaker/Input';
 import InputPassword from '../src/styles/UserHome/InputPassword';
-import editarNome from './api/updateName';
+
 
 
 export default function UserHome(props){
@@ -28,6 +28,7 @@ export default function UserHome(props){
       )
       const [userId, setUserId] = React.useState(newDbUsuarios[0].id)
       //const [userName, setUserName] = React.useState(newDbUsuarios[0].usuario)
+      const [showElement, setShowElement] = React.useState(false)
 
       
 
@@ -44,9 +45,14 @@ export default function UserHome(props){
         </Voltar>
         <User>
       <button onClick={() => saida == "none"? setSaida("inline") : setSaida("none")}>Logado como "{props.username}"</button>
-      <button style={{display: `${saida}`}} onClick={() => {destroyCookie(null, "myuser.token")
+      { saida == "inline" ?
+      <button /*style={{display: `${saida}`}}*/ onClick={() => {destroyCookie(null, "myuser.token")
       setSuperuser("")
        router.push('/login')}}>Sair</button>
+      
+      
+       : null }
+      
       </User> 
       </header>
         </DivUpperBar>
@@ -61,14 +67,13 @@ export default function UserHome(props){
                     </div>
                     <div className='flex-name'>
                     
-                    <InputPassword placeholder={"Novo Nome"} onChange={(dados) => {setNewName(dados.target.value)}} value={newName}></InputPassword>
+                    <InputPassword maxLength={15} placeholder={"Novo Nome"} onChange={(dados) => {setNewName(dados.target.value)}} value={newName}></InputPassword>
                     
                     <button onClick={async() => {
                       if(props.DBuser.filter((x) => (x.usuario == newName)) != ""){
                         alert("Esse nome está indisponível!")
                         
-                      } else {
-
+                      } else if(newName.trim() != "" && newName.length >= 4 && newName.length <= 15 ){
                         const UPDATE_NAME = {
                           userId: userId,
                           userName: newName,
@@ -94,9 +99,12 @@ export default function UserHome(props){
                         })
 
                         router.push("/userhome")
+
+
+
+                        } else {alert("Seu nome de usuário deve ter de 4 a 15 caracteres")}
                         
                       
-                      }
                     }}>Salvar</button>
                     </div>
 
@@ -106,7 +114,7 @@ export default function UserHome(props){
                     
                     <div className='changeOldPassword'>
                         <div>
-                        <InputPassword placeholder={"Senha antiga"} type={tipoSenhaVelha} onChange={(dados) => {setOldPassword(dados.target.value)}} value={oldPassword}></InputPassword>
+                        <InputPassword maxLength={10} placeholder={"Senha antiga"} type={tipoSenhaVelha} onChange={(dados) => {setOldPassword(dados.target.value)}} value={oldPassword}></InputPassword>
                     <button className='eyeLooking'
                     onClick={() => {
                         if(tipoSenhaVelha == "password"){
@@ -126,7 +134,7 @@ export default function UserHome(props){
 
                     <div className='changeNewPassword'>
                         <div>
-                        <InputPassword placeholder={"Senha atual"}type={tipoSenhaNova} onChange={(dados) => {setNewPassword(dados.target.value)}} value={newPassword}></InputPassword>
+                        <InputPassword maxLength={10} placeholder={"Senha atual"}type={tipoSenhaNova} onChange={(dados) => {setNewPassword(dados.target.value)}} value={newPassword}></InputPassword>
                     <button className='eyeLooking'
                     onClick={() => {
                         if(tipoSenhaNova == "password"){
@@ -141,11 +149,42 @@ export default function UserHome(props){
                     </button>
                         </div>
 
-                    <button>Salvar</button>
+                    <button onClick={async() => {
+                      if(oldPassword == newDbUsuarios[0].senha ){
+                        if(newPassword.trim() != "" && newPassword.length >= 4 && newPassword.length <= 10){
+                          const UPDATE_PASSWORD = {
+                            userId: userId,
+                            userPassword: newPassword,
+                          }
+  
+                          fetch('/api/updatePassword', {
+                            method: 'POST',
+                            headers: {
+                              'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(UPDATE_PASSWORD)
+                          })
+                          .then(async (res) => {
+                            const dados = await res.json();
+                            console.log(dados.senhaEditada);
+                          }) 
+  
+  
+                          router.push("/userhome")
+
+
+                        } else {alert("Sua senha deve ter de 4 a 10 caracteres")}
+                        
+                      } else {
+                        alert("A senha anterior não coincide!")
+                      }
+
+
+
+                    }}>Salvar</button>
                     </div>
-                    
-                    
-    
+
+
                 </div>
 
 

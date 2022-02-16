@@ -182,12 +182,12 @@ export default function LOGIN(props){
                   if(NEWAUTH.filter((x) => (x.usuario == User)) != ""){
                       alert("Usuário já cadastrado!")
                   }
-                  if(User.length < 4 || User.length > 15 ){
+                  if(User.length < 4 & User.length > 15 ){
                       alert("Seu nome de usuário deve ter de 4 a 15 dígitos")
                   }
-                  if(User.length >= 4 || User.length <= 15 ){
+                  if(User.length >= 4 & User.length <= 15 ){
                       if(NEWAUTH.filter((x) => (x.usuario == User)) == ""){
-                          if(Senha.length < 4 || Senha.length > 10){
+                          if(Senha.length < 4 & Senha.length > 10){
                               alert("Sua senha deve ter de 4 a 10 dígitos")
                           }
                           if(Senha.length >= 4 && Senha.length <= 10){
