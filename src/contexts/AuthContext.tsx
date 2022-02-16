@@ -13,11 +13,14 @@ type User = {
 type AuthContextType = {
   superuser: string,
   setSuperuser: React.Dispatch<React.SetStateAction<string>>,
+  userId: string, 
+  setUserId: React.Dispatch<React.SetStateAction<string>>,
+  userName: string, 
+  setUserName: React.Dispatch<React.SetStateAction<string>>,
 
   inicial: boolean, setInicial:React.Dispatch<React.SetStateAction<boolean>>,
 
   //user: SuperUser | undefined;
-  signInWithGoogle: () => Promise<void>;
 }
 
 type AuthContextProviderProps = {
@@ -29,14 +32,12 @@ export const AuthContext = createContext({} as AuthContextType);
 export function AuthContextProvider(props: AuthContextProviderProps) {
   const [superuser, setSuperuser] = useState<string>("");
   const [inicial, setInicial] = React.useState<boolean>(false);
+  const [userId, setUserId] = React.useState<string>("")
+  const [userName, setUserName] = React.useState<string>("")
 
 
-  async function signInWithGoogle() {
-      console.log("oi")
-   
-   }
   return (
-    <AuthContext.Provider value={{ inicial, setInicial,superuser, setSuperuser, signInWithGoogle }}>
+    <AuthContext.Provider value={{ inicial, setInicial,superuser, setSuperuser, userId, setUserId, userName, setUserName}}>
       {props.children}
     </AuthContext.Provider>
   );

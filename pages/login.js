@@ -120,17 +120,6 @@ export default function LOGIN(props){
               if(NEWAUTH.find((x) => (x.usuario == User.trim() && x.senha == Senha.trim()))){
   
                 const tokenjwt = jwt.sign({username: User.trim()}, "my-secret", {expiresIn: 3600})
-                //console.log(jwt.decode(tokenjwt))
-            //encodificar()
-  
-              //const testedeusuario = await encodificar(User)
-  
-                //const { 'nextauth.token': token } = parseCookies()
-  
-                  /*const {token, user} = {
-                    token: uuid(),
-                    user: User.trim()
-                  }*/
                   setCookie(null, 'myuser.token', tokenjwt, {
                     maxAge: 60 * 60 * 1, // 1 hour
                   })
@@ -138,7 +127,17 @@ export default function LOGIN(props){
   
                   const {username} = jwt.decode(token);
                   console.log(username)
-                  router.push('/')
+
+
+//ALTERAÇÕES PARA TESTE NO USERHOME
+//VOLTAR PARA "/" DEPOIS
+                  router.push('/userhome')
+
+
+
+
+
+
                 }
               else{alert("Senha ou usuário incorretos!")}}
               else{alert("Usuário inexistente!")}

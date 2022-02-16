@@ -167,13 +167,7 @@ useEffect(()=>{
 return 
   }
 }, [digitsEffect])
-/*
-async function login(){
-  if (!user) {
-    await signInWithGoogle()
-  }
-  setTimeout(()=>{router.push('/galeria')}, 3000)
-}*/
+
     return(
       <>
 

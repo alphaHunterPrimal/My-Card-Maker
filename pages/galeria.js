@@ -104,6 +104,7 @@ export default function Galeria(props){
     
     useEffect(() => {
       setNEWDB(NEWDB.filter((x) => (x.author == "Eumesmo" )))
+     
      /*console.log(
         NEWDB.map((x)=>(
             console.log(x.author)
@@ -623,6 +624,7 @@ export async function getServerSideProps(ctx){
         },
         body: JSON.stringify({ "query": `query {
           allGaleries {
+            id
             name
             author
             typo 
