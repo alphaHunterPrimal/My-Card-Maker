@@ -127,6 +127,7 @@ export default function LOGIN(props){
   
                   const {username} = jwt.decode(token);
                   console.log(username)
+                  setSuperuser(username)
 
 
 //ALTERAÇÕES PARA TESTE NO USERHOME

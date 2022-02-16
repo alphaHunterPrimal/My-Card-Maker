@@ -9,7 +9,7 @@ export default async function editarNome(req, res) {
             const client = new SiteClient(TOKEN);
         
         const nomeEditado = await client.items.update(req.body.userId, {
-            itemType: LOGIN,
+            //itemType: LOGIN,
             usuario: req.body.userName,
         })
 

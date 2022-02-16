@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Head from 'next/head';
 import { useAuth } from '../src/contexts/AuthContext';
-import { destroyCookie, parseCookies } from 'nookies';
+import { destroyCookie, parseCookies, setCookie } from 'nookies';
 import jwt from "jsonwebtoken"
 import {useRouter} from 'next/router';
 import User from '../src/styles/Login/User';
@@ -16,7 +16,7 @@ import editarNome from './api/updateName';
 export default function UserHome(props){
     const router = useRouter()
     var {
-        superuser, setSuperuser, userId, setUserId, userName, setUserName
+        superuser, setSuperuser,// userId, setUserId, userName, setUserName
       } = useAuth()
       const[saida, setSaida] = React.useState("none")
       const [newName,setNewName] = React.useState("")
@@ -24,24 +24,11 @@ export default function UserHome(props){
       const [newPassword, setNewPassword] = React.useState("")
       const [tipoSenhaVelha, setTipoSenhaVelha] = React.useState("password")
       const [tipoSenhaNova, setTipoSenhaNova] = React.useState("password")
-      const [newDbUsuarios, setNewDbUsuarios] = React.useState(props.DBuser.filter((x) => (x.usuario == "Eumesmo"))//[0]//.usuario
+      const [newDbUsuarios, setNewDbUsuarios] = React.useState(props.DBuser.filter((x) => (x.usuario == props.username))//[0]//.usuario
       )
-      //const [userId, setUserId] = React.useState(newDbUsuarios[0].id)
+      const [userId, setUserId] = React.useState(newDbUsuarios[0].id)
       //const [userName, setUserName] = React.useState(newDbUsuarios[0].usuario)
-      useEffect(() => {
-        setSuperuser(newDbUsuarios[0].usuario)
-        setUserId(newDbUsuarios[0].id)
-        setUserName(newDbUsuarios[0].usuario)
-        //alert(userName)
-        //alert(newDbUsuarios)
-        //setNewDbUsuarios(newDbUsuarios.filter((x) =>(x.usuario == superuser)))
-        //setNewDbUsuarios(newDbUsuarios.filter((x) => (x.usuario == "Eumesmo")))
-        //alert(superuser)
-        //console.log(newDbUsuarios[0].usuario)
-        //setNewName(newDbUsuarios)
-      
-      
-      },[])
+
       
 
     return(
@@ -56,7 +43,7 @@ export default function UserHome(props){
             <img src="/arrow-back.svg"></img>
         </Voltar>
         <User>
-      <button onClick={() => saida == "none"? setSaida("inline") : setSaida("none")}>Logado como "{superuser}"</button>
+      <button onClick={() => saida == "none"? setSaida("inline") : setSaida("none")}>Logado como "{props.username}"</button>
       <button style={{display: `${saida}`}} onClick={() => {destroyCookie(null, "myuser.token")
       setSuperuser("")
        router.push('/login')}}>Sair</button>
@@ -81,11 +68,12 @@ export default function UserHome(props){
                         alert("Esse nome está indisponível!")
                         
                       } else {
-                        alert("Esse usuário é novo")
+
                         const UPDATE_NAME = {
                           userId: userId,
-                          userName: userName
+                          userName: newName,
                         }
+
                         fetch('/api/updateName', {
                           method: 'POST',
                           headers: {
@@ -97,7 +85,16 @@ export default function UserHome(props){
                           const dados = await res.json();
                           console.log(dados.nomeEditado);
                         }) 
+
+                        destroyCookie(null, "myuser.token")
                       
+                        const tokenjwt = jwt.sign({username: newName.trim()}, "my-secret", {expiresIn: 3600})
+                        setCookie(null, 'myuser.token', tokenjwt, {
+                          maxAge: 60 * 60 * 1, // 1 hour
+                        })
+
+                        router.push("/userhome")
+                        
                       
                       }
                     }}>Salvar</button>

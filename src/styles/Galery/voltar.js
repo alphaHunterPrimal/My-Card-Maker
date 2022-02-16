@@ -11,5 +11,6 @@ background-color: blueviolet;
 text-align: center;
 justify-content: center;
 align-content: center;
+cursor: pointer;
 `;
 export default Voltar;
