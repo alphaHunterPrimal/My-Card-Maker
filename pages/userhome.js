@@ -10,7 +10,7 @@ import Voltar from '../src/styles/Galery/voltar';
 import BodyProfile from '../src/styles/UserHome/BodyProfile';
 import Input from '../src/styles/CardMaker/Input';
 import InputPassword from '../src/styles/UserHome/InputPassword';
-
+import { motion, AnimatePresence } from "framer-motion"
 
 
 export default function UserHome(props){
@@ -28,7 +28,8 @@ export default function UserHome(props){
       )
       const [userId, setUserId] = React.useState(newDbUsuarios[0].id)
       //const [userName, setUserName] = React.useState(newDbUsuarios[0].usuario)
-      const [showElement, setShowElement] = React.useState(false)
+      const [showName, setShowName] = React.useState(false)
+      const [showPassword, setShowPassword] = React.useState(false)
 
       
 
@@ -44,28 +45,52 @@ export default function UserHome(props){
             <img src="/arrow-back.svg"></img>
         </Voltar>
         <User>
-      <button onClick={() => saida == "none"? setSaida("inline") : setSaida("none")}>Logado como "{props.username}"</button>
-      { saida == "inline" ?
-      <button /*style={{display: `${saida}`}}*/ onClick={() => {destroyCookie(null, "myuser.token")
+      <button onClick={() => saida == "none"? setSaida("visible") : setSaida("none")}>Logado como "{props.username}"</button>
+      <AnimatePresence
+>
+        { saida == "visible" ?
+      <motion.button
+      initial={{ opacity: 0, y: -5 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -5 }}
+      transition={{ duration: 0.2}}
+      /*style={{display: `${saida}`}}*/ onClick={() => {destroyCookie(null, "myuser.token")
       setSuperuser("")
-       router.push('/login')}}>Sair</button>
-      
-      
+       router.push('/login')}}>Sair</motion.button>
        : null }
-      
+
+      </AnimatePresence>
+
       </User> 
       </header>
         </DivUpperBar>
-
-
         <BodyProfile>
             <div className='profileMain'>
                 <div className='changeProfile'>
 
-                   <div className='space-around'>
+                   <div className='space-center'>
                      <p>Mudar nome</p>
+                     <button onClick={() => {
+                     if(showName == false){
+                      setShowName(true)
+                    }
+                    if(showName == true){
+                      setShowName(false)
+                    }
+                     }}
+>
+                     <img src='/arrow_down.png'></img>
+                     </button>
+                     
                     </div>
-                    <div className='flex-name'>
+                    <AnimatePresence>
+                      {showName && 
+                      <>
+                      <motion.div className='flex-name'
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                    transition={{ duration: 0.2}}>
                     
                     <InputPassword maxLength={15} placeholder={"Novo Nome"} onChange={(dados) => {setNewName(dados.target.value)}} value={newName}></InputPassword>
                     
@@ -106,13 +131,36 @@ export default function UserHome(props){
                         
                       
                     }}>Salvar</button>
-                    </div>
+                    </motion.div>
+                      </>
 
-                    <div className='space-around'>
-                    <p>Mudar senha</p>
-                    </div>
+                      }
                     
-                    <div className='changeOldPassword'>
+                    </AnimatePresence>
+
+                    <div className='space-center'>
+                    <p>Mudar senha</p>
+                    <button onClick={() => {
+                        if(showPassword == false){
+                          setShowPassword(true)
+                        }
+                        if(showPassword == true){
+                          setShowPassword(false)
+                        }
+
+                    }}>
+                     <img src='/arrow_down.png'></img>
+                     </button>
+                    </div>
+                    <AnimatePresence>
+                      {showPassword &&
+                      <>
+                      <motion.div className='changeOldPassword'
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -5 }}
+                      transition={{ duration: 0.2}}
+                      >
                         <div>
                         <InputPassword maxLength={10} placeholder={"Senha antiga"} type={tipoSenhaVelha} onChange={(dados) => {setOldPassword(dados.target.value)}} value={oldPassword}></InputPassword>
                     <button className='eyeLooking'
@@ -129,10 +177,13 @@ export default function UserHome(props){
                     </button>
                         </div>
                     
-                    </div>
+                    </motion.div>
 
-
-                    <div className='changeNewPassword'>
+                    <motion.div className='changeNewPassword' 
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                    transition={{ duration: 0.4}}>
                         <div>
                         <InputPassword maxLength={10} placeholder={"Senha atual"}type={tipoSenhaNova} onChange={(dados) => {setNewPassword(dados.target.value)}} value={newPassword}></InputPassword>
                     <button className='eyeLooking'
@@ -182,7 +233,14 @@ export default function UserHome(props){
 
 
                     }}>Salvar</button>
-                    </div>
+                    </motion.div>
+                      
+                      </>
+
+                      }
+
+                    </AnimatePresence>
+
 
 
                 </div>

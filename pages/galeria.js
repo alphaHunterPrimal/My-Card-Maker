@@ -25,6 +25,7 @@ import { route } from 'next/dist/server/router';
 import Select, { components } from "react-select";
 import makeAnimated from "react-select/animated";
 import DivFiltros from '../src/styles/Galery/divFiltros';
+import { AnimatePresence, motion } from 'framer-motion';
 
 
 
@@ -250,10 +251,37 @@ export default function Galeria(props){
         <div style={{position: "absolute", top: "2vh", right: "2vw"}}>
 <User>
       <button onClick={() => saida == "none"? setSaida("inline") : setSaida("none")}>Logado como "{superuser}"</button>
-      <button style={{display: `${saida}`}} onClick={() => {router.push('/userhome')}}>Ir para o perfil</button>
-      <button style={{display: `${saida}`}} onClick={() => {destroyCookie(null, "myuser.token")
+      <AnimatePresence
+>
+        { saida == "inline" ? 
+          <>
+
+          <motion.button
+             initial={{ opacity: 0, y: -5 }}
+             animate={{ opacity: 1, y: 0 }}
+             exit={{ opacity: 0, y: -5 }}
+             transition={{ duration: 0.2}}
+            //style={{display: `${saida}`}} 
+            onClick={() => {router.push('/userhome')}}>Ir para o perfil</motion.button>
+
+
+      <motion.button
+      initial={{ opacity: 0, y: -5 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -5 }}
+      transition={{ duration: 0.4}}
+      /*style={{display: `${saida}`}}*/ onClick={() => {destroyCookie(null, "myuser.token")
       setSuperuser("")
-       router.push('/login')}}>Sair</button>
+       router.push('/login')}}>Sair</motion.button>
+
+
+          
+          </>
+
+       : null }
+
+      </AnimatePresence>
+
       </User> 
 </div>
 

@@ -19,13 +19,28 @@ position: relative;
         width: 100%;
         height: 10%;
         
-        .space-around{
+        .space-center{
             display: flex;
             width: 100%;
             height: 100%;
-            justify-content: space-around;
+            justify-content: center;
+            align-items: center;
             p{
                 font-size: 1.5vw;
+                margin: 0 4px 0 0;
+                text-decoration: underline;
+            }
+            button{
+                width: 4%;
+                height: 30%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                img{
+                    width: 100%;
+                height: 100%;  
+                }
             }
             
         }

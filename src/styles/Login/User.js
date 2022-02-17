@@ -34,9 +34,9 @@ button + button {
     //height: 2.5vh;
     border-radius: 5px;
     cursor: pointer;
-    animation: down 0.1s 0.1s both;
+    //animation: down 0.1s 0.1s both;
 }
-@keyframes down {
+/*@keyframes down {
     from {
         opacity:0;
         transform: translateY(-15px);
@@ -46,6 +46,6 @@ button + button {
         opacity: 1;
         transform: translateY(0);
     }
- }
+ }*/
 `;
 export default User;
