@@ -1,8 +1,13 @@
 import styled from 'styled-components';
 
 const DivFiltros = styled.div `
+border: 0;
+margin: 0;
+padding: 0;
+z-index: 1;
+.divExteriorDoMotion{
 position: absolute;
-//display: flex;
+display: flex;
 flex-direction: column;
 top: 15vh;
 right: 0;
@@ -11,7 +16,7 @@ width: 30%;
 height: 85vh;
 background-color: rgba(180, 82, 209, 0.95);//#b452ff;
 border-radius: 10px 0 0 0;
-animation: left 1s 0.1s both;
+//animation: left 1s 0.1s both;
 overflow: auto;
 .principal{
     height: 10vh;
@@ -212,7 +217,7 @@ justify-items: center;
         margin: 1vh 60% 0 0.5vw;
         font-size: 1.3vw;
     }
-}
+}/*
 @keyframes left {
     from {
         opacity:0;
@@ -224,6 +229,6 @@ justify-items: center;
         transform: translateX(0);
     }
  }
-
+*/}
 `;
 export default DivFiltros;

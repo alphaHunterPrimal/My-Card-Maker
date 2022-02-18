@@ -79,7 +79,7 @@ bottom: -7px;
 .Aterrar{
     color: rgb(139,69,19);
 };
-.Nascer, .Ressurgir{
+.Nascer, .Ressurgir, .Enxame{
     color: green;
 };
 .Morrer{

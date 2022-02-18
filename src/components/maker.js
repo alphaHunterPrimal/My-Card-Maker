@@ -17,14 +17,9 @@ import jwt from "jsonwebtoken"
 import nookies, { parseCookies, setCookie, destroyCookie } from "nookies";
 import { AnimatePresence, motion } from "framer-motion";
 export function MAKER(props){
-  //const { data: session } = useSession()
-  //const { user, signInWithGoogle } = useAuth()
-  
- //const { ['myuser.token']: token } = parseCookies()
-  //const {username} = jwt.decode(token)
-  
+
   const AWSlink = process.env.NEXT_PUBLIC_AWS_LINK
-  //const {username} = await jwt.decode(token);
+
     var allKeywords = "";
     const router = useRouter();
     var {
@@ -102,7 +97,8 @@ var keywords = {
   ":Temp:": 'Temporaria',
   ":Ime:" : "Imediato",
   ":Rap:": "Rápido",
-  ":Ate:": 'Aterrar', 
+  ":Ate:": 'Aterrar',
+  ":Enx:": "Enxame", 
   ":Nas:": "Nascer",
   ":Res:" : "Ressurgir",
   ":Mor:" : "Morrer",
@@ -342,13 +338,13 @@ KEI.map((x, index) => (
             await html2canvas(document.querySelector("#CARD")).then( async canvas => {
               //document.body.appendChild(canvas)
               var dload = document.querySelector("#download")
-              var image = await canvas.toDataURL("image/png") //.replace("image/png", "image/octet-stream");
+              var imagem = await canvas.toDataURL("imagem/png") //.replace("imagem/png", "imagem/octet-stream");
               //Canvas2Image.saveAsPNG(canvas)
-              console.log(image)
+              console.log(imagem)
               //var NOme = nome.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c").replace(/é/g, "e").replace(/í/g, "i").replace(/á/g, "a")
-              //upload64(image, NOme)
+              //upload64(imagem, NOme)
               
-              dload.href = image;
+              dload.href = imagem;
               dload.download = `${nome}`
               dload.click()
 
@@ -383,9 +379,9 @@ KEI.map((x, index) => (
           //se estiverem faltando os dados, nem gastar tempo tentando enviar
                 if(nome != "" && ARCTYPES != "" && SETS != "" && autor != ""){
                   await html2canvas(document.querySelector("#CARD")).then( async canvas => {
-                    var image = await canvas.toDataURL("image/png")
-                    console.log(image)
-                    await upload64(image, NOme)
+                    var imagem = await canvas.toDataURL("imagem/png")
+                    console.log(imagem)
+                    await upload64(imagem, NOme)
                     console.log(NOme)       
                     }) 
   }
@@ -395,6 +391,7 @@ KEI.map((x, index) => (
   
                 
                 var ambos = desc.split(" - ")
+                image
               
                 var SETS = ambos[1]
                 //console.log(SETS)
@@ -446,7 +443,8 @@ KEI.map((x, index) => (
       sets: SETS,
       velocidade: Speed, 
       arctype: Arkétipo, 
-      card: Uerieli, 
+      card: Uerieli,
+      cardurl: image, 
       custom: custoM, 
       custoe: custoE, 
       ganho: ganho, 
@@ -465,6 +463,7 @@ KEI.map((x, index) => (
       velocidade: Speed, 
       arctype: ARCTYPES, 
       card: Uerieli, 
+      cardurl: image, 
       custom: custoM, 
       custoe: custoE, 
       ganho: ganho, 

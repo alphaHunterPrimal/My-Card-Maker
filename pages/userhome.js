@@ -11,6 +11,7 @@ import BodyProfile from '../src/styles/UserHome/BodyProfile';
 import Input from '../src/styles/CardMaker/Input';
 import InputPassword from '../src/styles/UserHome/InputPassword';
 import { motion, AnimatePresence } from "framer-motion"
+import Modal from '../src/components/modal';
 
 
 export default function UserHome(props){
@@ -26,10 +27,17 @@ export default function UserHome(props){
       const [tipoSenhaNova, setTipoSenhaNova] = React.useState("password")
       const [newDbUsuarios, setNewDbUsuarios] = React.useState(props.DBuser.filter((x) => (x.usuario == props.username))//[0]//.usuario
       )
+      const [newDbCartas, setNewDbCartas] = React.useState(props.DBcards.filter((x) => (x.author == props.username))
+      )
       const [userId, setUserId] = React.useState(newDbUsuarios[0].id)
       //const [userName, setUserName] = React.useState(newDbUsuarios[0].usuario)
       const [showName, setShowName] = React.useState(false)
       const [showPassword, setShowPassword] = React.useState(false)
+      const [showCards, setShowCards] = React.useState(false)
+
+      const [showModal, setShowModal] = React.useState(false);
+      //const [showReset, setShowReset] = React.useState(true);
+      const [zoomCarta, setZoomCarta] = React.useState("");
 
       
 
@@ -240,14 +248,76 @@ export default function UserHome(props){
                       }
 
                     </AnimatePresence>
+                    <div className='space-center'>
+                    <p> ________________________________________________________</p>
+                    </div >
 
+                </div >
+                <div className='changeCards'>
+                <div className='centralize'>
+                    <p>Cartas Criadas</p>
+                     <button onClick={() => {
+                     if(showCards == false){
+                      setShowCards(true)
+                    }
+                    if(showCards == true){
+                      setShowCards(false)
+                    }
+                     }}
+>
+                     <img src='/arrow_down.png'></img>
+                     </button>
+                    </div>
+                <AnimatePresence>
+                      {showCards &&
+                      <>
+                      <motion.div
+                      className='divCartas'
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -5 }}
+                      transition={{ duration: 0.2}}>
+                      <div className='repetirCartas'>
+                        {newDbCartas.map((x) => (
+                          <>
+                        <div>
+                        <span>{x.name}</span> 
+                        <button
+                        onClick={() => {
+                          setShowModal(true)
+                          setZoomCarta(x.card)
+                          }}
+                        ><img src="/eye.png" alt='visualizar' ></img></button>
+                        <button><img src="/trash.png" alt='deletar'></img></button>
+                        <button><img src="/change.png" alt='alterar'></img></button>
+                         </div>
+                          </>
 
+                        ))}
+                        
+                      </div>
+
+                      
+                      </motion.div>
+                      </>
+                      }
+                    </AnimatePresence>
 
                 </div>
+                
+                
+                
 
 
             </div>
         </BodyProfile>
+
+        <Modal
+             onClose={() => setShowModal(false)}
+             show={showModal}
+           >
+            <img src={zoomCarta}/>
+           </Modal>
         </>
 
     )
@@ -255,7 +325,7 @@ export default function UserHome(props){
 
 export async function getServerSideProps(ctx){
   const autorizacao = process.env.AUTHORIZATION
-  const resposta = await fetch('https://graphql.datocms.com/', {
+  const bancoUsuarios = await fetch('https://graphql.datocms.com/', {
       method: 'POST',
       headers: {
         'Authorization': autorizacao,
@@ -271,10 +341,42 @@ export async function getServerSideProps(ctx){
         }
       }` })
     })
-  const db = await resposta.json()
-  const DBuser = db.data.allLogins
-  //console.log(db)
-  //console.log(DB)
+    const dbuser = await bancoUsuarios.json()
+    const DBuser = dbuser.data.allLogins
+
+    const bancoCartas = await fetch('https://graphql.datocms.com/', {
+      method: 'POST',
+      headers: {
+        'Authorization': autorizacao,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({ "query": `query {
+        allGaleries {
+          id
+          name
+          author
+          typo 
+          keywords
+          sets 
+          velocidade
+          arctype 
+          card 
+          cardurl
+          custom
+          custoe 
+          ganho 
+          mov 
+          direc 
+          dano 
+          vida
+        }
+      }` })
+    })
+
+    const dbcards = await bancoCartas.json()
+    const DBcards = dbcards.data.allGaleries
+
 
 
   const { ['myuser.token']: token } = parseCookies(ctx)
@@ -292,7 +394,9 @@ export async function getServerSideProps(ctx){
 
   return {
       props: {
-          DBuser, username
+          DBuser,
+           DBcards,
+            username
       }
   }
 }

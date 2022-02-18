@@ -132,7 +132,7 @@ export default function LOGIN(props){
 
 //ALTERAÇÕES PARA TESTE NO USERHOME
 //VOLTAR PARA "/" DEPOIS
-                  router.push('/userhome')
+                  router.push('/')
 
 
 

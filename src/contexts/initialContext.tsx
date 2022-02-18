@@ -202,25 +202,6 @@ setVida("0")
         }
         }
 
-      /*  
-      if(digitsEffect <= 120){
-        setLine(19)
-        setFontsize(19)
-      } else {if(digitsEffect > 180 && digitsEffect <= 240){
-        setLine(17)
-        setFontsize(16)
-      } else {if(digitsEffect > 240 && digitsEffect <= 300){
-        setLine(16)
-        setFontsize(15)
-      } else {if(digitsEffect > 300 && digitsEffect <= 350){
-        setLine(15)
-        setFontsize(15)
-      }
-      else {if(digitsEffect > 400){
-        setLine(13)
-        setFontsize(13)
-      }}}
-    }}*/
     
       if(BG == "Efeito"||BG == "Armadilha"||BG == "Terreno"||BG == "Bioma"){
         setEFFECT("effectTrue")
