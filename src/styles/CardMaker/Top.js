@@ -91,7 +91,7 @@ font-weight: 600;
     font-weight: 800;
     color: Black;
     position: absolute;
-    font-size: 20px;
+    font-size: 17px;
     width: 300px;
     overflow: hidden;
     text-align: center;

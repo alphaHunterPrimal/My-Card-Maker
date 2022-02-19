@@ -12,12 +12,47 @@ import Input from '../src/styles/CardMaker/Input';
 import InputPassword from '../src/styles/UserHome/InputPassword';
 import { motion, AnimatePresence } from "framer-motion"
 import Modal from '../src/components/modal';
+import { useInitial } from '../src/contexts/initialContext';
 
 
 export default function UserHome(props){
     const router = useRouter()
     var {
-        superuser, setSuperuser,// userId, setUserId, userName, setUserName
+      permitirReset, 
+      setPermitirReset,
+
+        custoM,
+        setCustoM, 
+        custoE,
+        setCustoE,
+        ganho,
+        setGanho, 
+        nome,
+        setNome, 
+        mov,
+        setMov,
+        image,
+        setImage, 
+        desc,
+        setDesc, 
+        dano,
+        setDano, 
+        vida,
+        setVida,
+        BG,
+        setBG, 
+        BGATUAL,
+        MV,
+        setMV,
+        MVATUAL,
+        energia, 
+        setE,
+        carta,
+        setCarta, 
+    
+    } = useInitial()
+    var {
+        superuser, setSuperuser,
       } = useAuth()
       const[saida, setSaida] = React.useState("none")
       const [newName,setNewName] = React.useState("")
@@ -30,13 +65,13 @@ export default function UserHome(props){
       const [newDbCartas, setNewDbCartas] = React.useState(props.DBcards.filter((x) => (x.author == props.username))
       )
       const [userId, setUserId] = React.useState(newDbUsuarios[0].id)
-      //const [userName, setUserName] = React.useState(newDbUsuarios[0].usuario)
+      
       const [showName, setShowName] = React.useState(false)
       const [showPassword, setShowPassword] = React.useState(false)
       const [showCards, setShowCards] = React.useState(false)
 
       const [showModal, setShowModal] = React.useState(false);
-      //const [showReset, setShowReset] = React.useState(true);
+      
       const [zoomCarta, setZoomCarta] = React.useState("");
 
       
@@ -288,8 +323,68 @@ export default function UserHome(props){
                           setZoomCarta(x.card)
                           }}
                         ><img src="/eye.png" alt='visualizar' ></img></button>
-                        <button><img src="/trash.png" alt='deletar'></img></button>
-                        <button><img src="/change.png" alt='alterar'></img></button>
+                        <button onClick={async() => {
+                        
+                        var confirmacao = prompt("Confirme o nome da carta a ser destruida")
+
+                        if(confirmacao == x.name){
+                          const Delete_Card = {
+                            cardId: x.id
+                          }
+  
+                          fetch('/api/deleteCard', {
+                            method: 'POST',
+                            headers: {
+                              'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(Delete_Card)
+                          })
+                          .then(async (res) => {
+                            const dados = await res.json();
+                            console.log(dados.cartaDeletada);
+                          }) 
+                          alert("Carta deletada com sucesso!")
+  
+  
+                          router.push("/userhome")
+
+                        } else {alert("Nome digitado errado")}
+                    
+
+                        }}><img src="/trash.png" alt='deletar'></img></button>
+                        <button onClick={async() => {
+                          setNome(x.name)
+                          setBG(x.typo)
+
+                          setCustoM(x.custom)
+                          setCustoE(x.custoe)
+                          setGanho(x.ganho)
+                          setMov(x.mov)
+                          setMV(x.direc)
+                          setDano(x.dano)
+                          setVida(x.vida)
+                          setPermitirReset(false)
+                          router.push("/")
+                          //não adianta setar palavras chaves também, porque elas depedem do texto e ele n é carregado
+                          //keywords: allKeywords
+
+
+                          //faltam essas partes porque não existe o seu useState() no context
+                          /*set: autor
+                          sets: SETS
+                          velocidade: Speed 
+                          arctype: ARCTYPES
+                          setCardUrl(x.cardurl)*/ 
+                          //adicionar algumas opções de useState no reset() para limpar quando sair e voltar
+
+                          //a carta não será setada, já que ela será resetada
+                          //card: Uerieli 
+                          
+
+
+
+
+                        }}><img src="/change.png" alt='alterar'></img></button>
                          </div>
                           </>
 

@@ -15,6 +15,8 @@ fonte: boolean, setFonte:React.Dispatch<React.SetStateAction<boolean>>,
   
   tudo: () => void,
   reset: () => void,
+  permitirReset: boolean,
+  setPermitirReset: React.Dispatch<React.SetStateAction<boolean>>,
   digits: number, 
   digitsEffect: number,
   fontsize: number, setFontsize: React.Dispatch<React.SetStateAction<number>>,
@@ -116,53 +118,59 @@ export const InitialContextProvider = (props: InitialContextProviderProps) => {
     const [displaivar,setDisplaivar] = useState<string>("");
 
     const [fonte, setFonte] = useState<boolean>(false);
+
+    const [permitirReset, setPermitirReset]  = useState<boolean>(true)
     function reset(){
-      if(BG == "Rainha"){
-setCustoM("")
-setCustoE("")
-setGanho("")
-setMov("")
-setMV("")
-setDano("0")
-setVida("0")
-      }
-      if(BG == "Bioma"){
-setCustoM("")
-setCustoE("")
-setGanho("")
-setMov("")
-setMV("")
-setDano("")
-setVida("")
-      }
-      if(BG == "Criatura" || BG == "CriaturaE"){
-setCustoM("0")
-setCustoE("0")
-setGanho("0")
-setMov("1")
-setMV("Seta1")
-setDano("0")
-setVida("0")
+      if(permitirReset == true){
+        if(BG == "Rainha"){
+          setCustoM("")
+          setCustoE("")
+          setGanho("")
+          setMov("")
+          setMV("")
+          setDano("0")
+          setVida("0")
+                }
+                if(BG == "Bioma"){
+          setCustoM("")
+          setCustoE("")
+          setGanho("")
+          setMov("")
+          setMV("")
+          setDano("")
+          setVida("")
+                }
+                if(BG == "Criatura" || BG == "CriaturaE"){
+          setCustoM("0")
+          setCustoE("0")
+          setGanho("0")
+          setMov("1")
+          setMV("Seta1")
+          setDano("0")
+          setVida("0")
+                }
+                
+                if(BG == "Efeito"||BG == "EfeitoE"||BG == "Armadilha"||BG == "ArmadilhaE"||BG == "Terreno"||BG == "TerrenoE"){
+          setCustoM("0")
+          setCustoE("0")
+          setGanho("")
+          setMov("")
+          setMV("")
+          setDano("")
+          setVida("")
+                }
+                if(BG == "Construcao" || BG == "ConstrucaoE"){
+          setCustoM("0")
+          setCustoE("0")
+          setGanho("0")
+          setMov("")
+          setMV("")
+          setDano("")
+          setVida("0")
+                }
       }
       
-      if(BG == "Efeito"||BG == "EfeitoE"||BG == "Armadilha"||BG == "ArmadilhaE"||BG == "Terreno"||BG == "TerrenoE"){
-setCustoM("0")
-setCustoE("0")
-setGanho("")
-setMov("")
-setMV("")
-setDano("")
-setVida("")
-      }
-      if(BG == "Construcao" || BG == "ConstrucaoE"){
-setCustoM("0")
-setCustoE("0")
-setGanho("0")
-setMov("")
-setMV("")
-setDano("")
-setVida("0")
-      }
+
     }
     function tudo(){
       
@@ -296,7 +304,9 @@ setVida("0")
 
         
         tudo,
-        reset, 
+        reset,
+        permitirReset, 
+        setPermitirReset, 
         digits,
         digitsEffect,
 

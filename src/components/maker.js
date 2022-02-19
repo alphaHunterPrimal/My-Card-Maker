@@ -35,7 +35,9 @@ var {
   semCC ,
   semdano ,
     tudo,
-    reset, 
+    reset,
+    permitirReset,
+    setPermitirReset, 
     digits,
     digitsEffect,
     setFontsize,
@@ -204,6 +206,12 @@ return
 <Maker>
         <form onSubmit={(dados)=>{
           dados.preventDefault();
+        }}
+        onChange={() => {
+          if(permitirReset == false){
+            setPermitirReset(true)
+
+          }
         }}>
           <div className={SELECTS}>
           <p>Tipo de carta</p>
@@ -211,11 +219,12 @@ return
           <p hidden={semcusto == true}> Variante</p>
           <select id="tipo" className="tipo" onChange = {(dados) => {
             setBG(dados.target.value)
-
             console.log(BGATUAL)
+
+            
           }}>
           {tiposDeCartas.map((x)=>(
-             <option value={x}>{x} </option>
+             <option selected={x == BG} value={x}>{x} </option>
          ))}
           </select>
           
@@ -250,7 +259,7 @@ return
           <span >Direções</span>
           <select  className="movimentos" onChange = {(dados) => {setMV(dados.target.value)}}>
           {Direcoes.map((x)=>(
-             <option value={x}>{x} </option>
+             <option selected={x == MV} value={x}>{x} </option>
          ))}
           </select>
 </div>
