@@ -18,8 +18,12 @@ import { useInitial } from '../src/contexts/initialContext';
 export default function UserHome(props){
     const router = useRouter()
     var {
+      alternarMaker, setAlternarMaker,
+      cardId, setCardId,
       permitirReset, 
       setPermitirReset,
+      setEffect,
+      effect,
 
         custoM,
         setCustoM, 
@@ -355,6 +359,10 @@ export default function UserHome(props){
                         <button onClick={async() => {
                           setNome(x.name)
                           setBG(x.typo)
+                          setEffect(x.text)
+                          setImage(x.cardurl)
+                          setCardId(x.id)
+
 
                           setCustoM(x.custom)
                           setCustoE(x.custoe)
@@ -364,17 +372,19 @@ export default function UserHome(props){
                           setDano(x.dano)
                           setVida(x.vida)
                           setPermitirReset(false)
-                          router.push("/")
+                          if(x.typo == "Efeito"){
+                            setDesc(x.arctype + x.velocidade + " - " + x.sets)
+                          } else {
+                            setDesc(x.arctype + " - " + x.sets)
+                          }
+                          setAlternarMaker("Editar")
+                          
+                          setTimeout(5000, router.push("/"))
+                          
+                          
                           //não adianta setar palavras chaves também, porque elas depedem do texto e ele n é carregado
                           //keywords: allKeywords
 
-
-                          //faltam essas partes porque não existe o seu useState() no context
-                          /*set: autor
-                          sets: SETS
-                          velocidade: Speed 
-                          arctype: ARCTYPES
-                          setCardUrl(x.cardurl)*/ 
                           //adicionar algumas opções de useState no reset() para limpar quando sair e voltar
 
                           //a carta não será setada, já que ela será resetada
@@ -452,6 +462,7 @@ export async function getServerSideProps(ctx){
           name
           author
           typo 
+          text
           keywords
           sets 
           velocidade

@@ -16,6 +16,7 @@ import { useAuth } from "../contexts/AuthContext";
 import jwt from "jsonwebtoken"
 import nookies, { parseCookies, setCookie, destroyCookie } from "nookies";
 import { AnimatePresence, motion } from "framer-motion";
+import AvisoAlternar from "../styles/CardMaker/AvisoAlternar";
 export function MAKER(props){
 
   const AWSlink = process.env.NEXT_PUBLIC_AWS_LINK
@@ -27,6 +28,8 @@ export function MAKER(props){
     } = useAuth()
     
 var {
+  alternarMaker, setAlternarMaker,
+  cardId, setCardId,
   fonte, setFonte,
   sorc_anormal ,
   semvida ,
@@ -167,6 +170,7 @@ return
   }
 }, [digitsEffect])
 
+
     return(
       <>
 
@@ -202,6 +206,17 @@ return
       </AnimatePresence>
       </User> 
 </div>
+{ alternarMaker == "Editar" &&
+  <div style={{position: "absolute", top: "1vh", left: "15vw"}}>
+  <AvisoAlternar>
+  <button onClick={async() =>{setAlternarMaker("Criar"); alert("Edição cancelada.")}}>Sair do modo de Edição</button>
+  </AvisoAlternar>
+  
+</div>
+
+
+}
+
 
 <Maker>
         <form onSubmit={(dados)=>{
@@ -428,8 +443,8 @@ KEI.map((x, index) => (
                 ))
                 
                 }
-                console.log(Arkétipo)
-                console.log(Speed)
+                //console.log(Arkétipo)
+                //console.log(Speed)
                 //para cada keyword, colocá-la dentro de uma string se ela estiver no texto
                 $.each(keywords, function(key, link) {
                   if(effect.replace("(", " ").replace("[", " ").replace(",", " ").replace("::", ":").split(" ").includes(key) && !allKeywords.split(" ").includes(link)){
@@ -438,17 +453,18 @@ KEI.map((x, index) => (
                     }
                   }
                });
-               console.log(allKeywords.split(" "))
+               //console.log(allKeywords.split(" "))
                
               setCarta(Uerieli)
                var autor = superuser//session.user.email.replace(/@gmail.com/, "")
                //console.log(autor)
-  if(BG == "Efeito"){
+  if(BG == "Efeito" && cardId == ""){
     var galeries = {
       name: nome,
       author: autor,
       typo: BG, 
-      keywords: allKeywords, 
+      keywords: allKeywords,
+      text: effect, 
       sets: SETS,
       velocidade: Speed, 
       arctype: Arkétipo, 
@@ -462,12 +478,58 @@ KEI.map((x, index) => (
       dano: dano, 
       vida: vida
     }
-  } else {
+  }
+  if(BG != "Effeito" && cardId == "") {
     var galeries = {
       name: nome,
       author: autor,
       typo: BG, 
       keywords: allKeywords, 
+      text: effect, 
+      sets: SETS,
+      velocidade: Speed, 
+      arctype: ARCTYPES, 
+      card: Uerieli, 
+      cardurl: image, 
+      custom: custoM, 
+      custoe: custoE, 
+      ganho: ganho, 
+      mov: mov, 
+      direc: MV, 
+      dano: dano, 
+      vida: vida
+    }
+  }
+  if(BG == "Efeito" && cardId != ""){
+    var galeries = {
+      cardId: cardId,
+      name: nome,
+      author: autor,
+      typo: BG, 
+      keywords: allKeywords,
+      text: effect, 
+      sets: SETS,
+      velocidade: Speed, 
+      arctype: Arkétipo, 
+      card: Uerieli,
+      cardurl: image, 
+      custom: custoM, 
+      custoe: custoE, 
+      ganho: ganho, 
+      mov: mov, 
+      direc: MV, 
+      dano: dano, 
+      vida: vida
+    }
+  }
+  if(BG != "Effeito" && cardId != "") {
+    var galeries = {
+      cardId: cardId,
+      name: nome,
+      author: autor,
+      typo: BG, 
+      keywords: allKeywords, 
+      text: effect, 
       sets: SETS,
       velocidade: Speed, 
       arctype: ARCTYPES, 
@@ -483,22 +545,34 @@ KEI.map((x, index) => (
     }
   }
   
-               fetch('/api/galeries', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(galeries)
-              })
-              .then(async (response) => {
-                const dados = await response.json();
-                console.log(dados.registroCriado);
-              })
-              }
-
-
-
-
+  if(alternarMaker == "Criar"){
+    fetch('/api/galeries', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(galeries)
+    })
+    .then(async (response) => {
+      const dados = await response.json();
+      console.log(dados.registroCriado);
+    })
+    }
+  
+  if(alternarMaker == "Editar"){
+    fetch('/api/updateCard', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(galeries)
+  })
+  .then(async (response) => {
+    const dados = await response.json();
+    console.log(dados.cartaEditada);
+  })
+  }}
+  
               }
 
               

@@ -9,8 +9,6 @@ export default async function editarCarta(req, res) {
             const client = new SiteClient(TOKEN);
         
         const cartaEditada = await client.items.update(req.body.cardId, {
-            //itemType: LOGIN,
-            usuario: req.body.userName,
             name: req.body.name,
             author: req.body.author,
             typo: req.body.typo,

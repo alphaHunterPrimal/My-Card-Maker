@@ -3,6 +3,8 @@ import React, { createContext, useState, useContext, ReactNode, useEffect } from
 import $, { ready } from "jquery";
 
 type InitialContextType = {
+  alternarMaker: string, setAlternarMaker: React.Dispatch<React.SetStateAction<string>>,
+  cardId: string, setCardId: React.Dispatch<React.SetStateAction<string>>,
 
 fonte: boolean, setFonte:React.Dispatch<React.SetStateAction<boolean>>,
 
@@ -73,7 +75,8 @@ type InitialContextProviderProps = {
 export const InitialContext = createContext({} as InitialContextType);
 
 export const InitialContextProvider = (props: InitialContextProviderProps) => {
-
+    const [alternarMaker, setAlternarMaker] = React.useState<string>('Criar');
+    const [cardId, setCardId] = React.useState<string>('');
 
     const [custoM, setCustoM] = React.useState<string>('0');
     const [custoE, setCustoE] = React.useState<string>('0');
@@ -89,6 +92,7 @@ export const InitialContextProvider = (props: InitialContextProviderProps) => {
     const [vida, setVida] = React.useState<string>('0');
     const [BG, setBG] = React.useState('Rainha');
     var BGATUAL = "/" + BG + ".png";
+    
     const [MV, setMV] = React.useState<string>("Seta1");
     var MVATUAL = "/" + MV + ".png";
   
@@ -292,6 +296,8 @@ export const InitialContextProvider = (props: InitialContextProviderProps) => {
     }
   return(
       <InitialContext.Provider value={{
+        alternarMaker, setAlternarMaker,
+        cardId, setCardId,
 
         fonte, setFonte,
         
