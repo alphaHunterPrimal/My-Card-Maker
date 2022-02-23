@@ -26,6 +26,8 @@ import Select, { components } from "react-select";
 import makeAnimated from "react-select/animated";
 import DivFiltros from '../src/styles/Galery/divFiltros';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useInitial } from '../src/contexts/initialContext';
+import UltraUpperBar from '../src/styles/CardMaker/UltraUpperBar';
 
 
 
@@ -60,6 +62,10 @@ export default function Galeria(props){
     var {
         inicial, superuser, setInicial, setSuperuser
       } = useAuth()
+
+      var {
+        resetAfterUpdate
+      } = useInitial()
       const[saida, setSaida] = React.useState("none")
     const [name, setName] = React.useState('');
     const [type, setType] = React.useState('');
@@ -243,35 +249,41 @@ export default function Galeria(props){
             <title>Galeria</title>
         </Head>
 
-        <TopBar> 
+        
+
+        <UltraUpperBar>
+        <header>
         <Voltar onClick={() => {router.back()}}>
             <img src="/arrow-back.svg"></img>
         </Voltar>
 
-        <div style={{position: "absolute", top: "2vh", right: "2vw"}}>
+      </header>
+<div className='botõesDePush'>
+<button onClick={() => {router.push("/")}}>Ir para o CardMaker</button>
+</div>
+
+<div /*style={{position: "absolute", top: "1vh", left: "1vw"}}*/ >
 <User>
       <button onClick={() => saida == "none"? setSaida("inline") : setSaida("none")}>Logado como "{superuser}"</button>
       <AnimatePresence
 >
         { saida == "inline" ? 
           <>
-
-          <motion.button
-             initial={{ opacity: 0, y: -5 }}
-             animate={{ opacity: 1, y: 0 }}
-             exit={{ opacity: 0, y: -5 }}
-             transition={{ duration: 0.2}}
-            //style={{display: `${saida}`}} 
-            onClick={() => {router.push('/userhome')}}>Ir para o perfil</motion.button>
-
-
       <motion.button
       initial={{ opacity: 0, y: -5 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -5 }}
-      transition={{ duration: 0.4}}
+      transition={{ duration: 0.2}}
+      //style={{display: `${saida}`}} 
+      onClick={() => {router.push('/userhome')}}>Ir para o perfil</motion.button>
+      <motion.button
+      initial={{ opacity: 0, y: -5 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -5 }}
+      transition={{ duration: 0.3}}
       /*style={{display: `${saida}`}}*/ onClick={() => {destroyCookie(null, "myuser.token")
       setSuperuser("")
+      resetAfterUpdate()
        router.push('/login')}}>Sair</motion.button>
 
 
@@ -281,10 +293,11 @@ export default function Galeria(props){
        : null }
 
       </AnimatePresence>
-
-      </User> 
+</User> 
 </div>
 
+</UltraUpperBar>
+<TopBar> 
 <div className='informarFiltro'>
           <span>- Filtre as cartas pelas suas preferências - </span>
           <div className="resolve-filter">
@@ -332,7 +345,7 @@ export default function Galeria(props){
                        <option selected={x == type} value={x}>{x} </option>
                    ))}
                    </select>
-                   <select id="sets" style={{display: `${DpSets}`}} style={{display: `${DpSets}`}} onChange={(dados) => {setSets(dados.target.value)}}>
+                   <select id="sets" style={{display: `${DpSets}`}} onChange={(dados) => {setSets(dados.target.value)}}>
                       {Sets.map((x)=>(
                        <option selected={x == sets} value={x}>{x} </option>
                    ))}
@@ -363,6 +376,7 @@ export default function Galeria(props){
               }
           
             }
+          if(sets != ""){setNEWDB(NEWDB.filter((x) => (x.sets == sets )))}
           if(speed != ""){setNEWDB(NEWDB.filter((x) => (x.velocidade == speed )))}
           if(custoM != ""){setNEWDB(NEWDB.filter((x) => (x.custom == custoM )))}
           if(custoE != ""){setNEWDB(NEWDB.filter((x) => (x.custoe == custoE )))}
