@@ -5,7 +5,6 @@ import { destroyCookie, parseCookies, setCookie } from 'nookies';
 import jwt from "jsonwebtoken"
 import {useRouter} from 'next/router';
 import User from '../src/styles/Login/User';
-import DivUpperBar from '../src/styles/UserHome/DivUpperBar';
 import Voltar from '../src/styles/Galery/voltar';
 import BodyProfile from '../src/styles/UserHome/BodyProfile';
 import Input from '../src/styles/CardMaker/Input';
@@ -13,6 +12,9 @@ import InputPassword from '../src/styles/UserHome/InputPassword';
 import { motion, AnimatePresence } from "framer-motion"
 import Modal from '../src/components/modal';
 import { useInitial } from '../src/contexts/initialContext';
+import Inputlog from '../src/styles/Login/Inputlog';
+import { useArray } from '../src/contexts/arrayContext';
+import UltraUpperBar from '../src/styles/CardMaker/UltraUpperBar';
 
 
 export default function UserHome(props){
@@ -22,6 +24,7 @@ export default function UserHome(props){
       cardId, setCardId,
       permitirReset, 
       setPermitirReset,
+      resetAfterUpdate,
       setEffect,
       effect,
 
@@ -33,6 +36,8 @@ export default function UserHome(props){
         setGanho, 
         nome,
         setNome, 
+        antigoNome,
+        setAntigoNome,
         mov,
         setMov,
         image,
@@ -58,6 +63,7 @@ export default function UserHome(props){
     var {
         superuser, setSuperuser,
       } = useAuth()
+    var {tiposDeCartas, Sets} = useArray()
       const[saida, setSaida] = React.useState("none")
       const [newName,setNewName] = React.useState("")
       const [oldPassword, setOldPassword] = React.useState("")
@@ -78,6 +84,11 @@ export default function UserHome(props){
       
       const [zoomCarta, setZoomCarta] = React.useState("");
 
+      const [type, setType] = React.useState('');
+      const [sets, setSets] = React.useState('');
+      const [Aparecer, setAparecer] = React.useState(false);
+      const [name, setName] = React.useState('');
+
       
 
     return(
@@ -85,32 +96,54 @@ export default function UserHome(props){
         <Head>
             <title>Perfil</title>
         </Head>
-        
-        <DivUpperBar>
+        <UltraUpperBar>
         <header>
         <Voltar onClick={() => {router.back()}}>
             <img src="/arrow-back.svg"></img>
         </Voltar>
-        <User>
-      <button onClick={() => saida == "none"? setSaida("visible") : setSaida("none")}>Logado como "{props.username}"</button>
+
+      </header>
+<div className='botõesDePush'>
+<button onClick={() => {router.push("/")}}>Ir para o CardMaker</button>
+<button onClick={() => {router.push("/galeria")}}>Ir para a Galeria</button>
+</div>
+
+<div /*style={{position: "absolute", top: "1vh", left: "1vw"}}*/ >
+<User>
+      <button onClick={() => saida == "none"? setSaida("inline") : setSaida("none")}>Logado como "{superuser}"</button>
       <AnimatePresence
 >
-        { saida == "visible" ?
+        { saida == "inline" ? 
+          <>
       <motion.button
       initial={{ opacity: 0, y: -5 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -5 }}
       transition={{ duration: 0.2}}
+      //style={{display: `${saida}`}} 
+      onClick={() => {router.push('/userhome')}}>Ir para o perfil</motion.button>
+      <motion.button
+      initial={{ opacity: 0, y: -5 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -5 }}
+      transition={{ duration: 0.3}}
       /*style={{display: `${saida}`}}*/ onClick={() => {destroyCookie(null, "myuser.token")
       setSuperuser("")
+      resetAfterUpdate()
        router.push('/login')}}>Sair</motion.button>
+
+
+          
+          </>
+
        : null }
 
       </AnimatePresence>
+</User> 
+</div>
 
-      </User> 
-      </header>
-        </DivUpperBar>
+</UltraUpperBar>
+
         <BodyProfile>
             <div className='profileMain'>
                 <div className='changeProfile'>
@@ -311,11 +344,51 @@ export default function UserHome(props){
                       {showCards &&
                       <>
                       <motion.div
+                      className='divProcuraCartas'
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -5 }}
+                      transition={{ duration: 0.2}}
+                      
+                      >
+                      <Inputlog placeholder={"Nome da carta"} onChange={(dados) => {setName(dados.target.value)}} value={name}></Inputlog>
+                      <select id="tipos" onClick={(dados) => {setType(dados.target.value)}}>
+                      {tiposDeCartas.map((x)=>(
+                       <option selected={x == type} value={x}>{x} </option>
+                   ))}
+                   </select>
+                   <select id="sets" onChange={(dados) => {setSets(dados.target.value)}}>
+                      {Sets.map((x)=>(
+                       <option selected={x == sets} value={x}>{x} </option>
+                   ))}
+                      </select>
+                      <button hidden={Aparecer == true} className='aparecer' onClick={async()=>{
+                        var tamanho = name.trim().length
+                        if(name != ""){
+                             setNewDbCartas(newDbCartas.filter((x) => (x.name.split("").splice(0, tamanho).toString().replace(/,/g, "") == name.trim()
+                             )))
+                            
+                            }
+                        if(type != ""){setNewDbCartas(newDbCartas.filter((x) => (x.typo == type )))}
+                        if(sets != ""){setNEWDB(newDbCartas.filter((x) => (x.sets == sets )))}
+                        setAparecer(true)
+                      }}>Filtrar</button>
+
+                        <button hidden={Aparecer == false} className='aparecer' onClick={async()=>{
+                        setName("")
+                        setType("")
+                        setSets("")
+                        setNewDbCartas(props.DBcards.filter((x) => (x.author == props.username)))
+                        setAparecer(false)
+                        
+                      }}>Resetar Filtro</button>  
+                      </motion.div>
+                      <motion.div
                       className='divCartas'
                       initial={{ opacity: 0, y: -5 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -5 }}
-                      transition={{ duration: 0.2}}>
+                      transition={{ duration: 0.4}}>
                       <div className='repetirCartas'>
                         {newDbCartas.map((x) => (
                           <>
@@ -357,7 +430,9 @@ export default function UserHome(props){
 
                         }}><img src="/trash.png" alt='deletar'></img></button>
                         <button onClick={async() => {
+                          resetAfterUpdate()
                           setNome(x.name)
+                          setAntigoNome(x.name)
                           setBG(x.typo)
                           setEffect(x.text)
                           setImage(x.cardurl)

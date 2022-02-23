@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const BodyProfile = styled.div`
 width: 100vw;
 height: 80%;
-margin: 10vh 0 0 0;
+margin: 15vh 0 0 0;
 display: flex;
 justify-content: center;
 position: relative;
@@ -137,7 +137,40 @@ overflow: auto;
                 }
             }
     }
+    .divProcuraCartas{
+        width: 100%;
+        height: 20vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        div{
+            width: 15vw;
+            height: 5vh;
+            display: flex;
+        align-items: center;
+        margin: 0 2vw 0 0;
+            input{
+            width: 100%;
+            height: 1vh;
 
+        }
+        }
+
+        select{
+            width: 6vw;
+            height: 5vh;
+            margin: 0 1vw 0 0;
+            font-size: 1.1vw;
+            cursor: pointer;
+        } 
+        button{
+            width: 5vw;
+            height: 5vh;
+            margin: 0 1vw 0 0;
+            font-size: 1vw;
+            cursor: pointer;
+        }
+    }
     .divCartas{
         width: 100%;
         height: 20vh;
@@ -190,6 +223,7 @@ overflow: auto;
         }
 
     }
+    
 
 }
 

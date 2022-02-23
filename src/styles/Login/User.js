@@ -8,6 +8,8 @@ height: 6vh;
 width: 10vw;
 background-color: blueviolet;
 border-radius: 10px;
+z-index: 2;
+position: relative;
 p {
     position: relative;
     text-decoration-line: underline;

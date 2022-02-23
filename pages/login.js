@@ -48,6 +48,9 @@ export default function LOGIN(props){
         var {
             inicial, superuser, setInicial, setSuperuser
           } = useAuth()
+          var {
+            resetAfterUpdate
+          } = useInitial()
 
     const [Email, setEmail] = React.useState("")
     const [User, setUser] = React.useState("")
@@ -128,17 +131,9 @@ export default function LOGIN(props){
                   const {username} = jwt.decode(token);
                   console.log(username)
                   setSuperuser(username)
+                  
 
-
-//ALTERAÇÕES PARA TESTE NO USERHOME
-//VOLTAR PARA "/" DEPOIS
                   router.push('/')
-
-
-
-
-
-
                 }
               else{alert("Senha ou usuário incorretos!")}}
               else{alert("Usuário inexistente!")}
@@ -229,6 +224,7 @@ export default function LOGIN(props){
                                     setCookie(undefined, 'myuser.token', token, {
                                       maxAge: 60 * 60 * 1, // 1 hour
                                     })*/
+                                    
   
                                     setSuperuser(User)
                                     setTimeout(() => {router.push('/')}, 4000)

@@ -8,7 +8,8 @@ import Input from "../styles/CardMaker/Input"
 
 import { useSession, signIn, signOut } from "next-auth/react"
 
-import { upload64 } from '/My-Card-Maker/pages/api/s3'
+import { upload64} from '../../pages/api/s3'
+import { deleteAWSrecord } from "../../pages/api/s3Delete";
 import User from "../styles/Login/User";
 import { useArray } from "../contexts/arrayContext";
 import { useAuth } from "../contexts/AuthContext";
@@ -17,6 +18,9 @@ import jwt from "jsonwebtoken"
 import nookies, { parseCookies, setCookie, destroyCookie } from "nookies";
 import { AnimatePresence, motion } from "framer-motion";
 import AvisoAlternar from "../styles/CardMaker/AvisoAlternar";
+import UltraUpperBar from "../styles/CardMaker/UltraUpperBar";
+
+
 export function MAKER(props){
 
   const AWSlink = process.env.NEXT_PUBLIC_AWS_LINK
@@ -39,6 +43,7 @@ var {
   semdano ,
     tudo,
     reset,
+    resetAfterUpdate,
     permitirReset,
     setPermitirReset, 
     digits,
@@ -57,6 +62,8 @@ var {
     setGanho, 
     nome,
     setNome, 
+    antigoNome,
+    setAntigoNome,
     mov,
     setMov,
     image,
@@ -174,7 +181,25 @@ return
     return(
       <>
 
-<div style={{position: "absolute", top: "1vh", left: "1vw"}}>
+<UltraUpperBar>
+<div className='botõesDePush'>
+<button onClick={() => {router.push("/galeria")}}>Ir para a Galeria</button>
+</div>
+{ alternarMaker == "Editar" &&
+  <div /*style={{position: "absolute", top: "1vh", left: "15vw"}}*/>
+  <AvisoAlternar>
+  <button onClick={async() =>{setAlternarMaker("Criar"); alert("Edição cancelada."); resetAfterUpdate()}}>X</button>
+  <div>
+  <p>Sair do modo de Edição</p>
+  </div>
+  
+  
+  </AvisoAlternar>
+  
+</div>
+
+}
+<div /*style={{position: "absolute", top: "1vh", left: "1vw"}}*/ >
 <User>
       <button onClick={() => saida == "none"? setSaida("inline") : setSaida("none")}>Logado como "{superuser}"</button>
       <AnimatePresence
@@ -195,6 +220,7 @@ return
       transition={{ duration: 0.3}}
       /*style={{display: `${saida}`}}*/ onClick={() => {destroyCookie(null, "myuser.token")
       setSuperuser("")
+      resetAfterUpdate()
        router.push('/login')}}>Sair</motion.button>
 
 
@@ -204,18 +230,10 @@ return
        : null }
 
       </AnimatePresence>
-      </User> 
-</div>
-{ alternarMaker == "Editar" &&
-  <div style={{position: "absolute", top: "1vh", left: "15vw"}}>
-  <AvisoAlternar>
-  <button onClick={async() =>{setAlternarMaker("Criar"); alert("Edição cancelada.")}}>Sair do modo de Edição</button>
-  </AvisoAlternar>
-  
+</User> 
 </div>
 
-
-}
+</UltraUpperBar>
 
 
 <Maker>
@@ -383,16 +401,7 @@ KEI.map((x, index) => (
 }>
           Salvar
           </button>
-          <button 
-        className="galeria"
-        onClick={() => {
-          router.push('/galeria')
-        }}>Ir para a galeria</button>
-        </div>
-        <a id="download"></a>
-        <div className="final" >
-     {/* <Input id="carta" name="carta" className="carta" style={{display: `${displai}`}} onChange={(dados) =>{setCarta(dados.target.value)}} value={carta}/>*/}
-        <button className="enviar" style={{display: `${displai}`}}
+          <button className="enviar" style={{display: `${displai}`}}
             onClick={async(e) => { 
               e.preventDefault()
               if(superuser == "Eumesmo"){
@@ -402,12 +411,36 @@ KEI.map((x, index) => (
   
           //se estiverem faltando os dados, nem gastar tempo tentando enviar
                 if(nome != "" && ARCTYPES != "" && SETS != "" && autor != ""){
-                  await html2canvas(document.querySelector("#CARD")).then( async canvas => {
-                    var imagem = await canvas.toDataURL("imagem/png")
-                    console.log(imagem)
-                    await upload64(imagem, NOme)
-                    console.log(NOme)       
-                    }) 
+                  //se for uma nova carta
+                  if(alternarMaker == "Criar"){
+                    await html2canvas(document.querySelector("#CARD")).then( async canvas => {
+                      var imagem = await canvas.toDataURL("imagem/png")
+                      console.log(imagem)
+                      await upload64(imagem, NOme)
+                      console.log(NOme)       
+                      }) 
+                  }
+
+                  //se o nome for velho e estiver sendo feito uma edição que não altera o nome original
+                  if(alternarMaker == "Editar" && antigoNome == nome) {
+                    await html2canvas(document.querySelector("#CARD")).then( async canvas => {
+                      var imagem = await canvas.toDataURL("imagem/png")
+                      console.log(imagem)
+                      await upload64(imagem, NOme)
+                      console.log(NOme)       
+                      }) 
+                  }
+
+                  //se o nome for velho e estiver sendo feito uma edição que altera o nome original
+                  if(alternarMaker == "Editar" && antigoNome != nome) {
+                    await deleteAWSrecord(antigoNome)
+                    await html2canvas(document.querySelector("#CARD")).then( async canvas => {
+                      var imagem = await canvas.toDataURL("imagem/png")
+                      console.log(imagem)
+                      await upload64(imagem, NOme)
+                      console.log(NOme)       
+                      }) 
+                  }
   }
   else{
         alert("Incompleto")              
@@ -579,6 +612,7 @@ KEI.map((x, index) => (
           }
 >Enviar</button>
         </div>
+        <a id="download"></a>
 
       </Maker>
       </>

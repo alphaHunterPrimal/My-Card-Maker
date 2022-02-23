@@ -17,6 +17,7 @@ fonte: boolean, setFonte:React.Dispatch<React.SetStateAction<boolean>>,
   
   tudo: () => void,
   reset: () => void,
+  resetAfterUpdate: () => void,
   permitirReset: boolean,
   setPermitirReset: React.Dispatch<React.SetStateAction<boolean>>,
   digits: number, 
@@ -39,6 +40,8 @@ fonte: boolean, setFonte:React.Dispatch<React.SetStateAction<boolean>>,
   setGanho: React.Dispatch<React.SetStateAction<string>>, 
   nome: string,
   setNome: React.Dispatch<React.SetStateAction<string>>, 
+  antigoNome: string, 
+  setAntigoNome: React.Dispatch<React.SetStateAction<string>>, 
   mov: string,
   setMov: React.Dispatch<React.SetStateAction<string>>,
   image: string,
@@ -84,6 +87,7 @@ export const InitialContextProvider = (props: InitialContextProviderProps) => {
     const [ganho, setGanho] = React.useState<string>('0');
     
     const [nome, setNome] = React.useState<string>('');
+    const [antigoNome, setAntigoNome] = React.useState<string>('');
     const [mov, setMov] = React.useState<string>('1');
     const [image, setImage] = React.useState<string>('');
     const [desc, setDesc] = React.useState<string>('');
@@ -124,6 +128,25 @@ export const InitialContextProvider = (props: InitialContextProviderProps) => {
     const [fonte, setFonte] = useState<boolean>(false);
 
     const [permitirReset, setPermitirReset]  = useState<boolean>(true)
+    function resetAfterUpdate(){
+      setNome("")
+      setBG("Rainha")
+      setEffect("")
+      setImage("")
+      setCardId("")
+
+
+      setCustoM("")
+      setCustoE("")
+      setGanho("")
+      setMov("")
+      setMV("")
+      setDano("")
+      setVida("")
+      setPermitirReset(true)
+      setAlternarMaker("Criar")
+      setDesc("")
+    }
     function reset(){
       if(permitirReset == true){
         if(BG == "Rainha"){
@@ -311,6 +334,7 @@ export const InitialContextProvider = (props: InitialContextProviderProps) => {
         
         tudo,
         reset,
+        resetAfterUpdate,
         permitirReset, 
         setPermitirReset, 
         digits,
@@ -336,6 +360,8 @@ export const InitialContextProvider = (props: InitialContextProviderProps) => {
         setGanho, 
         nome,
         setNome, 
+        antigoNome,
+        setAntigoNome,
         mov,
         setMov,
         image,

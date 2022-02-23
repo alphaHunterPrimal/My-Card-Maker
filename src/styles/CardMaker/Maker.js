@@ -2,8 +2,10 @@ import styled from 'styled-components';
 
 const Maker = styled.div `
 width: 30%;
-height: 100%;
+height: 90vh;
+padding-top: 10vh;
 background-color: blueviolet;
+overflow: auto;
 .selects1{
     display: block;
 }
@@ -145,7 +147,7 @@ textarea{
 .enviar{
     cursor: pointer;
     width: 100px;
-    height: 30px;
+    height: 40px;
     margin-left: 5px;
     font-weight: 600;
 }

@@ -4,17 +4,18 @@ const TopBar = styled.div`
 display: flex;
 flex-direction: column;
 background-color: blueviolet;
+justify-content: flex-end;
 
 width: 100%;
 height: 10vh;
 z-index: 2;
 //justify-content: flex-end;
-padding: 0 0 5vh 0;
+padding: 0 0 6vh 0;
 
 }
 .informarFiltro{
     position: absolute;
-    top: 7vh;
+    top: 10vh;
     height: 5vh;
     //left: 20%;
     width: 100%;
