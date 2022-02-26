@@ -434,12 +434,12 @@ KEI.map((x, index) => (
                   //se o nome for velho e estiver sendo feito uma edição que altera o nome original
                   if(alternarMaker == "Editar" && antigoNome != nome) {
                     await deleteAWSrecord(antigoNome)
-                    await html2canvas(document.querySelector("#CARD")).then( async canvas => {
+                    /*await html2canvas(document.querySelector("#CARD")).then( async canvas => {
                       var imagem = await canvas.toDataURL("imagem/png")
                       console.log(imagem)
                       await upload64(imagem, NOme)
-                      console.log(NOme)       
-                      }) 
+                      console.log(NOme)    
+                      }) */
                   }
   }
   else{
@@ -577,7 +577,7 @@ KEI.map((x, index) => (
       vida: vida
     }
   }
-  
+  /*
   if(alternarMaker == "Criar"){
     fetch('/api/galeries', {
       method: 'POST',
@@ -604,7 +604,7 @@ KEI.map((x, index) => (
     const dados = await response.json();
     console.log(dados.cartaEditada);
   })
-  }}
+  }*/}
   
               }
 

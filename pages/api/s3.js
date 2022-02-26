@@ -15,14 +15,15 @@ const s3 = new aws.S3()
       secretAccessKey: secretAccessKey,
        region: region,
        signatureVersion: 'v4', });
+       
 
   const base64Data = new Buffer.from(base64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
-  console.log(base64Data)
+ // console.log(base64Data)
 
   const imageName = name.split(" ").join("_");
 
   const type = base64.split(';')[0].split('/')[1];
-  console.log(type)
+  //console.log(type)
   const params = ({
     Bucket: bucketName,
     Key: imageName,
@@ -31,6 +32,7 @@ const s3 = new aws.S3()
     ContentType: `image/${type}`, //required
     Expires: 60
   })
+  
 
   let location = '';
   let key = '';
@@ -41,6 +43,8 @@ const s3 = new aws.S3()
   } catch (error) {
      console.log(error)
     }
+    
+    
   
   // Save the Location (url) to your database and Key if needs be.
   // As good developers, we should return the url and let other function do the saving to database etc

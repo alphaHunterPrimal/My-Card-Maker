@@ -101,7 +101,7 @@ export const InitialContextProvider = (props: InitialContextProviderProps) => {
     var MVATUAL = "/" + MV + ".png";
   
     const [carta, setCarta] = React.useState('');
-    const [displai, setDisplai] = React.useState("none")
+    const [displai, setDisplai] = React.useState("inline")
     const [fontsize, setFontsize] = useState<number>(0)
     const [line, setLine] = useState<number>(0)
     const [NOME, setNOME] = useState<string>("")
