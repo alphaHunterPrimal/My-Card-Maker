@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 const DivUpperBar = styled.div`
 width: 100%;
 height: 10vh;
@@ -13,7 +14,7 @@ header{
     align-items: center;
 }
 
-
 `;
+
 
 export default DivUpperBar;

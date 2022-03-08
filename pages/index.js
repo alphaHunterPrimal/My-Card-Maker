@@ -43,7 +43,7 @@ export async function getServerSideProps(ctx){
   if(!token) {
     return {
       redirect: {
-        destination: '/userhome',
+        destination: '/login',
         permanent: false,
       }
     }

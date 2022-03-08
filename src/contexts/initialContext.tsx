@@ -1,8 +1,10 @@
 
 import React, { createContext, useState, useContext, ReactNode, useEffect } from "react";
 import $, { ready } from "jquery";
+import { useRouter } from "next/dist/client/router";
 
 type InitialContextType = {
+  saida: string, setSaida: React.Dispatch<React.SetStateAction<string>>,
   alternarMaker: string, setAlternarMaker: React.Dispatch<React.SetStateAction<string>>,
   cardId: string, setCardId: React.Dispatch<React.SetStateAction<string>>,
 
@@ -78,6 +80,11 @@ type InitialContextProviderProps = {
 export const InitialContext = createContext({} as InitialContextType);
 
 export const InitialContextProvider = (props: InitialContextProviderProps) => {
+  const router = useRouter()
+
+  const[saida, setSaida] = React.useState("none")
+  useEffect(() => {setSaida("none")},[router.pathname])
+
     const [alternarMaker, setAlternarMaker] = React.useState<string>('Criar');
     const [cardId, setCardId] = React.useState<string>('');
 
@@ -317,8 +324,10 @@ export const InitialContextProvider = (props: InitialContextProviderProps) => {
     } else {setSemdano(false)}
 
     }
+
   return(
       <InitialContext.Provider value={{
+        saida, setSaida,
         alternarMaker, setAlternarMaker,
         cardId, setCardId,
 

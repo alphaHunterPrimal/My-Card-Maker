@@ -251,52 +251,7 @@ export default function Galeria(props){
 
         
 
-        <UltraUpperBar>
-        <header>
-        <Voltar onClick={() => {router.back()}}>
-            <img src="/arrow-back.svg"></img>
-        </Voltar>
-
-      </header>
-<div className='botõesDePush'>
-<button onClick={() => {router.push("/")}}>Ir para o CardMaker</button>
-</div>
-
-<div /*style={{position: "absolute", top: "1vh", left: "1vw"}}*/ >
-<User>
-      <button onClick={() => saida == "none"? setSaida("inline") : setSaida("none")}>Logado como "{superuser}"</button>
-      <AnimatePresence
->
-        { saida == "inline" ? 
-          <>
-      <motion.button
-      initial={{ opacity: 0, y: -5 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -5 }}
-      transition={{ duration: 0.2}}
-      //style={{display: `${saida}`}} 
-      onClick={() => {router.push('/userhome')}}>Ir para o perfil</motion.button>
-      <motion.button
-      initial={{ opacity: 0, y: -5 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -5 }}
-      transition={{ duration: 0.3}}
-      /*style={{display: `${saida}`}}*/ onClick={() => {destroyCookie(null, "myuser.token")
-      setSuperuser("")
-      resetAfterUpdate()
-       router.push('/login')}}>Sair</motion.button>
-
-
-          
-          </>
-
-       : null }
-
-      </AnimatePresence>
-</User> 
-</div>
-
-</UltraUpperBar>
+        <UltraUpperBar/>
 <TopBar> 
 <div className='informarFiltro'>
           <span>- Filtre as cartas pelas suas preferências - </span>

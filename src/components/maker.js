@@ -181,60 +181,7 @@ return
     return(
       <>
 
-<UltraUpperBar>
-<div className='botõesDePush'>
-<button onClick={() => {router.push("/galeria")}}>Ir para a Galeria</button>
-</div>
-{ alternarMaker == "Editar" &&
-  <div /*style={{position: "absolute", top: "1vh", left: "15vw"}}*/>
-  <AvisoAlternar>
-  <button onClick={async() =>{setAlternarMaker("Criar"); alert("Edição cancelada."); resetAfterUpdate()}}>X</button>
-  <div>
-  <p>Sair do modo de Edição</p>
-  </div>
-  
-  
-  </AvisoAlternar>
-  
-</div>
-
-}
-<div /*style={{position: "absolute", top: "1vh", left: "1vw"}}*/ >
-<User>
-      <button onClick={() => saida == "none"? setSaida("inline") : setSaida("none")}>Logado como "{superuser}"</button>
-      <AnimatePresence
->
-        { saida == "inline" ? 
-          <>
-      <motion.button
-      initial={{ opacity: 0, y: -5 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -5 }}
-      transition={{ duration: 0.2}}
-      //style={{display: `${saida}`}} 
-      onClick={() => {router.push('/userhome')}}>Ir para o perfil</motion.button>
-      <motion.button
-      initial={{ opacity: 0, y: -5 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -5 }}
-      transition={{ duration: 0.3}}
-      /*style={{display: `${saida}`}}*/ onClick={() => {destroyCookie(null, "myuser.token")
-      setSuperuser("")
-      resetAfterUpdate()
-       router.push('/login')}}>Sair</motion.button>
-
-
-          
-          </>
-
-       : null }
-
-      </AnimatePresence>
-</User> 
-</div>
-
-</UltraUpperBar>
-
+<UltraUpperBar/>
 
 <Maker>
         <form onSubmit={(dados)=>{
@@ -480,7 +427,7 @@ KEI.map((x, index) => (
                 //console.log(Speed)
                 //para cada keyword, colocá-la dentro de uma string se ela estiver no texto
                 $.each(keywords, function(key, link) {
-                  if(effect.replace("(", " ").replace("[", " ").replace(",", " ").replace("::", ":").split(" ").includes(key) && !allKeywords.split(" ").includes(link)){
+                  if(effect.replace("(", " ").replace(")", " ").replace("[", " ").replace(",", " ").replace("::", ":").split(" ").includes(key) && !allKeywords.split(" ").includes(link)){
                     if(allKeywords == "") {allKeywords = link} else {
                       allKeywords = allKeywords + " " + link
                     }
@@ -577,7 +524,7 @@ KEI.map((x, index) => (
       vida: vida
     }
   }
-  /*
+  
   if(alternarMaker == "Criar"){
     fetch('/api/galeries', {
       method: 'POST',
@@ -604,7 +551,7 @@ KEI.map((x, index) => (
     const dados = await response.json();
     console.log(dados.cartaEditada);
   })
-  }*/}
+  }}
   
               }
 

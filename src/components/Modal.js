@@ -104,6 +104,7 @@ const Modal = ({ show, onClose, children, title }) => {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 4;
     background-color: rgba(0, 0, 0, 0.5);
 
     

@@ -28,7 +28,7 @@ import styled from 'styled-components';
     //bottom: 1vh;
     border-radius: 20%;
     height: 3vw;
-    width: 3vw;
+    width: 4vw;
     font-size: 1.5vw;
     cursor: pointer;
 }
