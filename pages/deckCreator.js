@@ -27,7 +27,10 @@ export default function DeckCreator(props) {
             <title>Perfil</title>
         </Head>
         <ReusableTopBar/>
-        <DeckBody></DeckBody>
+        <DeckBody>
+            <div className='selecionarFormato'></div>
+            <div className='areaDasCartas'></div>
+        </DeckBody>
       </>
     )
   
