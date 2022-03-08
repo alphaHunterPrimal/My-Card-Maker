@@ -28,8 +28,22 @@ export default function DeckCreator(props) {
         </Head>
         <ReusableTopBar/>
         <DeckBody>
-            <div className='selecionarFormato'></div>
-            <div className='areaDasCartas'></div>
+            <div className='selecionarFormato'>
+            <button>Para Imprimir</button>
+            <button>Para o TabletopSimulator</button>
+            </div>
+            <div className='areaDasCartas'>
+                <img src='/armadilha.png'></img>
+                <img src='/armadilha.png'></img>
+                <img src='/armadilha.png'></img>
+                <img src='/armadilha.png'></img>
+                <img src='/armadilha.png'></img>
+                <img src='/armadilha.png'></img>
+                <img src='/armadilha.png'></img>
+                <img src='/armadilha.png'></img>
+                <img src='/armadilha.png'></img>
+                <img src='/armadilha.png'></img>
+            </div>
         </DeckBody>
       </>
     )

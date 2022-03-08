@@ -25,18 +25,7 @@ button{
     img{
         width: 100%;
         height: 100%;
-        &:hover{
-        /*padding: 0;
-        transform: scale(1.3);
-        transition: 0.3s;*/
-        }
-        .zoomOut{
 
-        }
-        .zoomIn{
-
-
-        }
 }
 }
 
