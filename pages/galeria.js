@@ -307,13 +307,6 @@ export default function Galeria(props){
                       </select>
                       <button className="submitar" onClick={async () => {
           
-          var tamanho = name.trim().length
-          if(name != ""){
-               setNEWDB(NEWDB.filter((x) => (x.name.split("").splice(0, tamanho).toString().replace(/,/g, "") == name.trim()
-               //falsaProcuraArray.toString().replace(/,/g, "")
-               )))
-              
-              }
           if(type != ""){setNEWDB(NEWDB.filter((x) => (x.typo == type )))}
           if(autor != ""){setNEWDB(NEWDB.filter((x) => (x.author == autor )))}
           
@@ -345,6 +338,14 @@ export default function Galeria(props){
                 setNEWDB(NEWDB.filter((y) => (y.keywords.split(" ").includes(x.value))))
             ))
             }
+
+            var tamanho = name.trim().length
+            if(name != ""){
+                 setNEWDB(NEWDB.filter((x) => (x.name.split("").splice(0, tamanho).toString().replace(/,/g, "") == name.trim()
+                 //falsaProcuraArray.toString().replace(/,/g, "")
+                 )))
+                
+                }
           
           setShowReset(false)
           
@@ -589,11 +590,6 @@ export default function Galeria(props){
 
         </AnimatePresence>
        
-
-
-
-
-
         <GaleryCards>
         
         {NEWDB.sort(function(a,b) {

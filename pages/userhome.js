@@ -324,7 +324,7 @@ export default function UserHome(props){
                             
                             }
                         if(type != ""){setNewDbCartas(newDbCartas.filter((x) => (x.typo == type )))}
-                        if(sets != ""){setNEWDB(newDbCartas.filter((x) => (x.sets == sets )))}
+                        if(sets != ""){setNewDbCartas(newDbCartas.filter((x) => (x.sets == sets )))}
                         setAparecer(true)
                       }}>Filtrar</button>
 
