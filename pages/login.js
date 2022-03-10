@@ -124,7 +124,7 @@ export default function LOGIN(props){
   
                 const tokenjwt = jwt.sign({username: User.trim()}, "my-secret", {expiresIn: 3600})
                   setCookie(null, 'myuser.token', tokenjwt, {
-                    maxAge: 60 * 60 * 1, // 1 hour
+                    maxAge: 60 * 60 * 3, // 1 hour
                   })
                   const { ['myuser.token']: token } = parseCookies()
   
@@ -208,7 +208,7 @@ export default function LOGIN(props){
 
                                     const tokenjwt = jwt.sign({username: User.trim()}, "my-secret", {expiresIn: 3600})
                                     setCookie(null, 'myuser.token', tokenjwt, {
-                                      maxAge: 60 * 60 * 1, // 1 hour
+                                      maxAge: 60 * 60 * 3, // 3 hour
                                     })
                                     const { ['myuser.token']: token } = parseCookies()
                     

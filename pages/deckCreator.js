@@ -27,6 +27,10 @@ export default function DeckCreator(props) {
       } = useAuth()
       var {tiposDeCartas, Sets} = useArray()
 
+      const [arrayDecks, setArrayDecks] = React.useState(
+        [""/*, "Surto Insectóide", /*"Eskrugator Arruinado", "Eskrugator Arruinado",
+      "Tunelador Final", "Tunelador Final", "Krug'onator Supremo do Deserto", "Krug'onator Supremo do Deserto",
+      "Zhor'kag, Tubarão das Areias", "Zhor'kag, Tubarão das Areias"*/]);
       const[saida, setSaida] = React.useState("none")
       const [type, setType] = React.useState('');
       const [sets, setSets] = React.useState('');
@@ -51,7 +55,7 @@ export default function DeckCreator(props) {
             <div className='salvarDeck'>
               
                  <button onClick={async() => {
-               await html2canvas(document.querySelector("#areaDasCartas")).then( async canvas => {
+               await html2canvas(document.querySelector("#areaDasCartas"), { allowTaint: true, useCORS: true, logging: true }).then( async canvas => {
                  var dload = document.querySelector("#download")
                  var imagem = await canvas.toDataURL("imagem/png")
 
@@ -73,16 +77,25 @@ export default function DeckCreator(props) {
             
             </div>
             <div className='areaDasCartas' id="areaDasCartas">
-                <img src='/armadilha.png'></img>
-                <img src='/armadilha.png'></img>
-                <img src='/armadilha.png'></img>
-                <img src='/armadilha.png'></img>
-                <img src='/armadilha.png'></img>
-                <img src='/armadilha.png'></img>
-                <img src='/armadilha.png'></img>
-                <img src='/armadilha.png'></img>
-                <img src='/armadilha.png'></img>
-                <img src='/armadilha.png'></img>
+              {arrayDecks != "" ?
+              
+              arrayDecks.map((x) => (
+                <img crossOrigin="true" onClick={() => {
+                  //setArrayDecks()
+                     /*arrayDecks
+                     .toString()
+                     .replaceAll(", ", "_").replaceAll(",", "  ").replaceAll("_", ", ")
+                     .replace(x, "  ").split("  "));*/
+                     setArrayDecks(arrayDecks.toString().replaceAll(", ", "_").replaceAll(",", "  ").replaceAll("_", ", ").replace(x, "").split("  ").filter(Boolean))
+                     
+                     //alert(arrayDecks)
+                  }}
+                 src={props.DBcards.find((y) => (y.name == x)).card}></img>
+              ))
+            :
+            null
+            
+            }
             </div>
         </DeckBody>
         <AnimatePresence>
@@ -159,6 +172,24 @@ export default function DeckCreator(props) {
                           setZoomCarta(x.card)
                           }}
                         ><img src="/eye.png" alt='visualizar' ></img></button>
+                        <button
+                        onClick={async() => {
+                          
+                          if(arrayDecks.length < 10 && arrayDecks.toString() != ""){
+                            await setArrayDecks((arrayDecks.toString().replaceAll(", ", "_").replaceAll(",", "  ").replaceAll("_", ", ") + "  "+ x.name).split("  "))
+                            console.log(arrayDecks)
+                          }
+                          if(arrayDecks.toString() == ""){
+                            await setArrayDecks((arrayDecks.toString()+ x.name).split("  "))
+                            console.log(arrayDecks.toString())
+                            
+                          }
+                          if(arrayDecks.length == 10){alert("Está cheio!")}
+                          
+
+
+                          }}
+                        ><img src="/upload.png" alt='upload' ></img></button>
 
                          </div>
                           </>

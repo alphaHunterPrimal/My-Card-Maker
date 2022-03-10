@@ -63,6 +63,9 @@ flex-direction: column;
     img{
     width: 16vw; //163 -> 0,704
     height: 22.72vw;
+    :hover{
+        cursor: pointer;
+    }
     }
 
 }

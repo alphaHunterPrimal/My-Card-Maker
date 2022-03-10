@@ -77,7 +77,7 @@ margin: 0 1vw 0 1vw;
 .divCartas{
     margin-top: 5vh;
         width: 100%;
-        height: 20vh;
+        height: 50vh;
         display: flex;
         flex-direction: column;
         //overflow: auto;

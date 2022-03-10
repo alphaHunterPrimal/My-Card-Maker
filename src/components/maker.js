@@ -427,9 +427,9 @@ KEI.map((x, index) => (
                 //console.log(Speed)
                 //para cada keyword, colocá-la dentro de uma string se ela estiver no texto
                 $.each(keywords, function(key, link) {
-                  if(effect.replace("(", " ").replace(")", " ").replace("[", " ").replace(",", " ").replace("::", ":").split(" ").includes(key) && !allKeywords.split(" ").includes(link)){
+                  if(effect.replaceAll("(", " ").replaceAll(")", " ").replaceAll("[", " ").replaceAll(",", " ").replaceAll("::", ":").split(" ").includes(key) && !allKeywords.split(" ").includes(link)){
                     if(allKeywords == "") {allKeywords = link} else {
-                      allKeywords = allKeywords + " " + link
+                      allKeywords = allKeywords + " " + link 
                     }
                   }
                });
