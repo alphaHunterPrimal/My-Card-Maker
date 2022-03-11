@@ -27,10 +27,7 @@ export default function DeckCreator(props) {
       } = useAuth()
       var {tiposDeCartas, Sets} = useArray()
 
-      const [arrayDecks, setArrayDecks] = React.useState(
-        [""/*, "Surto Insectóide", /*"Eskrugator Arruinado", "Eskrugator Arruinado",
-      "Tunelador Final", "Tunelador Final", "Krug'onator Supremo do Deserto", "Krug'onator Supremo do Deserto",
-      "Zhor'kag, Tubarão das Areias", "Zhor'kag, Tubarão das Areias"*/]);
+      const [arrayDecks, setArrayDecks] = React.useState([""]);
       const[saida, setSaida] = React.useState("none")
       const [type, setType] = React.useState('');
       const [sets, setSets] = React.useState('');
@@ -42,6 +39,8 @@ export default function DeckCreator(props) {
       const[autor, setAutor] = React.useState("")
       const [showModal, setShowModal] = React.useState(false);
       const [zoomCarta, setZoomCarta] = React.useState("");
+      const [areaDasCartas, setAreaDasCartas] = React.useState("areaDasCartasNormal");
+
     return (
       <> 
         <Head>
@@ -55,6 +54,10 @@ export default function DeckCreator(props) {
             <div className='salvarDeck'>
               
                  <button onClick={async() => {
+                  setAreaDasCartas("areaDasCartasTransicao")
+                  
+                  
+
                await html2canvas(document.querySelector("#areaDasCartas"), { allowTaint: true, useCORS: true, logging: true }).then( async canvas => {
                  var dload = document.querySelector("#download")
                  var imagem = await canvas.toDataURL("imagem/png")
@@ -65,6 +68,8 @@ export default function DeckCreator(props) {
                  dload.click()
   
                  })
+                 setAreaDasCartas("areaDasCartasNormal")
+
             }}>Salvar Baralho</button>
             <Inputlog placeholder="Nome do Deck" onChange={(dados) => {setDeckName(dados.target.value)}} value={deckName}></Inputlog>
             </div>
@@ -76,19 +81,12 @@ export default function DeckCreator(props) {
               </div>
             
             </div>
-            <div className='areaDasCartas' id="areaDasCartas">
+            <div className={`${areaDasCartas}`} id="areaDasCartas">
               {arrayDecks != "" ?
               
               arrayDecks.map((x) => (
                 <img crossOrigin="true" onClick={() => {
-                  //setArrayDecks()
-                     /*arrayDecks
-                     .toString()
-                     .replaceAll(", ", "_").replaceAll(",", "  ").replaceAll("_", ", ")
-                     .replace(x, "  ").split("  "));*/
                      setArrayDecks(arrayDecks.toString().replaceAll(", ", "_").replaceAll(",", "  ").replaceAll("_", ", ").replace(x, "").split("  ").filter(Boolean))
-                     
-                     //alert(arrayDecks)
                   }}
                  src={props.DBcards.find((y) => (y.name == x)).card}></img>
               ))
