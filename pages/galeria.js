@@ -4,7 +4,7 @@ import Head from 'next/head';
 import $, { ready } from "jquery";
 
 import Input from '../src/styles/CardMaker/Input';
-import Filters from '../src/styles/galery/filter';
+import Filters from '../src/styles/Galery/Filter';
 import Voltar from "../src/styles/Galery/voltar"
 import TopBar from '../src/styles/Galery/TopBar';
 import Coment from '../src/styles/Galery/coment';
