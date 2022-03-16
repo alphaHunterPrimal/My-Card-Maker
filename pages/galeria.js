@@ -631,7 +631,7 @@ export async function getServerSideProps(ctx){
           'Accept': 'application/json',
         },
         body: JSON.stringify({ "query": `query {
-          allGaleries {
+          allGaleries(first: 100) {
             id
             name
             author
