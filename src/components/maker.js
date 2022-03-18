@@ -145,10 +145,14 @@ reset()
 
 }, [BG])
 useEffect(()=>{
-
   setLine(19)
   setFontsize(19)
   }, [])
+  useEffect(()=>{
+    superuser == process.env.NEXT_PUBLIC_ADMIN?
+    setDisplai("inline")
+    : null
+    }, [])
 
 
 useEffect(()=>{
@@ -339,9 +343,7 @@ KEI.map((x, index) => (
 
               })
             //router.push('/galeria')
-            if(superuser == "Eumesmo") {
-              setDisplai("inline")
-            }
+
             
 
           }                          
@@ -351,7 +353,7 @@ KEI.map((x, index) => (
           <button className="enviar" style={{display: `${displai}`}}
             onClick={async(e) => { 
               e.preventDefault()
-              if(superuser == "Eumesmo"){
+              if(superuser == process.env.NEXT_PUBLIC_ADMIN){
                 var NOme = nome.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c").replace(/é/g, "e").replace(/í/g, "i").replace(/á/g, "a")
                 var Uerieli = AWSlink + NOme.split(" ").join("_")// +".jpg"
                 
