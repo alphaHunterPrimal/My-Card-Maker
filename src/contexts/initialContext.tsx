@@ -28,6 +28,7 @@ fonte: boolean, setFonte:React.Dispatch<React.SetStateAction<boolean>>,
   line: number, setLine: React.Dispatch<React.SetStateAction<number>>,  
   NOME: string, setNOME:React.Dispatch<React.SetStateAction<string>>, 
   CUSTO: string, setCUSTO:React.Dispatch<React.SetStateAction<string>>, 
+  GANHO: string, setGANHO:React.Dispatch<React.SetStateAction<string>>, 
   CUSTOE: string, setCUSTOE:React.Dispatch<React.SetStateAction<string>>, 
   IMG: string, setIMG:React.Dispatch<React.SetStateAction<string>>, 
   EFFECT: string, setEFFECT:React.Dispatch<React.SetStateAction<string>>, 
@@ -114,6 +115,7 @@ export const InitialContextProvider = (props: InitialContextProviderProps) => {
     const [NOME, setNOME] = useState<string>("")
     const [IMG, setIMG] = useState<string>("")
     const [CUSTO, setCUSTO] = useState<string>("")
+    const [GANHO, setGANHO] = useState<string>("")
     const [CUSTOE, setCUSTOE] = useState<string>('');
     const [EFFECT, setEFFECT] = useState<string>("")
     const [SELECTS, setSELECTS] = useState<string>("")
@@ -209,6 +211,7 @@ export const InitialContextProvider = (props: InitialContextProviderProps) => {
     function tudo(){
       
       if(energia == "true"){
+        setGANHO("ganhoE")
           if (BG == "Criatura") {
             setBG("CriaturaE")
           }
@@ -226,6 +229,7 @@ export const InitialContextProvider = (props: InitialContextProviderProps) => {
           }
         } else {
           if(energia == "false"){
+            setGANHO("ganho")
            if (BG == "CriaturaE") {
              setBG("Criatura")
            }
@@ -278,12 +282,17 @@ export const InitialContextProvider = (props: InitialContextProviderProps) => {
       } else{
         if (BG == "Rainha" && digits > 25 || BG == "Bioma" && digits > 25){
           setNOME("nomeRainha2")
-        } else{    if (digits < 30) {
+        } else{
+          if (energia == "false" && digits < 22) {
           setNOME("nome1")
         };
-          if (digits >= 30){
+          if (energia == "false" && digits >= 22){
           setNOME("nome2")
         }}
+        if (energia == "true" && digits < 22) {
+          setNOME("nomeE1")}
+        if (energia == "true" && digits >= 22) {
+            setNOME("nomeE2")}
     };
 
     
@@ -352,7 +361,8 @@ export const InitialContextProvider = (props: InitialContextProviderProps) => {
         fontsize, setFontsize,
         line, setLine,  
         NOME, setNOME, 
-        CUSTO, setCUSTO, 
+        GANHO, setGANHO, 
+        CUSTO, setCUSTO,
         CUSTOE, setCUSTOE, 
         IMG, setIMG, 
         EFFECT, setEFFECT, 

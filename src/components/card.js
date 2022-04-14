@@ -7,6 +7,7 @@ import Main from "../styles/CardMaker/Main";
 import Status from "../styles/CardMaker/Status";
 import React, {useEffect, useRef} from "react"
 import { useInitial } from "../contexts/initialContext";
+
 export function CARD(){
     var {
         tudo,
@@ -21,6 +22,7 @@ export function CARD(){
         line,
         NOME,
         CUSTO,
+        GANHO,
         CUSTOE,
         IMG,
         EFFECT,
@@ -45,26 +47,34 @@ export function CARD(){
     <Card id="CARD" >
     <ImgBg  src={`${BGATUAL}`} alt="Bgatual"></ImgBg>
     <Top >
+
     <span className={CUSTO} hidden={semcusto == true || sorc_anormal == true}>{`${custoM}`}</span>
-    {//o span na carta com o valor do custoM em energia
-    }
-    
+
     <span className={CUSTOE} hidden={semcusto === true || energia === "false"}>{`${custoE}`}</span>
     
-    <span className="ganho" hidden={semCC == true}>{`${ganho}`}</span>
+    <span className={GANHO} hidden={semCC == true}>{`${ganho}`}</span>
     <span className={NOME}>{`${nome}`}</span>
-    <span className="mov" hidden={!(BG == "Criatura" || BG == "CriaturaE")} style={{ fontWeight: "600", fontFamily: "'Oi', cursive", fontSize: "20px" }}>{`${mov}`}</span>
+    {(BG == "Criatura" || BG == "CriaturaE") && //hidden={!(BG == "Criatura" || BG == "CriaturaE")}
+    <span className="mov"  style={{fontFamily: "'Oi', cursive", backgroundImage: `url(${MVATUAL})`}}>{`${mov}`}</span>
+    }
+    
+
+    
     </Top>
-    <ImgMov src={`${MVATUAL}`} alt="MVatual" hidden={!(BG == "Criatura" || BG == "CriaturaE")}></ImgMov>
+
+    
+
     <Main>
     <img className={IMG} src={`${image}`} alt="image"></img>
     <p className="desc">{`${desc}`}</p>
     <div id="text" ref={Ref} className={EFFECT} style={{ fontSize: `${fontsize}px`, lineHeight: `${line}px`}}></div>
     </Main>
+
     <Status>
     <Status.dano hidden={semdano == true} style={{ fontWeight: "600", fontFamily: "'Oi', cursive", fontSize: "20px", color: "white" }}>{`${dano}`}</Status.dano>
     <Status.vida hidden={semvida == true} style={{ fontWeight: "600", fontFamily: "'Oi', cursive", fontSize: "20px", color: "white" }}>{`${vida}`}</Status.vida>
     </Status>
+
   </Card>
   
   

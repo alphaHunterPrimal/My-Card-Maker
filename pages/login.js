@@ -140,7 +140,7 @@ export default function LOGIN(props){
           }
           
           }><img src="/arrow-back.svg"></img></Logar>
-      <Cadastro onClick={() =>{setCadastrar(true)}}>Já tem cadastro?</Cadastro>
+      <Cadastro onClick={() =>{setCadastrar(true)}}>Não tem cadastro?</Cadastro>
       </footer>
           </Baselog>
            

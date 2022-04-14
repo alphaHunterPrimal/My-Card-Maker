@@ -224,7 +224,7 @@ return
 
           
           <p hidden={semcusto == true || sorc_anormal == true }>CustoM</p>
-          <Input id="custoM" hidden={semcusto == true|| sorc_anormal == true} name="custoM" type="number" min="0" onChange={(dados) =>{setCustoM(dados.target.value)}} value={custoM}/>
+          <Input id="custoM" hidden={semcusto == true|| sorc_anormal == true} name="custoM" type="number" min="0" onChange={async(dados) =>{setCustoM(dados.target.value)}} value={custoM}/>
 
           {// escolher o custo em energia
           }

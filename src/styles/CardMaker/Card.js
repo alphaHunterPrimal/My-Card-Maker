@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
     const Card = styled.div`
-    width: 326.625px;
-    height: 463.875px;
+    width: 20.3em;//22.68vw;
+    height: 29em;
     display: flex;
     flex-direction: column;
     justify-content: space-around;

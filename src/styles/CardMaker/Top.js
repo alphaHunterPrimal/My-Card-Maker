@@ -2,112 +2,135 @@ import styled from 'styled-components';
 
 const Top = styled.div `
 display: flex;
-width: 326.625px;
-height: 63px;
+width: 20.4em;
+height: 3.7em;
 align-items: center;
-position: absolute;
-top: 19.5vh;
+position: relative;
+margin-right: 0px;
+top: -0.45em;
 z-index: 3;
 font-weight: 600;
+
 .custoM1{
     color: black;
-    position: absolute;
+    padding-bottom: 1.5em;
+    margin-left: 1em;
     text-align:center;
-    width: 10%;
-    left: 10px;
-    top: 10px;
-    
+    width: 1em;
+    height: 1em;
 };
 .custoCentral{
     color: black;
-    position: absolute;
     justify-self: center;
-    width: 10%;
+    width: 20%;
     text-align: center;
-    left: 17.5px;
-    
-    /*top: 25px;*/
 }
 .custoE{
+    width: 0.9em;
+    height: 1.5em;
+    margin-top: -2em;
+    margin-left: 0.5em;
     color: black;
-    position: absolute;
     text-align:center;
-    width: 10%;
-    left: 17px;
-    top: 6px;
-    
 };
 .custoM2{
+    width: 0.5em;
+    margin-left: 0.6em;
     color: black;
-    position: absolute;
     text-align:center;
-    width: 10%;
-    left: 0px;
-    top: 21px;
-    
 };
 
 .ganho{
+    margin-left: 0.5em;
     color: black;
-    position: absolute;
-    width: 10%;
+    width: 0.5em;
+    height: 1em;
     text-align: center;
-    left: 29px;
-    top: 32px;
-    
+    padding-top: 1em;
 };
+.ganhoE{
+    //margin-left: 0.5em;
+    color: black;
+    width: 0.5em;
+    height: 1em;
+    text-align: center;
+    padding-top: 1em;
+};
+
 .nome1{
-    
-    position: absolute;
+    display: flex;
     font-size: 19px;
-    max-width: 195px;
+    width: 10em;
     overflow: hidden;
+    padding-left: 1.2em;
+    margin-right: 0.5em;
     text-align: center;
     justify-self: center;
-    left: 70px;
 };
 .nome2{
-    
-    position: absolute;
+    padding-left: 1em;
+    margin-right: 0.4em;
     font-size: 15px;
-    max-width: 195px;
+    width: 13.5em;
     overflow: hidden;
     text-align: center;
     justify-self: center;
-    left: 70px;
 };
+.nomeE1{
+    display: flex;
+    font-size: 19px;
+    width: 10em;
+    overflow: hidden;
+    padding-left: 1.2em;
+    padding-right: 0.5em;
+    text-align: center;
+    justify-self: center;
+};
+.nomeE2{
+    padding-left: 1em;
+    padding-right: 0.1em;
+    font-size: 15px;
+    width: 13.5em;
+    overflow: hidden;
+    text-align: center;
+    justify-self: center;
+};
+
 .nomeRainha{
     font-weight: 800;
     color: black;
-    position: absolute;
     font-size: 28px;
-    width: 300px;
+    width: 17em;
     overflow: hidden;
     text-align: center;
     white-space: nowrap;
-    left: 10px;
 };
 .nomeRainha2{
     font-weight: 800;
+    margin: 0px;
     color: Black;
-    position: absolute;
     font-size: 17px;
-    width: 300px;
+    width: 17em;
     overflow: hidden;
     text-align: center;
     white-space: nowrap;
-    left: 10px;
 };
+
 .mov{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: white;
+    //padding-right: 1px;
+    //padding-left: 0.1em;
     font-size: 20px;
-    
-    position: absolute;
-    width: 10%;
+    font-weight: 600;
+    width: 3em;
+    height: 3.2em;
     text-align: center;
-    left: 281px;
-    right: 0px;
-    
+    background-size: cover;
+    z-index: 1; 
+
 }
 `;
 
