@@ -22,7 +22,9 @@ font-weight: 600;
 .custoCentral{
     color: black;
     justify-self: center;
-    width: 20%;
+    padding-left: 1.5em;
+    padding-right: 0.2em;
+    width: 1.3em;
     text-align: center;
 }
 .custoE{
@@ -100,7 +102,8 @@ font-weight: 600;
     font-weight: 800;
     color: black;
     font-size: 28px;
-    width: 17em;
+    padding: 0 0.1em 0 0.3em;
+    width: 95%;
     overflow: hidden;
     text-align: center;
     white-space: nowrap;
@@ -110,7 +113,8 @@ font-weight: 600;
     margin: 0px;
     color: Black;
     font-size: 17px;
-    width: 17em;
+    padding: 0 0.1em 0 0.3em;
+    width: 95%;
     overflow: hidden;
     text-align: center;
     white-space: nowrap;

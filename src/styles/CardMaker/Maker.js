@@ -57,9 +57,10 @@ input{
     font-size: 14px;
     margin: 0 3px 0;
 };
+span{font-size: 1.05em;}
 p{
-    height: 2.5vh;
-    font-size: 2.5vh;
+    height: 1em;
+    font-size: 1.2em;
     margin: 1vh 3px 1vh;
 };
 .direcoes{
@@ -83,7 +84,7 @@ textarea{
         cursor: pointer;
     }
     span{
-        width: 9vw;
+        width: 8em;
     }
     .palavraschave{
         /*position: absolute;
@@ -91,16 +92,17 @@ textarea{
         top: 43.3vh;*/
         z-index: 2;
         margin-left: 3vw;
-        width: 10.3vw;
+        width: 9em;
         align-items: center;
         justify-content: center;
         button{
-            width: 10vw;
+            height: 1.5em;
+            width: 100%;
         }
 
     }
     .gridchaves{
-        width: 5vw;
+        width: 5em;
         
        /* position: absolute;
         right: -0.2vw;
@@ -117,13 +119,13 @@ textarea{
     }
 }
 .fonte{
-    width: 5vw;
+    width: 5em;
     margin: 0 1.9vw 0 0;
 }
 .salvar{
-    width: 100px;
+    width: 8em;
     cursor: pointer;
-    height: 40px;
+    height: 2.8em;
     justify-self: flex-end;
     font-weight: 600;
     margin-right: 4px;

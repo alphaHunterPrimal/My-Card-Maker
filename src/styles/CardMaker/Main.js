@@ -8,58 +8,58 @@ top: auto;
 z-index: 3;
 .img1{
 z-index: 5;
-width: 308px;
-height: 178px;
+width: 19.25em;
+height: 11.1em;//178px;
 position: absolute;
-left: 9px;
-bottom: -9px;
+left: 0.6em;
+bottom: -0.5em; //5px
 
 };
 
 .imgRainha{
 z-index: 5;
-width: 308px;
-height: 178px;
+width: 19.25em;
+height: 11.2em;//178px;
 position: absolute;
-left: 9px;
-bottom: -7px;
+left: 0.6em;
+bottom: -0.5em;
 };
 .desc{
     position: absolute;
-    width: 298px;
-    height: 17px;
-    left: 9px;
-    top: -6.5px;
-    padding-left: 5px;
+    width: 18.9em;
+    height: 1em;
+    left: 0.6em;
+    top: -0.4em;
+    padding-left: 0.1em;
     overflow: hidden;
 };
 .effect{
     position: absolute;
-    width: 302px;
-    height: 160px;
-    left: 9px;
-    top: 35px;
+    width: 15.2em;
+    height: 10em;
+    left: 0.2em;
+    top: 2.1em;
     
-    padding-left: 5px;
+    padding-left: 0.4em;
     overflow: hidden;
 
 };
 .effect > p{
-    font-size: 6px;
+    font-size: 0.3em;
 };
 .effectTrue{
     position: absolute;
-    width: 302px;
-    height: 188px;
-    left: 9px;
-    top: 35px;
+    width: 15.2em;
+    height: 12.1em;
+    left: 0.2em;
+    top: 2.1em;
     
-    padding-left: 5px;
+    padding-left: 0.4em;
     overflow: hidden;
     
 };
 .effectTrue > p{
-    font-size: 6px;
+    font-size: 0.3em;
 };
 
 
@@ -110,16 +110,16 @@ bottom: -7px;
     color: #FF0000;
 }
 .virar, .time, .mineral, .quadrado, .tempo, .alcance{
-    width: 18.5px;
-    height: 18.5px;
+    width: 1em;
+    height: 1em;
     ;};
 .quebrar-cristal{
-    width: 15px;
-    height: 15px;
+    width: 0.85em;
+    height: 0.85em;
 }
 .resistencia{
-    width: 18.5px;
-    height: 18.5px;
+    width: 1em;
+    height: 1em;
 }
 .arrow1{
     width: 20px;

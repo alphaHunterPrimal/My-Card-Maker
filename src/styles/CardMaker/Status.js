@@ -23,7 +23,7 @@ text-align: center;
 justify-content: center;
 `;
 Status.vida = styled.span `
-margin: 0 0.25em 0 0;
+margin: 0 0.3em 0 0;
 width: 11%;
 height: 100%;
 display: flex;

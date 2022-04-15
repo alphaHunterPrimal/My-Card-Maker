@@ -97,7 +97,7 @@ function ReusableTopBar(){
     const UltraUpperBar = styled.div`
     width: 100%;
     position: absolute;
-    height: 9vh;
+    height: 4em;
     top: 0;
     background-color: blueviolet;
     z-index: 3;
@@ -118,8 +118,9 @@ function ReusableTopBar(){
         justify-content: flex-end;
         button{
             background-color: blueviolet;
-            width: 9vw;
-            height: 50%;
+            width: 10em;
+            height: 3em;
+            font-size: 0.8em;
             border-radius: 10%;
             cursor: pointer;
             margin: 0 2vw 0 0;

@@ -30,14 +30,14 @@ z-index: 2;
         display: flex;
         border: none;
         cursor: pointer;
-        width: 2.5vw;
-        height: 5.2vh;
+        width: 2.8em;
+        height: 3em;
         justify-content: center;
         align-items: center;
         img{
         background-color: transparent;
-        width: 2vw;
-        height: 2.5vh;
+        width: 100%;
+        height: 100%;
         z-index: 1;
     }
     }

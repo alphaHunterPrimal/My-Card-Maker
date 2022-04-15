@@ -2,15 +2,15 @@ import styled from 'styled-components';
 
 const Baselog = styled.div `
 position: absolute;
-left: 65%;
-width: 35%;
-height: 35%;
+right: 0;
+width: 31em;
+height: 35.6vh;
 background-color: blueviolet;
 display: flex;
 flex-direction: column;
 justify-content: space-around;
 align-items: center;
-padding: 17.2% 0;
+padding: 32.2vh 0;
 header {
     display: flex;
 flex-direction: column;
@@ -18,6 +18,9 @@ flex-direction: column;
     font-size: 2.2vw;
     font-weight: 800;
     p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 1.3vw;
     font-weight: 600;
     }
@@ -30,19 +33,19 @@ display: flex;
 flex-direction: column;
 justify-content: space-around;
 align-items: center;
-
+margin: 1em 0 0 0;
  
 .sair{
-    height: 4vw;
-width: 8vw;
+height: 5em;
+width: 8em;
 display: flex;
+flex-direction: row;
+padding: 10% 0 10% 0;
 cursor: pointer;
 background-color: rgba(138, 43, 226, 0.99);
 text-align: center;
-justify-items: center;
 justify-content: center;
-align-content: center;
-padding: 10% 0 0 0;
+
 &:hover {
 transform: scale(1.1);
 transition: 0.2s;
