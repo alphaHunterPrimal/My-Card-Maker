@@ -87,8 +87,8 @@ const Modal = ({ show, onClose, children, title }) => {
   display: flex;
     background: white;
     border: none;
-    width: 30vw;//500px;
-    height: 40vw;//600px;
+    width: 27em;//30vw;//500px;
+    height: 36em;//40vw;//600px;
     border-radius: 15px;
     justify-content: center;
     align-items: center;

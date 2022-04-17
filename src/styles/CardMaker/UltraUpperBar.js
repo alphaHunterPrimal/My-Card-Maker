@@ -108,6 +108,10 @@ function ReusableTopBar(){
     header{
         display: flex;
     align-items: center;
+    img{
+        width: 5em;
+        height: 3em;
+    }
 
     }
     .botõesDePush{
