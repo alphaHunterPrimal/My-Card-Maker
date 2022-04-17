@@ -55,8 +55,6 @@ export default function DeckCreator(props) {
               
                  <button onClick={async() => {
                   setAreaDasCartas("areaDasCartasTransicao")
-                  
-                  
 
                await html2canvas(document.querySelector("#areaDasCartas"), { allowTaint: true, useCORS: true, logging: true }).then( async canvas => {
                  var dload = document.querySelector("#download")
@@ -107,11 +105,11 @@ export default function DeckCreator(props) {
     transition={{ duration: 1}}>
 
 <div className='principal'>
-<div>
+<div className='principal-p'>
 <p>Tipo</p>
 <p>Sets</p>
 </div>
-<div>
+<div className='principal-area'> 
 <select id="tipos" onClick={(dados) => {setType(dados.target.value)}}>
           {tiposDeCartas.map((x)=>(
            <option selected={x == type} value={x}>{x} </option>
@@ -225,7 +223,7 @@ export async function getServerSideProps(ctx){
         'Accept': 'application/json',
       },
       body: JSON.stringify({ "query": `query {
-        allGaleries {
+        allGaleries(first: 100) {
           id
           name
           author
