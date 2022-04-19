@@ -12,6 +12,7 @@ overflow: auto;
 .profileMain{
     padding: 0.9em 0 0 0; //2vh
     border: 2px solid black;
+    overflow: auto;
    
     width: 50%;
     height: 37em;//78vh;//
@@ -39,6 +40,7 @@ overflow: auto;
                 width: 2.3em;//4%;//
                 height: 1.7em;//30%;//
                 display: flex;
+                
                 justify-content: center;
                 align-items: center;
                 cursor: pointer;
@@ -107,10 +109,10 @@ overflow: auto;
 
             }
             button{
+                border: 1px solid black;
                 width: 6.7em;//12%;
                 height: 55%;
                 cursor: pointer;
-                border: 0;
                 margin: 0 0 0.8em 4em;
             }
         }
