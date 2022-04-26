@@ -339,7 +339,7 @@ KEI.map((x, index) => (
               
               dload.href = imagem;
               dload.download = `${nome}`
-              //dload.click()
+              dload.click()
 
               })
             //router.push('/galeria')
