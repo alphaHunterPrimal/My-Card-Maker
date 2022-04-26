@@ -7,7 +7,7 @@ position: absolute;
 top: auto;
 z-index: 3;
 .img1{
-z-index: 5;
+z-index: 1;
 width: 19.25em;
 height: 11.1em;//178px;
 position: absolute;
@@ -17,7 +17,7 @@ bottom: -0.5em; //5px
 };
 
 .imgRainha{
-z-index: 5;
+z-index: 1;
 width: 19.25em;
 height: 11.2em;//178px;
 position: absolute;
@@ -27,7 +27,7 @@ bottom: -0.5em;
 .desc{
     position: absolute;
     width: 18.9em;
-    height: 1em;
+    height: 1.2em;
     left: 0.6em;
     top: -0.4em;
     padding-left: 0.1em;
@@ -38,7 +38,8 @@ bottom: -0.5em;
     width: 15.2em;
     height: 10em;
     left: 0.2em;
-    top: 2.1em;
+    top: 2em;
+    z-index: 1;
     
     padding-left: 0.4em;
     overflow: hidden;
@@ -48,6 +49,7 @@ bottom: -0.5em;
     font-size: 0.3em;
 };
 .effectTrue{
+    z-index: 1;
     position: absolute;
     width: 15.2em;
     height: 12.1em;

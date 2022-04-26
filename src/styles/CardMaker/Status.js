@@ -10,17 +10,35 @@ height: 2em;
 align-items: center;
 font-weight: 600;
 
-z-index: 4;
+z-index: 3;
 /*padding: 20px 90px;*/
-
+.dano{
+    margin: 0 0 0 0.2em;
+width: 11%;
+height: 100%;
+display: flex;
+text-align: center;
+justify-content: center;
+z-index: 3;
+}
+.vida{
+margin: 0 0.3em 0 0;
+width: 11%;
+height: 100%;
+display: flex;
+text-align: center;
+justify-content: center;
+z-index: 3;
+}
 `;
-Status.dano = styled.span `
+/*Status.dano = styled.span `
 margin: 0 0 0 0.2em;
 width: 11%;
 height: 100%;
 display: flex;
 text-align: center;
 justify-content: center;
+
 `;
 Status.vida = styled.span `
 margin: 0 0.3em 0 0;
@@ -30,5 +48,6 @@ display: flex;
 text-align: center;
 justify-content: center;
 
-`;
+
+`;*/
 export default Status;

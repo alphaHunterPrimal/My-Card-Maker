@@ -58,11 +58,7 @@ export function CARD(){
     <span className="mov"  style={{fontFamily: "'Oi', cursive", backgroundImage: `url(${MVATUAL})`}}>{`${mov}`}</span>
     }
     
-
-    
     </Top>
-
-    
 
     <Main>
     <img className={IMG} src={`${image}`} alt="image"></img>
@@ -71,8 +67,8 @@ export function CARD(){
     </Main>
 
     <Status>
-    <Status.dano hidden={semdano == true} style={{ fontWeight: "600", fontFamily: "'Oi', cursive", fontSize: "20px", color: "white" }}>{`${dano}`}</Status.dano>
-    <Status.vida hidden={semvida == true} style={{ fontWeight: "600", fontFamily: "'Oi', cursive", fontSize: "20px", color: "white" }}>{`${vida}`}</Status.vida>
+    <span className="dano" hidden={semdano == true} style={{ fontWeight: "600", fontFamily: "'Oi', cursive", fontSize: "20px", color: "white" }}>{`${dano}`}</span>
+    <span className="vida" hidden={semvida == true} style={{ fontWeight: "600", fontFamily: "'Oi', cursive", fontSize: "20px", color: "white" }}>{`${vida}`}</span>
     </Status>
 
   </Card>
