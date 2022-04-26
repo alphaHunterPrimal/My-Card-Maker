@@ -329,20 +329,13 @@ KEI.map((x, index) => (
             
             
             await html2canvas(document.querySelector("#CARD"), { allowTaint: true, useCORS: true, logging: true}).then( async canvas => {
-              //document.body.appendChild(canvas)
               var dload = document.querySelector("#download")
-              var imagem = await canvas.toDataURL("imagem/png", 1.0) //.replace("imagem/png", "imagem/octet-stream");
-              //Canvas2Image.saveAsPNG(canvas)
+              var imagem = await canvas.toDataURL("imagem/png") 
               console.log(imagem)
-              //var NOme = nome.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c").replace(/é/g, "e").replace(/í/g, "i").replace(/á/g, "a")
-              //upload64(imagem, NOme)
-              
               dload.href = imagem;
               dload.download = `${nome}`
               dload.click()
-
               })
-            //router.push('/galeria')
 
             
 
@@ -383,12 +376,7 @@ KEI.map((x, index) => (
                   //se o nome for velho e estiver sendo feito uma edição que altera o nome original
                   if(alternarMaker == "Editar" && antigoNome != nome) {
                     await deleteAWSrecord(antigoNome)
-                    /*await html2canvas(document.querySelector("#CARD")).then( async canvas => {
-                      var imagem = await canvas.toDataURL("imagem/png")
-                      console.log(imagem)
-                      await upload64(imagem, NOme)
-                      console.log(NOme)    
-                      }) */
+
                   }
   }
   else{

@@ -45,8 +45,8 @@ export function CARD(){
     const Ref = React.createRef();
     return(
     <Card id="CARD" >
-    <ImgBg  src={`${BGATUAL}`} alt="Bgatual"></ImgBg>
-    <Top >
+    <ImgBg   src={`${BGATUAL}`} alt="Bgatual"></ImgBg>
+    <Top>
 
     <span className={CUSTO} hidden={semcusto == true || sorc_anormal == true}>{`${custoM}`}</span>
 
@@ -60,15 +60,15 @@ export function CARD(){
     
     </Top>
 
-    <Main>
+    <Main >
     <img className={IMG} src={`${image}`} alt="image"></img>
     <p className="desc">{`${desc}`}</p>
     <div id="text" ref={Ref} className={EFFECT} style={{ fontSize: `${fontsize}px`, lineHeight: `${line}px`}}></div>
     </Main>
 
-    <Status>
-    <span className="dano" hidden={semdano == true} style={{ fontWeight: "600", fontFamily: "'Oi', cursive", fontSize: "20px", color: "white" }}>{`${dano}`}</span>
-    <span className="vida" hidden={semvida == true} style={{ fontWeight: "600", fontFamily: "'Oi', cursive", fontSize: "20px", color: "white" }}>{`${vida}`}</span>
+    <Status >
+    <Status.dano hidden={semdano == true} style={{ fontWeight: "600", fontFamily: "'Oi', cursive", fontSize: "20px", color: "white" }}>{`${dano}`}</Status.dano>
+    <Status.vida hidden={semvida == true} style={{ fontWeight: "600", fontFamily: "'Oi', cursive", fontSize: "20px", color: "white" }}>{`${vida}`}</Status.vida>
     </Status>
 
   </Card>
