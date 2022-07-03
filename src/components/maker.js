@@ -343,7 +343,7 @@ KEI.map((x, index) => (
 }>
           Salvar
           </button>
-          <button className="enviar" style={{display: `${displai}`}}
+          <button className="enviar" //style={{ display: `${displai}`}}
             onClick={async(e) => { 
               e.preventDefault()
               if(superuser == process.env.NEXT_PUBLIC_ADMIN){
@@ -352,7 +352,8 @@ KEI.map((x, index) => (
                 
   
           //se estiverem faltando os dados, nem gastar tempo tentando enviar
-                if(nome != "" && ARCTYPES != "" && SETS != "" && autor != ""){
+                if(nome != "" && ARCTYPES != "" && SETS != "" //&& autor != ""
+                ){
                   //se for uma nova carta
                   if(alternarMaker == "Criar"){
                     await html2canvas(document.querySelector("#CARD"), { allowTaint: true, useCORS: true, logging: true }).then( async canvas => {
@@ -375,7 +376,9 @@ KEI.map((x, index) => (
 
                   //se o nome for velho e estiver sendo feito uma edição que altera o nome original
                   if(alternarMaker == "Editar" && antigoNome != nome) {
+                    var imagem = await canvas.toDataURL("imagem/png")
                     await deleteAWSrecord(antigoNome)
+                    await upload64(imagem, NOme)
 
                   }
   }

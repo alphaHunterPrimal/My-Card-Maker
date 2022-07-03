@@ -37,7 +37,7 @@ bottom: -0.5em;
     position: absolute;
     width: 15.2em;
     height: 10em;
-    left: 0.2em;
+    left: 0.4em;
     top: 2em;
     z-index: 1;
     
@@ -53,7 +53,7 @@ bottom: -0.5em;
     position: absolute;
     width: 15.2em;
     height: 12.1em;
-    left: 0.2em;
+    left: 0.4em;
     top: 2.1em;
     
     padding-left: 0.4em;

@@ -279,169 +279,167 @@ export default function UserHome(props){
                     </div >
 
                 </div >
-                <div className='changeCards'>
-                <div className='centralize'>
-                    <p>Cartas Criadas</p>
-                     <button onClick={() => {
-                     if(showCards == false){
-                      setShowCards(true)
-                    }
-                    if(showCards == true){
-                      setShowCards(false)
-                    }
-                     }}
->
-                     <img src='/arrow_down.png'></img>
-                     </button>
-                    </div>
-                <AnimatePresence>
-                      {showCards &&
-                      <>
-                      <motion.div
-                      className='divProcuraCartas'
-                      initial={{ opacity: 0, y: -5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -5 }}
-                      transition={{ duration: 0.2}}
-                      
-                      >
-                      <Inputlog placeholder={"Nome da carta"} onChange={(dados) => {setName(dados.target.value)}} value={name}></Inputlog>
-                      <select id="tipos" onClick={(dados) => {setType(dados.target.value)}}>
-                      {tiposDeCartas.map((x)=>(
-                       <option selected={x == type} value={x}>{x} </option>
-                   ))}
-                   </select>
-                   <select id="sets" onChange={(dados) => {setSets(dados.target.value)}}>
-                      {Sets.map((x)=>(
-                       <option selected={x == sets} value={x}>{x} </option>
-                   ))}
-                      </select>
-                      <button hidden={Aparecer == true} className='aparecer' onClick={async()=>{
-                        var tamanho = name.trim().length
-                        if(name != ""){
-                             setNewDbCartas(newDbCartas.filter((x) => (x.name.split("").splice(0, tamanho).toString().replace(/,/g, "") == name.trim()
-                             )))
-                            
-                            }
-                        if(type != ""){setNewDbCartas(newDbCartas.filter((x) => (x.typo == type )))}
-                        if(sets != ""){setNewDbCartas(newDbCartas.filter((x) => (x.sets == sets )))}
-                        setAparecer(true)
-                      }}>Filtrar</button>
-
-                        <button hidden={Aparecer == false} className='aparecer' onClick={async()=>{
-                        setName("")
-                        setType("")
-                        setSets("")
-                        setNewDbCartas(props.DBcards.filter((x) => (x.author == props.username)))
-                        setAparecer(false)
-                        
-                      }}>Resetar Filtro</button>  
-                      </motion.div>
-                      <motion.div
-                      className='divCartas'
-                      initial={{ opacity: 0, y: -5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -5 }}
-                      transition={{ duration: 0.4}}>
-                      <div className='repetirCartas'>
-                        {newDbCartas.map((x) => (
-                          <>
-                        <div>
-                        <span>{x.name}</span> 
-                        <button
-                        onClick={() => {
-                          setShowModal(true)
-                          setZoomCarta(x.card)
-                          }}
-                        ><img src="/eye.png" alt='visualizar' ></img></button>
-                        <button onClick={async() => {
-                        
-                        var confirmacao = prompt("Confirme o nome da carta a ser destruida")
-
-                        if(confirmacao == x.name){
-                          const Delete_Card = {
-                            cardId: x.id
-                          }
-  
-                          fetch('/api/deleteCard', {
-                            method: 'POST',
-                            headers: {
-                              'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(Delete_Card)
-                          })
-                          .then(async (res) => {
-                            const dados = await res.json();
-                            console.log(dados.cartaDeletada);
-                          }) 
-                          alert("Carta deletada com sucesso!")
-  
-  
-                          router.push("/userhome")
-
-                        } else {alert("Nome digitado errado")}
-                    
-
-                        }}><img src="/trash.png" alt='deletar'></img></button>
-                        <button onClick={async() => {
-                          resetAfterUpdate()
-                          setNome(x.name)
-                          setAntigoNome(x.name)
-                          setBG(x.typo)
-                          setEffect(x.text)
-                          setImage(x.cardurl)
-                          setCardId(x.id)
-
-
-                          setCustoM(x.custom)
-                          setCustoE(x.custoe)
-                          setGanho(x.ganho)
-                          setMov(x.mov)
-                          setMV(x.direc)
-                          setDano(x.dano)
-                          setVida(x.vida)
-                          setPermitirReset(false)
-                          if(x.typo == "Efeito"){
-                            setDesc(x.arctype + x.velocidade + " - " + x.sets)
-                          } else {
-                            setDesc(x.arctype + " - " + x.sets)
-                          }
-                          setAlternarMaker("Editar")
-                          
-                          setTimeout(5000, router.push("/"))
-                          
-                          
-                          //não adianta setar palavras chaves também, porque elas depedem do texto e ele n é carregado
-                          //keywords: allKeywords
-
-                          //adicionar algumas opções de useState no reset() para limpar quando sair e voltar
-
-                          //a carta não será setada, já que ela será resetada
-                          //card: Uerieli 
-                          
-
-
-
-
-                        }}><img src="/change.png" alt='alterar'></img></button>
-                         </div>
-                          </>
-
-                        ))}
-                        
-                      </div>
-
-                      
-                      </motion.div>
-                      </>
-                      }
-                    </AnimatePresence>
-
-                </div>
+                {superuser == process.env.NEXT_PUBLIC_ADMIN && 
+                                <div className='changeCards'>
+                                <div className='centralize'>
+                                    <p>Cartas Criadas</p>
+                                     <button onClick={() => {
+                                     if(showCards == false){
+                                      setShowCards(true)
+                                    }
+                                    if(showCards == true){
+                                      setShowCards(false)
+                                    }
+                                     }}
+                >
+                                     <img src='/arrow_down.png'></img>
+                                     </button>
+                                    </div>
+                                <AnimatePresence>
+                                      {showCards &&
+                                      <>
+                                      <motion.div
+                                      className='divProcuraCartas'
+                                      initial={{ opacity: 0, y: -5 }}
+                                      animate={{ opacity: 1, y: 0 }}
+                                      exit={{ opacity: 0, y: -5 }}
+                                      transition={{ duration: 0.2}}
+                                      
+                                      >
+                                      <Inputlog placeholder={"Nome da carta"} onChange={(dados) => {setName(dados.target.value)}} value={name}></Inputlog>
+                                      <select id="tipos" onClick={(dados) => {setType(dados.target.value)}}>
+                                      {tiposDeCartas.map((x)=>(
+                                       <option selected={x == type} value={x}>{x} </option>
+                                   ))}
+                                   </select>
+                                   <select id="sets" onChange={(dados) => {setSets(dados.target.value)}}>
+                                      {Sets.map((x)=>(
+                                       <option selected={x == sets} value={x}>{x} </option>
+                                   ))}
+                                      </select>
+                                      <button hidden={Aparecer == true} className='aparecer' onClick={async()=>{
+                                        var tamanho = name.trim().length
+                                        if(name != ""){
+                                             setNewDbCartas(newDbCartas.filter((x) => (x.name.split("").splice(0, tamanho).toString().replace(/,/g, "") == name.trim()
+                                             )))
+                                            
+                                            }
+                                        if(type != ""){setNewDbCartas(newDbCartas.filter((x) => (x.typo == type )))}
+                                        if(sets != ""){setNewDbCartas(newDbCartas.filter((x) => (x.sets == sets )))}
+                                        setAparecer(true)
+                                      }}>Filtrar</button>
+                
+                                        <button hidden={Aparecer == false} className='aparecer' onClick={async()=>{
+                                        setName("")
+                                        setType("")
+                                        setSets("")
+                                        setNewDbCartas(props.DBcards.filter((x) => (x.author == props.username)))
+                                        setAparecer(false)
+                                        
+                                      }}>Resetar Filtro</button>  
+                                      </motion.div>
+                                      <motion.div
+                                      className='divCartas'
+                                      initial={{ opacity: 0, y: -5 }}
+                                      animate={{ opacity: 1, y: 0 }}
+                                      exit={{ opacity: 0, y: -5 }}
+                                      transition={{ duration: 0.4}}>
+                                      <div className='repetirCartas'>
+                                        {newDbCartas.map((x) => (
+                                          <>
+                                        <div>
+                                        <span>{x.name}</span> 
+                                        <button
+                                        onClick={() => {
+                                          setShowModal(true)
+                                          setZoomCarta(x.card)
+                                          }}
+                                        ><img src="/eye.png" alt='visualizar' ></img></button>
+                                        <button onClick={async() => {
+                                        
+                                        var confirmacao = prompt("Confirme o nome da carta a ser destruida")
+                
+                                        if(confirmacao == x.name){
+                                          const Delete_Card = {
+                                            cardId: x.id
+                                          }
+                  
+                                          fetch('/api/deleteCard', {
+                                            method: 'POST',
+                                            headers: {
+                                              'Content-Type': 'application/json',
+                                            },
+                                            body: JSON.stringify(Delete_Card)
+                                          })
+                                          .then(async (res) => {
+                                            const dados = await res.json();
+                                            console.log(dados.cartaDeletada);
+                                          }) 
+                                          alert("Carta deletada com sucesso!")
+                  
+                  
+                                          router.push("/userhome")
+                
+                                        } else {alert("Nome digitado errado")}
+                                    
+                
+                                        }}><img src="/trash.png" alt='deletar'></img></button>
+                                        <button onClick={async() => {
+                                          resetAfterUpdate()
+                                          setNome(x.name)
+                                          setAntigoNome(x.name)
+                                          setBG(x.typo)
+                                          setEffect(x.text)
+                                          setImage(x.cardurl)
+                                          setCardId(x.id)
+                
+                
+                                          setCustoM(x.custom)
+                                          setCustoE(x.custoe)
+                                          setGanho(x.ganho)
+                                          setMov(x.mov)
+                                          setMV(x.direc)
+                                          setDano(x.dano)
+                                          setVida(x.vida)
+                                          setPermitirReset(false)
+                                          if(x.typo == "Efeito"){
+                                            setDesc(x.arctype + x.velocidade + " - " + x.sets)
+                                          } else {
+                                            setDesc(x.arctype + " - " + x.sets)
+                                          }
+                                          setAlternarMaker("Editar")
+                                          
+                                          setTimeout(5000, router.push("/"))
+                                          
+                                          
+                                          //não adianta setar palavras chaves também, porque elas depedem do texto e ele n é carregado
+                                          //keywords: allKeywords
+                
+                                          //adicionar algumas opções de useState no reset() para limpar quando sair e voltar
+                
+                                          //a carta não será setada, já que ela será resetada
+                                          //card: Uerieli 
+                                          
                 
                 
                 
-
+                
+                                        }}><img src="/change.png" alt='alterar'></img></button>
+                                         </div>
+                                          </>
+                
+                                        ))}
+                                        
+                                      </div>
+                
+                                      
+                                      </motion.div>
+                                      </>
+                                      }
+                                    </AnimatePresence>
+                
+                                </div>
+                }
 
             </div>
         </BodyProfile>
