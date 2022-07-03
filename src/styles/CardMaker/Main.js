@@ -35,13 +35,13 @@ bottom: -0.5em;
 };
 .effect{
     position: absolute;
-    width: 15.2em;
-    height: 10em;
-    left: 0.4em;
-    top: 2em;
+    width: 18rem;
+    height: 10rem;
+    left: 0.4rem;
+    top: 2rem;
     z-index: 1;
     
-    padding-left: 0.4em;
+    padding-left: 0.4rem;
     overflow: hidden;
 
 };
@@ -51,12 +51,12 @@ bottom: -0.5em;
 .effectTrue{
     z-index: 1;
     position: absolute;
-    width: 15.2em;
-    height: 12.1em;
-    left: 0.4em;
-    top: 2.1em;
+    width: 18rem;
+    height: 12.1rem;
+    left: 0.4rem;
+    top: 2.1rem;
     
-    padding-left: 0.4em;
+    padding-left: 0.4rem;
     overflow: hidden;
     
 };
