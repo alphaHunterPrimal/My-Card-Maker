@@ -129,7 +129,7 @@ font-weight: 600;
     //padding-left: 0.1em;
     font-size: 20px;
     font-weight: 600;
-    width: 3em;
+    width: 3.2em;
     height: 3.2em;
     text-align: center;
     background-size: cover;

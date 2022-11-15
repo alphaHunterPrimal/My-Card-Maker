@@ -35,7 +35,7 @@ export function ArrayContextProvider(props: ArrayContextProviderProps) {
     const Arquétipo = ["Único", "Fogo",  "Rocha","Réptil","Insectóide", "Constructo", "Bio-constructo"];
     const ArquétipoEfeitos = [ "Única","Ação", "Técnica", "Mutação", "Evolução"]
     const ArquétipoArmadilhas = [ "Única", "Armadilha", "Armadilha de Campo", "Auto-Armadilha"]
-    const Sets = ["", "Pyrossaurs", "Lizardpliers", "Rockrar", "Alissaurs", "Keserctssaurs"];
+    const Sets = ["", "Pyrossaurs", "Lizardpliers", "Rockrar", "Alissaurs", "Keserctssaurs", "Cryotrons"];
     
     
 
@@ -80,6 +80,9 @@ while(a <11){
         "Nascer",
         "Ressurgir",
         "Morrer",
+        "Modular",
+        "Trap",
+        "Fusão",
         "Invocar",
         "Voar",
         "Comprar",
@@ -110,6 +113,9 @@ while(a <11){
           "Nascer",
           "Ressurgir",
           "Morrer",
+          "Modular",
+          "Trap",
+          "Fusão",
           "Invocar",
           "Voar",
           "Comprar",
@@ -140,6 +146,9 @@ while(a <11){
       ":Nas:",
       ":Res:",
       ":Mor:",
+      ":Mod:",
+      ":Trp:",
+      ":Fus:",
       ":Inv:",
       ":Voa:",
       ":Com:",

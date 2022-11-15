@@ -8,7 +8,7 @@ top: auto;
 z-index: 3;
 .img1{
 z-index: 1;
-width: 19.25em;
+width: 19.15em;
 height: 11.1em;//178px;
 position: absolute;
 left: 0.6em;
@@ -18,7 +18,7 @@ bottom: -0.5em; //5px
 
 .imgRainha{
 z-index: 1;
-width: 19.25em;
+width: 19.15em;
 height: 11.2em;//178px;
 position: absolute;
 left: 0.6em;
@@ -97,7 +97,13 @@ bottom: -0.5em;
     color: #00CED1;
 };
 .Manutenção{
-    color: #8B8B7A;
+    color: #363636;
+}
+.Fusão, .Modular{
+    color: rgb(30, 30, 65);
+}
+.Trap{
+    color: rgb(0,0,139);
 }
 .Atroz{
     color: #EE0000;

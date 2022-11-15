@@ -114,6 +114,9 @@ var keywords = {
   ":Nas:": "Nascer",
   ":Res:" : "Ressurgir",
   ":Mor:" : "Morrer",
+  ":Mod:": "Modular",
+  ":Trp:":"Trap",
+  ":Fus:" : "Fusão",
  ":Inv:" : "Invocar",
   ":Voa:": "Voar",
    ":Com:": "Comprar",
@@ -346,8 +349,9 @@ KEI.map((x, index) => (
           <button className="enviar" //style={{ display: `${displai}`}}
             onClick={async(e) => { 
               e.preventDefault()
+
               if(superuser == process.env.NEXT_PUBLIC_ADMIN){
-                var NOme = nome.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c").replace(/é/g, "e").replace(/í/g, "i").replace(/á/g, "a")
+                var NOme = nome.replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c").replace(/é/g, "e").replace(/í/g, "i").replace(/á/g, "a").replace(/ó/g, "o")
                 var Uerieli = AWSlink + NOme.split(" ").join("_")// +".jpg"
                 
   
@@ -386,13 +390,13 @@ KEI.map((x, index) => (
         alert("Incompleto")              
   }
   
-                
+           
                 var ambos = desc.split(" - ")
                 image
               
                 var SETS = ambos[1]
                 //console.log(SETS)
-                var ARCTYPES = ambos[0].replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c")//.replace(/é/g, "e").replace(/í/g, "i").replace(/á/g, "a")
+                var ARCTYPES = ambos[0].replace(/õ/g, "o").replace(/ã/g, "a").replace(/ç/g, "c")//.replace(/é/g, "e").replace(/í/g, "i").replace(/á/g, "a").replace(/ó/g, "o")
                 //console.log(ARCTYPES)
   
   
@@ -545,7 +549,7 @@ KEI.map((x, index) => (
     console.log(dados.cartaEditada);
   })
   }}
-  
+ 
               }
 
               
